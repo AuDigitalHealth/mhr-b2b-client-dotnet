@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 2.0.0 issued 28 October 2014-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" elementFormDefault="qualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:complexType name="CodedType">
+		<xs:sequence>
+			<xs:element name="displayName" type="xs:string" minOccurs="0"/>
+			<xs:element name="originalText" type="xs:string" minOccurs="0"/>
+			<xs:element name="code" type="xs:string" minOccurs="0"/>
+			<xs:element name="codeSystem" type="xs:string" minOccurs="0"/>
+			<xs:element name="codeSystemName" type="xs:string" minOccurs="0"/>
+			<xs:element name="codeSystemVersion" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="informationAvailableDT">
+		<xs:complexContent>
+			<xs:extension base="ns1:CodedType">
+				<xs:attribute name="value" type="xs:boolean" use="required"/>
+				<xs:attribute name="flavor">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="other"/>
+							<xs:enumeration value="problem"/>
+							<xs:enumeration value="procedure"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="addressTypeDT">
+		<xs:sequence>
+			<xs:element name="streetAddressLine" type="xs:string" minOccurs="0"/>
+			<xs:element name="country" type="xs:string" minOccurs="0"/>
+			<xs:element name="unitType" type="xs:string" minOccurs="0"/>
+			<xs:element name="unitID" type="xs:string" minOccurs="0"/>
+			<xs:element name="additionalLocator" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="streetName" type="xs:string" minOccurs="0"/>
+			<xs:element name="houseNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="usage" type="xs:string" minOccurs="0"/>
+			<xs:element name="streetNameType" type="xs:string" minOccurs="0"/>
+			<xs:element name="direction" type="xs:string" minOccurs="0"/>
+			<xs:element name="deliveryAddressLine" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="city" type="xs:string" minOccurs="0"/>
+			<xs:element name="state" type="xs:string" minOccurs="0"/>
+			<xs:element name="postalCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contactDetailsDT">
+		<xs:attribute name="use">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="WP"/>
+					<xs:enumeration value="H"/>
+					<xs:enumeration value="HP"/>
+					<xs:enumeration value="HV"/>
+					<xs:enumeration value="AS"/>
+					<xs:enumeration value="EC"/>
+					<xs:enumeration value="MC"/>
+					<xs:enumeration value="PG"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="value" type="xs:anyURI" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="timeStampDT">
+		<xs:sequence>
+			<xs:element name="value" type="xs:string" minOccurs="0"/>
+			<xs:element name="low" type="xs:string" minOccurs="0"/>
+			<xs:element name="high" type="xs:string" minOccurs="0"/>
+			<xs:element name="width" type="xs:string" minOccurs="0"/>
+			<xs:element name="center" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="documentDT">
+		<xs:sequence>
+			<xs:element name="effectiveDateTime" type="xs:string"/>
+			<xs:element name="documentLink" type="xs:anyURI"/>
+			<xs:element name="documentTypeName" type="xs:string"/>
+			<xs:element name="documentTypeCode" type="ns1:CodedType"/>
+			<xs:element name="documentAuthorPersonName" type="ns1:nameTypeDT"/>
+			<xs:element name="documentAuthorPersonIdentifier" type="xs:string"/>
+			<xs:element name="documentAuthorRole" type="xs:string"/>
+			<xs:element name="documentAuthorOrganisationName" type="xs:string"/>
+			<xs:element name="documentAuthorOrganisationIdentifier">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="16"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="clinicalSynopsis" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nameTypeDT">
+		<xs:sequence>
+			<xs:element name="nameTitle" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="familyName" type="xs:string"/>
+			<xs:element name="givenName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="nameSuffix" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="usage" type="ns1:usage" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="usage">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="O"/>
+			<xs:enumeration value="B"/>
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="R"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ACICodedType">
+		<xs:sequence>
+			<xs:element name="displayName" type="xs:string"/>
+			<xs:element name="originalText" type="xs:string" minOccurs="0"/>
+			<xs:element name="code" type="xs:string"/>
+			<xs:element name="codeSystem" type="xs:string"/>
+			<xs:element name="codeSystemName" type="xs:string"/>
+			<xs:element name="codeSystemVersion" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pathologyReportInformationDT">
+		<xs:sequence>
+			<xs:element name="CDAeffectiveTime" type="xs:string"/>
+			<xs:element name="dateTimeReportAuthored" type="xs:string"/>
+			<xs:element name="dateTimeAuthorisation" type="xs:string"/>
+			<xs:element name="pathologistLocalReportId" type="xs:string"/>
+			<xs:element name="reportName" type="xs:string"/>
+			<xs:element name="reportStatus" type="ns1:CodedType"/>
+			<xs:element name="documentId" type="xs:string"/>
+			<xs:element name="documentLink" type="xs:anyURI"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="diagnosticReportInformationDT">
+		<xs:sequence>
+			<xs:element name="CDAeffectiveTime" type="xs:string"/>
+			<xs:element name="dateTimeReportAuthored" type="xs:string"/>
+			<xs:element name="dateTimeAuthorisation" type="xs:string"/>
+			<xs:element name="accessionNumber" type="xs:string"/>
+			<xs:element name="reportDescription" type="xs:string"/>
+			<xs:element name="reportStatus" type="ns1:CodedType"/>
+			<xs:element name="documentId" type="xs:string"/>
+			<xs:element name="documentLink" type="xs:anyURI"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="requesterInformationDT">
+		<xs:sequence>
+			<xs:element name="testRequestId" type="xs:string" minOccurs="0"/>
+			<xs:element name="dateTimeRequested" type="xs:string"/>
+			<xs:element name="providerOrganisationName" type="xs:string" minOccurs="0"/>
+			<xs:element name="providerOrganisationIdentifier" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="16"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="providerName" type="ns1:nameTypeDT"/>
+			<xs:element name="providerIdentifier" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="providerInformationDT">
+		<xs:sequence>
+			<xs:element name="healthcareProviderOrganisationName" type="xs:string"/>
+			<xs:element name="healthcareProviderOrganisationIdentifier">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="16"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="healthcareProviderName" type="ns1:nameTypeDT"/>
+			<xs:element name="healthcareProviderIdentifier" type="xs:string" minOccurs="0"/>
+			<xs:element name="healthcareProviderRole" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

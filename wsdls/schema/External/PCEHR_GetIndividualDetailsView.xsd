@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 2.0.0 issued 27 October 2014-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetIndividualDetailsView/2.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetIndividualDetailsView/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:element name="getIndividualDetailsView"/>
+	<xs:element name="getIndividualDetailsViewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responseStatus" type="ns1:responseStatusType"/>
+				<xs:element name="individual" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="ns1:individualTypeSupp">
+								<xs:sequence>
+									<xs:element ref="ns1:dateAccuracyIndicatorType" minOccurs="0"/>
+									<xs:element name="ihiRecordStatus" type="ns1:recordStatusType" minOccurs="0"/>
+									<xs:element name="ihiStatus" type="ns1:statusType" minOccurs="0"/>
+									<xs:element ref="ns1:ihiNumber"/>
+									<xs:element name="contactDetails" type="ns1:contactDetailsType" minOccurs="0"/>
+									<xs:element name="contactPersons" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="contactPerson" type="ns1:contactPersonTypeSupp" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="indigenousStatus">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+												<xs:enumeration value="3"/>
+												<xs:enumeration value="4"/>
+												<xs:enumeration value="9"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

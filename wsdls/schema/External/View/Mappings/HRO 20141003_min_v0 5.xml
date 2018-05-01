@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<healthRecordOverviewResponse xsi:schemaLocation="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthRecordOverview/1.0 file:///C:/Users/daniel.kesuma/Desktop/PCEHR_Schemas-20140701_v1.5.1/PCEHR_Schemas-20140701/schema/External/View/PCEHR_HealthRecordOverview_Response.xsd" xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthRecordOverview/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<viewMetadata>
+		<individualProfile>
+			<ns1:ihiNumber>8003604567901466</ns1:ihiNumber>
+			<individual>
+				<ns1:name>
+					<ns1:nameTitle>MR</ns1:nameTitle>
+					<ns1:familyName>DIMITRY</ns1:familyName>
+					<ns1:givenName>PERCY SOLOMON</ns1:givenName>
+					<ns1:nameSuffix>D</ns1:nameSuffix>
+				</ns1:name>
+				<ns1:sex>M</ns1:sex>
+				<ns1:dateOfBirth>1967-08-13</ns1:dateOfBirth>
+			</individual>
+			<indigenousStatus>9</indigenousStatus>
+			<veteranAndADFStatus>9</veteranAndADFStatus>					
+		</individualProfile>
+		<viewParameters>
+		<viewVersionNumber>1.0</viewVersionNumber>
+			<clinicalSynopsisLength>0</clinicalSynopsisLength>
+		</viewParameters>
+	</viewMetadata>
+	<newDocuments>
+		<informationAvailable>false</informationAvailable>
+	</newDocuments>
+	<sharedHealthSummary>
+		<informationAvailable>false</informationAvailable>
+	</sharedHealthSummary>
+	<otherLinks>
+		<link>
+			<linkName>MedicareOverview</linkName>
+			<linkTitle>Medicare Overview</linkTitle>
+			<linkTarget>MedicareOverview</linkTarget>
+			<informationAvailable>false</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>DiagnosticImagingView</linkName>
+			<linkTitle>Diagnostic Imaging View</linkTitle>
+			<linkTarget>DiagnosticImagingView</linkTarget>
+			<informationAvailable>false</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>PathologyIndexView</linkName>
+			<linkTitle>Pathology Index View</linkTitle>
+			<linkTarget>PathologyIndexView</linkTarget>
+			<informationAvailable>false</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>HealthCheckAssessmentView</linkName>
+			<linkTitle>Health Check Assessment View</linkTitle>
+			<linkTarget>HealthCheckAssessmentView</linkTarget>
+			<informationAvailable>false</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>PrescriptionAndDispenseView</linkName>
+			<linkTitle>Prescription and Dispense View</linkTitle>
+			<linkTarget>PrescriptionAndDispenseView</linkTarget>
+			<informationAvailable>false</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>PersonalHealthSummary</linkName>
+			<linkTitle>Personal Health Summary</linkTitle>
+			<linkTarget/>
+			<informationAvailable>false</informationAvailable>
+			<linkType>Document</linkType>
+		</link>
+		<link>
+			<linkName>AdvanceCareDirective</linkName>
+			<linkTitle>Advance Care Directive</linkTitle>
+			<linkTarget/>
+			<informationAvailable>false</informationAvailable>
+			<linkType>Document</linkType>
+		</link>
+	</otherLinks>
+	<recentDocuments>
+		<informationAvailable>false</informationAvailable>
+	</recentDocuments>
+</healthRecordOverviewResponse>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.1 issued 17 April 2012-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pcehr="http://ns.electronichealth.net.au/pcehr/svc/GetAuditView/1.1" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetAuditView/1.1" xmlns:tns="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:pcehr_b2b="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns="http://www.w3.org/2000/09/xmldsig#" name="getAuditView" targetNamespace="http://ns.electronichealth.net.au/pcehr/svc/GetAuditView/1.1">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ns.electronichealth.net.au/pcehr/svc/GetAuditView/1.1" elementFormDefault="qualified">
+			<xsd:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../../schema/Common/PCEHR_CommonTypes.xsd"/>
+			<xsd:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetAuditView/1.1" schemaLocation="../../schema/External/PCEHR_GetAuditView.xsd"/>
+			<xsd:import namespace="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010" schemaLocation="../../schema/Common/wsp-StandardError-2010.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="getAuditViewInMsg">
+		<wsdl:part name="timestampHeader" element="pcehr_b2b:timestamp"/>
+		<wsdl:part name="signatureHeader" element="pcehr_b2b:signature"/>
+		<wsdl:part name="PCEHRHeader" element="pcehr_b2b:PCEHRHeader"/>
+		<wsdl:part name="parameters" element="ns2:getAuditView"/>
+	</wsdl:message>
+	<wsdl:message name="getAuditViewOutMsg">
+		<wsdl:part name="signatureHeader" element="pcehr_b2b:signature"/>
+		<wsdl:part name="parameters" element="ns2:getAuditViewResponse"/>
+	</wsdl:message>
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="parameters" element="tns:standardError"/>
+	</wsdl:message>
+	<wsdl:portType name="GetAuditViewPortType">
+		<wsdl:operation name="getAuditView" parameterOrder="parameters">
+			<wsdl:input message="pcehr:getAuditViewInMsg" wsam:Action="http://ns.electronichealth.net.au/pcehr/svc/GetAuditView/1.1/GetAuditViewPortType/getAuditViewRequest"/>
+			<wsdl:output message="pcehr:getAuditViewOutMsg" wsam:Action="http://ns.electronichealth.net.au/pcehr/svc/GetAuditView/1.1/GetAuditViewPortType/getAuditViewResponse"/>
+			<wsdl:fault name="standardError" message="pcehr:standardErrorMsg" wsam:Action="http://ns.electronichealth.net.au/pcehr/svc/GetAuditView/1.1/GetAuditViewPortType/Fault/standardError"/>
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

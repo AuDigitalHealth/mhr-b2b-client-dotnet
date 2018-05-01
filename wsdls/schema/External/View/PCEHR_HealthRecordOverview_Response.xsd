@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Baseline version issued 14 April 2015-->
+<xs:schema xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthRecordOverview/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:q3="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/b2b/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthRecordOverview/1.0" elementFormDefault="qualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" schemaLocation="PCEHR_View_CommonType.xsd"/>
+	<xs:element name="healthRecordOverviewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="viewMetadata">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="individualProfile">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="ns1:ihiNumber"/>
+										<xs:element name="individual" type="ns1:individualTypeSupp"/>
+										<xs:element name="indigenousStatus" type="xs:string" minOccurs="0"/>
+										<xs:element name="veteranAndADFStatus" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="viewParameters">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="clinicalSynopsisLength" type="xs:int"/>
+										<xs:element name="viewVersionNumber" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="newDocuments">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="informationAvailable" type="xs:boolean"/>
+							<xs:element name="document" type="ns2:documentDT" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sharedHealthSummary">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="informationAvailable" type="xs:boolean"/>
+							<xs:element name="sharedHealthSummaryAtomicData" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="documentDate" type="xs:string"/>
+										<xs:element name="cdaDocumentTitle" type="xs:string"/>
+										<xs:element name="shsAuthorName" type="ns2:nameTypeDT"/>
+										<xs:element name="shsAuthorId" type="xs:string"/>
+										<xs:element name="shsAuthorDesignation" type="ns2:CodedType"/>
+										<xs:element name="shsAuthorOrgName" type="xs:string"/>
+										<xs:element name="shsAuthorOrgId">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="16"/>
+													<xs:maxLength value="16"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="shsAuthorOrgAddress" type="ns2:addressTypeDT" minOccurs="0"/>
+										<xs:element name="shsAuthorOrgContactDetails" type="ns2:contactDetailsDT" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="shsAuthorAddress" type="ns2:addressTypeDT" minOccurs="0"/>
+										<xs:element name="shsAuthorContactDetails" type="ns2:contactDetailsDT" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="shsEntitlements" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="entitlement" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="entitlementNumberId" type="xs:string"/>
+																<xs:element name="entitlementType" type="ns2:CodedType"/>
+																<xs:element name="entitlementEffectiveTime" type="ns2:timeStampDT" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="shsAuthorQualifications" type="ns2:CodedType" minOccurs="0"/>
+										<xs:element name="medicinesList">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="informationAvailable" type="ns2:informationAvailableDT"/>
+													<xs:element name="medicine" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="medicineTitle" type="ns2:CodedType"/>
+																<xs:element name="medicineDose" type="xs:string"/>
+																<xs:element name="medicineDesc" minOccurs="0" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="indication" type="xs:string" minOccurs="0"/>
+																			<xs:element name="comment" type="xs:string" minOccurs="0"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="advReactionsList">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="informationAvailable" type="ns2:informationAvailableDT"/>
+													<xs:element name="advReaction" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="advReactionCause" type="ns2:CodedType"/>
+																<xs:element name="advReactionManifestation" type="ns2:CodedType" minOccurs="0" maxOccurs="unbounded"/>
+																<xs:element name="advReactionType" type="ns2:CodedType" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="immunisationList">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="informationAvailable" type="ns2:informationAvailableDT"/>
+													<xs:element name="immunisation" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="immunisationDate" type="ns2:timeStampDT"/>
+																<xs:element name="immunisationTitle" type="ns2:CodedType"/>
+																<xs:element name="immunisationSequenceNumber" type="xs:int" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="medHistoryList">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="informationAvailable" type="ns2:informationAvailableDT" minOccurs="3" maxOccurs="3"/>
+													<xs:element name="problemAndDiagnosis" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="medTitle" type="ns2:CodedType"/>
+																<xs:element name="medDateO" type="ns2:timeStampDT" minOccurs="0"/>
+																<xs:element name="medDateR" type="ns2:timeStampDT" minOccurs="0"/>
+																<xs:element name="medComment" type="xs:string" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="procedure" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="medTitle" type="ns2:CodedType"/>
+																<xs:element name="medDateO" type="ns2:timeStampDT" minOccurs="0"/>
+																<xs:element name="medDateR" type="ns2:timeStampDT" minOccurs="0"/>
+																<xs:element name="medComment" type="xs:string" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="otherMedicalHistory" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="medTitle" type="ns2:CodedType"/>
+																<xs:element name="medDateO" type="ns2:timeStampDT" minOccurs="0"/>
+																<xs:element name="medDateR" type="ns2:timeStampDT" minOccurs="0"/>
+																<xs:element name="medComment" type="xs:string" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="otherLinks">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="link" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="linkName" type="xs:string"/>
+										<xs:element name="linkTitle" type="xs:string"/>
+										<xs:element name="linkTarget" type="xs:anyURI" minOccurs="0"/>
+										<xs:element name="informationAvailable" type="xs:boolean"/>
+										<xs:element name="linkType">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="Document"/>
+													<xs:enumeration value="View"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="recentDocuments">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="informationAvailable" type="xs:boolean"/>
+							<xs:element name="document" type="ns2:documentDT" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

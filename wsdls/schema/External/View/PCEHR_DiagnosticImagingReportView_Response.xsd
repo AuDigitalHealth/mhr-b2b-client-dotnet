@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version issued 24 September 2014-->
+<xs:schema xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/DiagnosticImagingReportView/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:q3="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/b2b/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/DiagnosticImagingReportView/1.0" elementFormDefault="qualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" schemaLocation="PCEHR_View_CommonType.xsd"/>
+	<xs:element name="diagnosticImagingReportViewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="viewMetadata">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="individualProfile">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="ns1:ihiNumber"/>
+										<xs:element name="individual" type="ns1:individualTypeSupp"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="viewParameters">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="dateFromFilter" type="xs:date"/>
+										<xs:element name="dateToFilter" type="xs:date"/>
+										<xs:element name="viewVersionNumber" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="informationAvailable" type="xs:boolean"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="diagnosticImagingReport" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="dateAvailableToConsumer" type="xs:string"/>
+							<xs:element name="reportInformation" type="ns2:diagnosticReportInformationDT"/>
+							<xs:element name="clinicalDocumentAuthor" type="ns2:providerInformationDT"/>
+							<xs:element name="reportingRadiologistInformation" type="ns2:providerInformationDT"/>
+							<xs:element name="imagingRequesterInformation" type="ns2:requesterInformationDT"/>
+							<xs:element name="imagingExaminationResult" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="imagingServiceDateTime" type="xs:string"/>
+										<xs:element name="examinationResultName" type="ns2:CodedType"/>
+										<xs:element name="modality" type="ns2:CodedType"/>
+										<xs:element name="anatomicalSiteDetails" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="anatomicalRegion" type="ns2:CodedType" minOccurs="0"/>
+													<xs:element name="anatomicalLocation" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="anatomicalLocationName" type="ns2:CodedType"/>
+																<xs:element name="laterality" type="ns2:CodedType" minOccurs="0"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="overallTestResultStatus" type="ns2:CodedType" minOccurs="0"/>
+										<xs:element name="imageLocationInformation" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.1 issued 17 April 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/tplt/xsd/common/TemplatesCoreElements/1.0" targetNamespace="http://ns.electronichealth.net.au/tplt/xsd/common/TemplatesCoreElements/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="templateMetadataType">
+		<xs:sequence>
+			<xs:element name="metadata" minOccurs="1" maxOccurs="300">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" minOccurs="1" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="50"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="value" minOccurs="1" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="255"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="templateUsageMetadataType">
+		<xs:sequence>
+			<xs:element name="PCEHRAcceptedStartDate" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:dateTime">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PCEHRAcceptedEndDate" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:dateTime">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="containsPCEHRAtomicData" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

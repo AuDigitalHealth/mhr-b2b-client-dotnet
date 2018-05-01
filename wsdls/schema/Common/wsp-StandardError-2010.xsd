@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010"
+            targetNamespace="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010"
+            elementFormDefault="qualified">
+   <xsd:element name="standardError" type="tns:StandardErrorType"/>
+   <xsd:simpleType name="StandardErrorCodeType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="servicePermanentUnavailable"/>
+         <xsd:enumeration value="serviceTemporaryUnavailable"/>
+         <xsd:enumeration value="certificateSkiMissing"/>
+         <xsd:enumeration value="certificateKeyUsage"/>
+         <xsd:enumeration value="invalidCredentials"/>
+         <xsd:enumeration value="notAuthenticated"/>
+         <xsd:enumeration value="notAuthorised"/>
+         <xsd:enumeration value="badParam"/>
+         <xsd:enumeration value="badlyFormedMsg"/>
+         <xsd:enumeration value="badTimestamp"/>
+         <xsd:enumeration value="badSignature"/>
+         <xsd:enumeration value="badEncryption"/>
+         <xsd:enumeration value="badSigEncOrder"/>
+         <xsd:enumeration value="badCertificateTransmitted"/>
+         <xsd:enumeration value="badWsaAction"/>
+         <xsd:enumeration value="badWsaMessageId"/>
+         <xsd:enumeration value="badWsaTo"/>
+         <xsd:enumeration value="badAlgorithmDataEncryption"/>
+         <xsd:enumeration value="badAlgorithmKeyEncryption"/>
+         <xsd:enumeration value="badAlgorithmC14N"/>
+         <xsd:enumeration value="badAlgorithmDigest"/>
+         <xsd:enumeration value="badAlgorithmSignature"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:complexType name="StandardErrorType">
+      <xsd:sequence>
+         <xsd:element name="errorCode" type="tns:StandardErrorCodeType" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="message" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

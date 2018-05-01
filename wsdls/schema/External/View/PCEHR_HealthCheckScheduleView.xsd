@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.0 issued 22 January 2013-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthCheckScheduleView/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthCheckScheduleView/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="healthCheckScheduleView">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="versionNumber" type="xs:string"/>
+				<xs:element name="jurisdiction">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="NSW"/>
+							<xs:enumeration value="QLD"/>
+							<xs:enumeration value="ACT"/>
+							<xs:enumeration value="NT"/>
+							<xs:enumeration value="VIC"/>
+							<xs:enumeration value="WA"/>
+							<xs:enumeration value="TAS"/>
+							<xs:enumeration value="SA"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

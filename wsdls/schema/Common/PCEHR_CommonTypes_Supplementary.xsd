@@ -1,0 +1,2166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0 issued 24 April 2012-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:tns="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="PCEHR_CommonTypes.xsd"/>
+	<!-- 
+============================= ADDRESS TYPES =================================
+-->
+	<xsd:complexType name="addressTypeSupp">
+		<xsd:sequence>
+			<xsd:element name="unstructuredAddress" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="australianAddressLine" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:minLength value="1"/>
+									<xsd:maxLength value="120"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="postcode" type="tns:postcodeType"/>
+						<xsd:element name="suburb" type="tns:suburbType"/>
+						<xsd:element name="state" type="tns:stateType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="australianStreetAddress" type="tns:australianStreetAddressType" minOccurs="0"/>
+			<xsd:element name="australianPostalAddress" type="tns:australianPostalAddressType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="australianPostalAddressType">
+		<xsd:sequence>
+			<xsd:element name="state" type="tns:stateType"/>
+			<xsd:element name="postcode" type="tns:postcodeType"/>
+			<xsd:element name="suburb" type="tns:suburbType"/>
+			<xsd:element name="postalDeliveryGroup" type="tns:postalDeliveryGroupType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="postalDeliveryGroupType">
+		<xsd:sequence>
+			<xsd:element name="postalDeliveryType" type="tns:postalDeliveryType"/>
+			<xsd:element name="postalDeliveryNumber" type="tns:postalDeliveryNumberType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="postalDeliveryType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Care PO">
+				<xsd:annotation>
+					<xsd:documentation>Care-of Post Office (also known as Poste Restante)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CMA">
+				<xsd:annotation>
+					<xsd:documentation>Community Mail Agent</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CMB">
+				<xsd:annotation>
+					<xsd:documentation>Community Mail Bag</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GPO Box">
+				<xsd:annotation>
+					<xsd:documentation>General Post Office Box</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Locked Bag">
+				<xsd:annotation>
+					<xsd:documentation>Locked Mail Bag Service</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MS">
+				<xsd:annotation>
+					<xsd:documentation>Mail Service</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PO Box">
+				<xsd:annotation>
+					<xsd:documentation>Post Office Box</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="POR">
+				<xsd:annotation>
+					<xsd:documentation>Post Restante (also known as Care-of Post Office)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Private Bag">
+				<xsd:annotation>
+					<xsd:documentation>Private Mail Bag Service</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RSD">
+				<xsd:annotation>
+					<xsd:documentation>Roadside Delivery</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RMB">
+				<xsd:annotation>
+					<xsd:documentation>Roadside Mail Box/Bag</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RMS">
+				<xsd:annotation>
+					<xsd:documentation>Roadside Mail Service</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="postalDeliveryNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="11"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="australianStreetAddressType">
+		<xsd:sequence>
+			<xsd:element name="state" type="tns:stateType"/>
+			<xsd:element name="postcode" type="tns:postcodeType"/>
+			<xsd:element name="suburb" type="tns:suburbType"/>
+			<xsd:element name="addressSiteName" type="tns:addressSiteNameType" minOccurs="0"/>
+			<xsd:element name="unitGroup" type="tns:unitGroupType" minOccurs="0"/>
+			<xsd:element name="levelGroup" type="tns:levelGroupType" minOccurs="0"/>
+			<xsd:element name="lotNumber" type="tns:lotNumberType" minOccurs="0"/>
+			<xsd:element name="streetNumber" type="tns:streetNumberType" minOccurs="0"/>
+			<xsd:element name="streetName" type="tns:streetNameType"/>
+			<xsd:element name="streetType" type="tns:streetType" minOccurs="0"/>
+			<xsd:element name="streetSuffix" type="tns:streetSuffixType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="streetSuffixType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CN">
+				<xsd:annotation>
+					<xsd:documentation>Central</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="E">
+				<xsd:annotation>
+					<xsd:documentation>East</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EX">
+				<xsd:annotation>
+					<xsd:documentation>Extension</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LR">
+				<xsd:annotation>
+					<xsd:documentation>Lower</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="N">
+				<xsd:annotation>
+					<xsd:documentation>North</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NE">
+				<xsd:annotation>
+					<xsd:documentation>North East</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NW">
+				<xsd:annotation>
+					<xsd:documentation>North West</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S">
+				<xsd:annotation>
+					<xsd:documentation>South</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SE">
+				<xsd:annotation>
+					<xsd:documentation>South East</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SW">
+				<xsd:annotation>
+					<xsd:documentation>South West</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UP">
+				<xsd:annotation>
+					<xsd:documentation>Upper</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="W">
+				<xsd:annotation>
+					<xsd:documentation>West</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="streetType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ACCS">
+				<xsd:annotation>
+					<xsd:documentation>ACCESS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ALLY">
+				<xsd:annotation>
+					<xsd:documentation>ALLEY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ALWY">
+				<xsd:annotation>
+					<xsd:documentation>ALLEYWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AMBL">
+				<xsd:annotation>
+					<xsd:documentation>AMBLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ANCG">
+				<xsd:annotation>
+					<xsd:documentation>ANCHORAGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="APP">
+				<xsd:annotation>
+					<xsd:documentation>APPROACH</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ARC">
+				<xsd:annotation>
+					<xsd:documentation>ARCADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ART">
+				<xsd:annotation>
+					<xsd:documentation>ARTERY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AVE">
+				<xsd:annotation>
+					<xsd:documentation>AVENUE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BASN">
+				<xsd:annotation>
+					<xsd:documentation>BASIN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BCH">
+				<xsd:annotation>
+					<xsd:documentation>BEACH</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BEND">
+				<xsd:annotation>
+					<xsd:documentation>BEND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BLK">
+				<xsd:annotation>
+					<xsd:documentation>BLOCK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BWLK">
+				<xsd:annotation>
+					<xsd:documentation>BOARDWALK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BVD">
+				<xsd:annotation>
+					<xsd:documentation>BOULEVARD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BRCE">
+				<xsd:annotation>
+					<xsd:documentation>BRACE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BRAE">
+				<xsd:annotation>
+					<xsd:documentation>BRAE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BRK">
+				<xsd:annotation>
+					<xsd:documentation>BREAK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BDGE">
+				<xsd:annotation>
+					<xsd:documentation>BRIDGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BDWY">
+				<xsd:annotation>
+					<xsd:documentation>BROADWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BROW">
+				<xsd:annotation>
+					<xsd:documentation>BROW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BYPA">
+				<xsd:annotation>
+					<xsd:documentation>BYPASS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BYWY">
+				<xsd:annotation>
+					<xsd:documentation>BYWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CAUS">
+				<xsd:annotation>
+					<xsd:documentation>CAUSEWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CTR">
+				<xsd:annotation>
+					<xsd:documentation>CENTRE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CNWY">
+				<xsd:annotation>
+					<xsd:documentation>CENTREWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CH">
+				<xsd:annotation>
+					<xsd:documentation>CHASE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CIR">
+				<xsd:annotation>
+					<xsd:documentation>CIRCLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CLT">
+				<xsd:annotation>
+					<xsd:documentation>CIRCLET</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CCT">
+				<xsd:annotation>
+					<xsd:documentation>CIRCUIT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRCS">
+				<xsd:annotation>
+					<xsd:documentation>CIRCUS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CL">
+				<xsd:annotation>
+					<xsd:documentation>CLOSE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CLDE">
+				<xsd:annotation>
+					<xsd:documentation>COLONNADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CMMN">
+				<xsd:annotation>
+					<xsd:documentation>COMMON</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CON">
+				<xsd:annotation>
+					<xsd:documentation>CONCOURSE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CPS">
+				<xsd:annotation>
+					<xsd:documentation>COPSE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CNR">
+				<xsd:annotation>
+					<xsd:documentation>CORNER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CSO">
+				<xsd:annotation>
+					<xsd:documentation>CORSO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CT">
+				<xsd:annotation>
+					<xsd:documentation>COURT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CTYD">
+				<xsd:annotation>
+					<xsd:documentation>COURTYARD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COVE">
+				<xsd:annotation>
+					<xsd:documentation>COVE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRES">
+				<xsd:annotation>
+					<xsd:documentation>CRESCENT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRST">
+				<xsd:annotation>
+					<xsd:documentation>CREST</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRSS">
+				<xsd:annotation>
+					<xsd:documentation>CROSS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRSG">
+				<xsd:annotation>
+					<xsd:documentation>CROSSING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRD">
+				<xsd:annotation>
+					<xsd:documentation>CROSSROAD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COWY">
+				<xsd:annotation>
+					<xsd:documentation>CROSSWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CUWY">
+				<xsd:annotation>
+					<xsd:documentation>CRUISEWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CDS">
+				<xsd:annotation>
+					<xsd:documentation>CUL-DE-SAC</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CTTG">
+				<xsd:annotation>
+					<xsd:documentation>CUTTING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DALE">
+				<xsd:annotation>
+					<xsd:documentation>DALE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DELL">
+				<xsd:annotation>
+					<xsd:documentation>DELL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DEVN">
+				<xsd:annotation>
+					<xsd:documentation>DEVIATION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DIP">
+				<xsd:annotation>
+					<xsd:documentation>DIP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DSTR">
+				<xsd:annotation>
+					<xsd:documentation>DISTRIBUTOR</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DR">
+				<xsd:annotation>
+					<xsd:documentation>DRIVE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DRWY">
+				<xsd:annotation>
+					<xsd:documentation>DRIVEWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EDGE">
+				<xsd:annotation>
+					<xsd:documentation>EDGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ELB">
+				<xsd:annotation>
+					<xsd:documentation>ELBOW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="END">
+				<xsd:annotation>
+					<xsd:documentation>END</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ENT">
+				<xsd:annotation>
+					<xsd:documentation>ENTRANCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ESP">
+				<xsd:annotation>
+					<xsd:documentation>ESPLANADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EST">
+				<xsd:annotation>
+					<xsd:documentation>ESTATE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EXP">
+				<xsd:annotation>
+					<xsd:documentation>EXPRESSWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EXTN">
+				<xsd:annotation>
+					<xsd:documentation>EXTENSION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FAWY">
+				<xsd:annotation>
+					<xsd:documentation>FAIRWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FTRK">
+				<xsd:annotation>
+					<xsd:documentation>FIRE TRACK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FITR">
+				<xsd:annotation>
+					<xsd:documentation>FIRETRAIL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FLAT">
+				<xsd:annotation>
+					<xsd:documentation>FLAT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FOLW">
+				<xsd:annotation>
+					<xsd:documentation>FOLLOW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FTWY">
+				<xsd:annotation>
+					<xsd:documentation>FOOTWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FSHR">
+				<xsd:annotation>
+					<xsd:documentation>FORESHORE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FORM">
+				<xsd:annotation>
+					<xsd:documentation>FORMATION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FWY">
+				<xsd:annotation>
+					<xsd:documentation>FREEWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FRNT">
+				<xsd:annotation>
+					<xsd:documentation>FRONT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FRTG">
+				<xsd:annotation>
+					<xsd:documentation>FRONTAGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GAP">
+				<xsd:annotation>
+					<xsd:documentation>GAP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GDN">
+				<xsd:annotation>
+					<xsd:documentation>GARDEN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GDNS">
+				<xsd:annotation>
+					<xsd:documentation>GARDENS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GTE">
+				<xsd:annotation>
+					<xsd:documentation>GATE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GTES">
+				<xsd:annotation>
+					<xsd:documentation>GATES</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GLD">
+				<xsd:annotation>
+					<xsd:documentation>GLADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GLEN">
+				<xsd:annotation>
+					<xsd:documentation>GLEN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GRA">
+				<xsd:annotation>
+					<xsd:documentation>GRANGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GRN">
+				<xsd:annotation>
+					<xsd:documentation>GREEN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GRND">
+				<xsd:annotation>
+					<xsd:documentation>GROUND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GR">
+				<xsd:annotation>
+					<xsd:documentation>GROVE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GLY">
+				<xsd:annotation>
+					<xsd:documentation>GULLY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HTS">
+				<xsd:annotation>
+					<xsd:documentation>HEIGHTS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HRD">
+				<xsd:annotation>
+					<xsd:documentation>HIGHROAD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HWY">
+				<xsd:annotation>
+					<xsd:documentation>HIGHWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HILL">
+				<xsd:annotation>
+					<xsd:documentation>HILL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="INTG">
+				<xsd:annotation>
+					<xsd:documentation>INTERCHANGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="INTN">
+				<xsd:annotation>
+					<xsd:documentation>INTERSECTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JNC">
+				<xsd:annotation>
+					<xsd:documentation>JUNCTION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="KEY">
+				<xsd:annotation>
+					<xsd:documentation>KEY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LDG">
+				<xsd:annotation>
+					<xsd:documentation>LANDING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LANE">
+				<xsd:annotation>
+					<xsd:documentation>LANE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LNWY">
+				<xsd:annotation>
+					<xsd:documentation>LANEWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LEES">
+				<xsd:annotation>
+					<xsd:documentation>LEES</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LINE">
+				<xsd:annotation>
+					<xsd:documentation>LINE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LINK">
+				<xsd:annotation>
+					<xsd:documentation>LINK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LT">
+				<xsd:annotation>
+					<xsd:documentation>LITTLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LKT">
+				<xsd:annotation>
+					<xsd:documentation>LOOKOUT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LOOP">
+				<xsd:annotation>
+					<xsd:documentation>LOOP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LWR">
+				<xsd:annotation>
+					<xsd:documentation>LOWER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MALL">
+				<xsd:annotation>
+					<xsd:documentation>MALL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MNDR">
+				<xsd:annotation>
+					<xsd:documentation>MEANDER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MEW">
+				<xsd:annotation>
+					<xsd:documentation>MEW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MEWS">
+				<xsd:annotation>
+					<xsd:documentation>MEWS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MWY">
+				<xsd:annotation>
+					<xsd:documentation>MOTORWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MT">
+				<xsd:annotation>
+					<xsd:documentation>MOUNT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NOOK">
+				<xsd:annotation>
+					<xsd:documentation>NOOK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OTLK">
+				<xsd:annotation>
+					<xsd:documentation>OUTLOOK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PDE">
+				<xsd:annotation>
+					<xsd:documentation>PARADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PARK">
+				<xsd:annotation>
+					<xsd:documentation>PARK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PKLD">
+				<xsd:annotation>
+					<xsd:documentation>PARKLANDS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PKWY">
+				<xsd:annotation>
+					<xsd:documentation>PARKWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PART">
+				<xsd:annotation>
+					<xsd:documentation>PART</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PASS">
+				<xsd:annotation>
+					<xsd:documentation>PASS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PATH">
+				<xsd:annotation>
+					<xsd:documentation>PATH</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PHWY">
+				<xsd:annotation>
+					<xsd:documentation>PATHWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PIAZ">
+				<xsd:annotation>
+					<xsd:documentation>PIAZZA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PL">
+				<xsd:annotation>
+					<xsd:documentation>PLACE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PLAT">
+				<xsd:annotation>
+					<xsd:documentation>PLATEAU</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PLZA">
+				<xsd:annotation>
+					<xsd:documentation>PLAZA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PKT">
+				<xsd:annotation>
+					<xsd:documentation>POCKET</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PNT">
+				<xsd:annotation>
+					<xsd:documentation>POINT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PORT">
+				<xsd:annotation>
+					<xsd:documentation>PORT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PROM">
+				<xsd:annotation>
+					<xsd:documentation>PROMENADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="QUAD">
+				<xsd:annotation>
+					<xsd:documentation>QUAD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="QDGL">
+				<xsd:annotation>
+					<xsd:documentation>QUADRANGLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="QDRT">
+				<xsd:annotation>
+					<xsd:documentation>QUADRANT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="QY">
+				<xsd:annotation>
+					<xsd:documentation>QUAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="QYS">
+				<xsd:annotation>
+					<xsd:documentation>QUAYS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RMBL">
+				<xsd:annotation>
+					<xsd:documentation>RAMBLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RAMP">
+				<xsd:annotation>
+					<xsd:documentation>RAMP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RNGE">
+				<xsd:annotation>
+					<xsd:documentation>RANGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RCH">
+				<xsd:annotation>
+					<xsd:documentation>REACH</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RES">
+				<xsd:annotation>
+					<xsd:documentation>RESERVE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="REST">
+				<xsd:annotation>
+					<xsd:documentation>REST</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RTT">
+				<xsd:annotation>
+					<xsd:documentation>RETREAT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RIDE">
+				<xsd:annotation>
+					<xsd:documentation>RIDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RDGE">
+				<xsd:annotation>
+					<xsd:documentation>RIDGE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RGWY">
+				<xsd:annotation>
+					<xsd:documentation>RIDGEWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ROWY">
+				<xsd:annotation>
+					<xsd:documentation>RIGHT OF WAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RING">
+				<xsd:annotation>
+					<xsd:documentation>RING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RISE">
+				<xsd:annotation>
+					<xsd:documentation>RISE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RVR">
+				<xsd:annotation>
+					<xsd:documentation>RIVER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RVWY">
+				<xsd:annotation>
+					<xsd:documentation>RIVERWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RVRA">
+				<xsd:annotation>
+					<xsd:documentation>RIVIERA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RD">
+				<xsd:annotation>
+					<xsd:documentation>ROAD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RDS">
+				<xsd:annotation>
+					<xsd:documentation>ROADS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RDSD">
+				<xsd:annotation>
+					<xsd:documentation>ROADSIDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RDWY">
+				<xsd:annotation>
+					<xsd:documentation>ROADWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RNDE">
+				<xsd:annotation>
+					<xsd:documentation>RONDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RSBL">
+				<xsd:annotation>
+					<xsd:documentation>ROSEBOWL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RTY">
+				<xsd:annotation>
+					<xsd:documentation>ROTARY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RND">
+				<xsd:annotation>
+					<xsd:documentation>ROUND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RTE">
+				<xsd:annotation>
+					<xsd:documentation>ROUTE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ROW">
+				<xsd:annotation>
+					<xsd:documentation>ROW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RUE">
+				<xsd:annotation>
+					<xsd:documentation>RUE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RUN">
+				<xsd:annotation>
+					<xsd:documentation>RUN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SWY">
+				<xsd:annotation>
+					<xsd:documentation>SERVICE WAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SHUN">
+				<xsd:annotation>
+					<xsd:documentation>SHUNT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SDNG">
+				<xsd:annotation>
+					<xsd:documentation>SIDING</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SLPE">
+				<xsd:annotation>
+					<xsd:documentation>SLOPE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SND">
+				<xsd:annotation>
+					<xsd:documentation>SOUND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPUR">
+				<xsd:annotation>
+					<xsd:documentation>SPUR</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SQ">
+				<xsd:annotation>
+					<xsd:documentation>SQUARE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STRS">
+				<xsd:annotation>
+					<xsd:documentation>STAIRS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SHWY">
+				<xsd:annotation>
+					<xsd:documentation>STATE HIGHWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STPS">
+				<xsd:annotation>
+					<xsd:documentation>STEPS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STRA">
+				<xsd:annotation>
+					<xsd:documentation>STRAND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ST">
+				<xsd:annotation>
+					<xsd:documentation>STREET</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STRP">
+				<xsd:annotation>
+					<xsd:documentation>STRIP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SBWY">
+				<xsd:annotation>
+					<xsd:documentation>SUBWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TARN">
+				<xsd:annotation>
+					<xsd:documentation>TARN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TCE">
+				<xsd:annotation>
+					<xsd:documentation>TERRACE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="THOR">
+				<xsd:annotation>
+					<xsd:documentation>THOROUGHFARE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TLWY">
+				<xsd:annotation>
+					<xsd:documentation>TOLLWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TOP">
+				<xsd:annotation>
+					<xsd:documentation>TOP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TOR">
+				<xsd:annotation>
+					<xsd:documentation>TOR</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TWRS">
+				<xsd:annotation>
+					<xsd:documentation>TOWERS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TRK">
+				<xsd:annotation>
+					<xsd:documentation>TRACK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TRL">
+				<xsd:annotation>
+					<xsd:documentation>TRAIL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TRLR">
+				<xsd:annotation>
+					<xsd:documentation>TRAILER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TRI">
+				<xsd:annotation>
+					<xsd:documentation>TRIANGLE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TKWY">
+				<xsd:annotation>
+					<xsd:documentation>TRUNKWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TURN">
+				<xsd:annotation>
+					<xsd:documentation>TURN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UPAS">
+				<xsd:annotation>
+					<xsd:documentation>UNDERPASS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UPR">
+				<xsd:annotation>
+					<xsd:documentation>UPPER</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VALE">
+				<xsd:annotation>
+					<xsd:documentation>VALE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VDCT">
+				<xsd:annotation>
+					<xsd:documentation>VIADUCT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VIEW">
+				<xsd:annotation>
+					<xsd:documentation>VIEW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VLLS">
+				<xsd:annotation>
+					<xsd:documentation>VILLAS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VSTA">
+				<xsd:annotation>
+					<xsd:documentation>VISTA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WADE">
+				<xsd:annotation>
+					<xsd:documentation>WADE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WALK">
+				<xsd:annotation>
+					<xsd:documentation>WALK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WKWY">
+				<xsd:annotation>
+					<xsd:documentation>WALKWAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WAY">
+				<xsd:annotation>
+					<xsd:documentation>WAY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WHRF">
+				<xsd:annotation>
+					<xsd:documentation>WHARF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WYND">
+				<xsd:annotation>
+					<xsd:documentation>WYND</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="YARD">
+				<xsd:annotation>
+					<xsd:documentation>YARD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="streetNameType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="streetNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="lotNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="levelGroupType">
+		<xsd:sequence>
+			<xsd:element name="levelType" type="tns:levelType"/>
+			<xsd:element name="levelNumber" type="tns:levelNumberType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="levelNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="levelType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="B">
+				<xsd:annotation>
+					<xsd:documentation>Basement</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FL">
+				<xsd:annotation>
+					<xsd:documentation>Floor</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="G">
+				<xsd:annotation>
+					<xsd:documentation>Ground</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="L">
+				<xsd:annotation>
+					<xsd:documentation>Level</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LG">
+				<xsd:annotation>
+					<xsd:documentation>Lower Ground</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="M">
+				<xsd:annotation>
+					<xsd:documentation>Mezzanine</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OD">
+				<xsd:annotation>
+					<xsd:documentation>Observation Deck</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="P">
+				<xsd:annotation>
+					<xsd:documentation>Parking</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PTHS">
+				<xsd:annotation>
+					<xsd:documentation>Penthouse</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PLF">
+				<xsd:annotation>
+					<xsd:documentation>Platform</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PLZA">
+				<xsd:annotation>
+					<xsd:documentation>Plaza</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PDM">
+				<xsd:annotation>
+					<xsd:documentation>Podium</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RT">
+				<xsd:annotation>
+					<xsd:documentation>Rooftop</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SB">
+				<xsd:annotation>
+					<xsd:documentation>Sub Basement</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UG">
+				<xsd:annotation>
+					<xsd:documentation>Upper Ground</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="unitGroupType">
+		<xsd:sequence>
+			<xsd:element name="unitType" type="tns:unitType"/>
+			<xsd:element name="unitNumber" type="tns:unitNumberType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="unitNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="unitType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ANT">
+				<xsd:annotation>
+					<xsd:documentation>Antenna</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="APT">
+				<xsd:annotation>
+					<xsd:documentation>Apartment</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ATM">
+				<xsd:annotation>
+					<xsd:documentation>Automated Teller Machine</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BBQ">
+				<xsd:annotation>
+					<xsd:documentation>Barbeque</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BTSD">
+				<xsd:annotation>
+					<xsd:documentation>Boatshed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BLDG">
+				<xsd:annotation>
+					<xsd:documentation>Building</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BNGW">
+				<xsd:annotation>
+					<xsd:documentation>Bungalow</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CAGE">
+				<xsd:annotation>
+					<xsd:documentation>Cage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CARP">
+				<xsd:annotation>
+					<xsd:documentation>Carpark</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CARS">
+				<xsd:annotation>
+					<xsd:documentation>Carspace</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CLUB">
+				<xsd:annotation>
+					<xsd:documentation>Club</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="COOL">
+				<xsd:annotation>
+					<xsd:documentation>Coolroom</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CTGE">
+				<xsd:annotation>
+					<xsd:documentation>Cottage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DUP">
+				<xsd:annotation>
+					<xsd:documentation>Duplex</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FY">
+				<xsd:annotation>
+					<xsd:documentation>Factory</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="F">
+				<xsd:annotation>
+					<xsd:documentation>Flat</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GRGE">
+				<xsd:annotation>
+					<xsd:documentation>Garage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HALL">
+				<xsd:annotation>
+					<xsd:documentation>Hall</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HSE">
+				<xsd:annotation>
+					<xsd:documentation>House</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="KSK">
+				<xsd:annotation>
+					<xsd:documentation>Kiosk</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LSE">
+				<xsd:annotation>
+					<xsd:documentation>Lease</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LBBY">
+				<xsd:annotation>
+					<xsd:documentation>Lobby</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LOFT">
+				<xsd:annotation>
+					<xsd:documentation>Loft</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LOT">
+				<xsd:annotation>
+					<xsd:documentation>Lot</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MSNT">
+				<xsd:annotation>
+					<xsd:documentation>Maisonette</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MB">
+				<xsd:annotation>
+					<xsd:documentation>Marine berth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OFF">
+				<xsd:annotation>
+					<xsd:documentation>Office</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PTHS">
+				<xsd:annotation>
+					<xsd:documentation>Penthouse</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RESV">
+				<xsd:annotation>
+					<xsd:documentation>Reserve</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RM">
+				<xsd:annotation>
+					<xsd:documentation>Room</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SHED">
+				<xsd:annotation>
+					<xsd:documentation>Shed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SHOP">
+				<xsd:annotation>
+					<xsd:documentation>Shop</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SIGN">
+				<xsd:annotation>
+					<xsd:documentation>Sign</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SITE">
+				<xsd:annotation>
+					<xsd:documentation>Site</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SL">
+				<xsd:annotation>
+					<xsd:documentation>Stall</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STOR">
+				<xsd:annotation>
+					<xsd:documentation>Store</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STR">
+				<xsd:annotation>
+					<xsd:documentation>Strata Unit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="STU">
+				<xsd:annotation>
+					<xsd:documentation>Studio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SUBS">
+				<xsd:annotation>
+					<xsd:documentation>Substation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SE">
+				<xsd:annotation>
+					<xsd:documentation>Suite</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TNCY">
+				<xsd:annotation>
+					<xsd:documentation>Tenancy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TWR">
+				<xsd:annotation>
+					<xsd:documentation>Tower</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TNHS">
+				<xsd:annotation>
+					<xsd:documentation>Townhouse</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="U">
+				<xsd:annotation>
+					<xsd:documentation>Unit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VLLA">
+				<xsd:annotation>
+					<xsd:documentation>Villa</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WARD">
+				<xsd:annotation>
+					<xsd:documentation>Ward</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WE">
+				<xsd:annotation>
+					<xsd:documentation>Warehouse</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WKSH">
+				<xsd:annotation>
+					<xsd:documentation>Workshop</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="addressSiteNameType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="postcodeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="suburbType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="stateType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ACT">
+				<xsd:annotation>
+					<xsd:documentation>Australian Capital Territory</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NSW">
+				<xsd:annotation>
+					<xsd:documentation>New South Wales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NT">
+				<xsd:annotation>
+					<xsd:documentation>Northern Territory</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="QLD">
+				<xsd:annotation>
+					<xsd:documentation>Queensland</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SA">
+				<xsd:annotation>
+					<xsd:documentation>South Australia</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TAS">
+				<xsd:annotation>
+					<xsd:documentation>Tasmania</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VIC">
+				<xsd:annotation>
+					<xsd:documentation>Victoria</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="WA">
+				<xsd:annotation>
+					<xsd:documentation>Western Australia</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+============================ IDENTIFIER TYPES ==================================
+-->
+	<xsd:simpleType name="ihiNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="16"/>
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="IDType">
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="3"/>
+			<xsd:enumeration value="IHI"/>
+			<xsd:enumeration value="MCA"/>
+			<xsd:enumeration value="DVA"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="IDNumber">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="hpioNumber">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="16"/>
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+============================== DATE TYPES ====================================
+-->
+	<xsd:simpleType name="dateAccuracyIndicatorType">
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="3"/>
+			<xsd:enumeration value="AAA">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, accurate month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AAE">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, accurate month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AAU">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, accurate month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AEA">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, estimated month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AEE">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, estimated month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AEU">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, estimated month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUA">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, unknown month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUE">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, unknown month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AUU">
+				<xsd:annotation>
+					<xsd:documentation>Accurate day, unknown month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EAA">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, accurate month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EAE">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, accurate month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EAU">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, accurate month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EEA">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, estimated month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EEE">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, estimated month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EEU">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, estimated month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EUA">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, unknown month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EUE">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, unknown month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EUU">
+				<xsd:annotation>
+					<xsd:documentation>Estimated day, unknown month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UAA">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, accurate month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UAE">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, accurate month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UAU">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, accurate month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UEA">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, estimated month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UEE">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, estimated month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UEU">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, estimated month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UUA">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, unknown month, accurate year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UUE">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, unknown month, estimated year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UUU">
+				<xsd:annotation>
+					<xsd:documentation>Unknown day, unknown month, unknown year</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+=============================== NAME TYPES ===================================
+-->
+	<xsd:complexType name="nameTypeSupp">
+		<xsd:sequence>
+			<xsd:element name="nameTitle" type="nameTitle" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="familyName">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="givenName" minOccurs="0" maxOccurs="2">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nameSuffix" type="nameSuffix" minOccurs="0"/>
+			<xsd:element name="usage" type="usage" minOccurs="0"/>
+			<xsd:element name="preferred" type="preferred" minOccurs="0"/>
+			<xsd:element name="conditionalUse" type="conditionalUse" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="nameTitle">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ABBOT"/>
+			<xsd:enumeration value="AB"/>
+			<xsd:enumeration value="ADML"/>
+			<xsd:enumeration value="ACM"/>
+			<xsd:enumeration value="AIRCDRE"/>
+			<xsd:enumeration value="AM"/>
+			<xsd:enumeration value="AVM"/>
+			<xsd:enumeration value="AC"/>
+			<xsd:enumeration value="ACW"/>
+			<xsd:enumeration value="ALD"/>
+			<xsd:enumeration value="AMBSR"/>
+			<xsd:enumeration value="ARCHBISHOP"/>
+			<xsd:enumeration value="ARCHDEACON"/>
+			<xsd:enumeration value="ASSOC PROF"/>
+			<xsd:enumeration value="BARON"/>
+			<xsd:enumeration value="BARONESS"/>
+			<xsd:enumeration value="BISHOP"/>
+			<xsd:enumeration value="BDR"/>
+			<xsd:enumeration value="BRIG"/>
+			<xsd:enumeration value="BR"/>
+			<xsd:enumeration value="CDT"/>
+			<xsd:enumeration value="CANON"/>
+			<xsd:enumeration value="CAPT"/>
+			<xsd:enumeration value="CAPT, RAN"/>
+			<xsd:enumeration value="CARDNL"/>
+			<xsd:enumeration value="CHAP"/>
+			<xsd:enumeration value="CPO"/>
+			<xsd:enumeration value="COL"/>
+			<xsd:enumeration value="CMDR"/>
+			<xsd:enumeration value="CMM"/>
+			<xsd:enumeration value="CDRE"/>
+			<xsd:enumeration value="CONST"/>
+			<xsd:enumeration value="CONSUL"/>
+			<xsd:enumeration value="CPL"/>
+			<xsd:enumeration value="COUNT"/>
+			<xsd:enumeration value="COUNTESS"/>
+			<xsd:enumeration value="DAME"/>
+			<xsd:enumeration value="DEACON"/>
+			<xsd:enumeration value="DEACONESS"/>
+			<xsd:enumeration value="DEAN"/>
+			<xsd:enumeration value="DEPUTY SUPT"/>
+			<xsd:enumeration value="DIRECTOR"/>
+			<xsd:enumeration value="DR"/>
+			<xsd:enumeration value="EARL"/>
+			<xsd:enumeration value="ENGR"/>
+			<xsd:enumeration value="FR"/>
+			<xsd:enumeration value="FLTLT"/>
+			<xsd:enumeration value="FSGT"/>
+			<xsd:enumeration value="FLGOFF"/>
+			<xsd:enumeration value="GEN"/>
+			<xsd:enumeration value="GOV"/>
+			<xsd:enumeration value="GP CAPT"/>
+			<xsd:enumeration value="HON"/>
+			<xsd:enumeration value="JUDGE"/>
+			<xsd:enumeration value="JUSTICE"/>
+			<xsd:enumeration value="LADY"/>
+			<xsd:enumeration value="LBDR"/>
+			<xsd:enumeration value="LCPL"/>
+			<xsd:enumeration value="LAC"/>
+			<xsd:enumeration value="LACW"/>
+			<xsd:enumeration value="LS"/>
+			<xsd:enumeration value="LT"/>
+			<xsd:enumeration value="LEUT"/>
+			<xsd:enumeration value="LTCOL"/>
+			<xsd:enumeration value="LCDR"/>
+			<xsd:enumeration value="LTGEN"/>
+			<xsd:enumeration value="LTGOV"/>
+			<xsd:enumeration value="LORD"/>
+			<xsd:enumeration value="MADAM"/>
+			<xsd:enumeration value="MADAME"/>
+			<xsd:enumeration value="MAJ"/>
+			<xsd:enumeration value="MAJGEN"/>
+			<xsd:enumeration value="MGR"/>
+			<xsd:enumeration value="MSTR"/>
+			<xsd:enumeration value="MAYOR"/>
+			<xsd:enumeration value="MAYORESS"/>
+			<xsd:enumeration value="MIDN"/>
+			<xsd:enumeration value="MISS"/>
+			<xsd:enumeration value="MR"/>
+			<xsd:enumeration value="MON"/>
+			<xsd:enumeration value="MOST REV"/>
+			<xsd:enumeration value="MTHR"/>
+			<xsd:enumeration value="MRS"/>
+			<xsd:enumeration value="MS"/>
+			<xsd:enumeration value="NURSE"/>
+			<xsd:enumeration value="OCDT"/>
+			<xsd:enumeration value="PASTOR"/>
+			<xsd:enumeration value="PO"/>
+			<xsd:enumeration value="PLTOFF"/>
+			<xsd:enumeration value="PTE"/>
+			<xsd:enumeration value="PROF"/>
+			<xsd:enumeration value="RABBI"/>
+			<xsd:enumeration value="RADM"/>
+			<xsd:enumeration value="RECTOR"/>
+			<xsd:enumeration value="RSM"/>
+			<xsd:enumeration value="RSM-A"/>
+			<xsd:enumeration value="REV"/>
+			<xsd:enumeration value="RTHON"/>
+			<xsd:enumeration value="RT REV"/>
+			<xsd:enumeration value="SMN"/>
+			<xsd:enumeration value="2LT"/>
+			<xsd:enumeration value="SEN"/>
+			<xsd:enumeration value="SNR"/>
+			<xsd:enumeration value="SGT"/>
+			<xsd:enumeration value="SIR"/>
+			<xsd:enumeration value="SR"/>
+			<xsd:enumeration value="SISTER SUP"/>
+			<xsd:enumeration value="SQNLDR"/>
+			<xsd:enumeration value="SCDT"/>
+			<xsd:enumeration value="SSGT"/>
+			<xsd:enumeration value="SM"/>
+			<xsd:enumeration value="SBLT"/>
+			<xsd:enumeration value="SUPT"/>
+			<xsd:enumeration value="SWAMI"/>
+			<xsd:enumeration value="VADM"/>
+			<xsd:enumeration value="VCE CMNDR"/>
+			<xsd:enumeration value="VISCOUNT"/>
+			<xsd:enumeration value="WOFF"/>
+			<xsd:enumeration value="WO"/>
+			<xsd:enumeration value="WO1"/>
+			<xsd:enumeration value="WO2"/>
+			<xsd:enumeration value="WOFF-AF"/>
+			<xsd:enumeration value="WO-N"/>
+			<xsd:enumeration value="WCDR"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nameSuffix">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="BM"/>
+			<xsd:enumeration value="BEM"/>
+			<xsd:enumeration value="COMDC"/>
+			<xsd:enumeration value="CH"/>
+			<xsd:enumeration value="AC"/>
+			<xsd:enumeration value="CV"/>
+			<xsd:enumeration value="DCMG"/>
+			<xsd:enumeration value="DCB"/>
+			<xsd:enumeration value="DBE"/>
+			<xsd:enumeration value="DCVO"/>
+			<xsd:enumeration value="AD"/>
+			<xsd:enumeration value="DFM"/>
+			<xsd:enumeration value="DSC"/>
+			<xsd:enumeration value="DSM"/>
+			<xsd:enumeration value="VIII"/>
+			<xsd:enumeration value="ESQ"/>
+			<xsd:enumeration value="V"/>
+			<xsd:enumeration value="I"/>
+			<xsd:enumeration value="IV"/>
+			<xsd:enumeration value="GC"/>
+			<xsd:enumeration value="JNR"/>
+			<xsd:enumeration value="JP"/>
+			<xsd:enumeration value="KB"/>
+			<xsd:enumeration value="KCMG"/>
+			<xsd:enumeration value="KCB"/>
+			<xsd:enumeration value="KBE"/>
+			<xsd:enumeration value="KCVO"/>
+			<xsd:enumeration value="KG"/>
+			<xsd:enumeration value="AK"/>
+			<xsd:enumeration value="KT"/>
+			<xsd:enumeration value="MD"/>
+			<xsd:enumeration value="OAM"/>
+			<xsd:enumeration value="MP"/>
+			<xsd:enumeration value="MHA"/>
+			<xsd:enumeration value="MHR"/>
+			<xsd:enumeration value="MLA"/>
+			<xsd:enumeration value="MLC"/>
+			<xsd:enumeration value="AM"/>
+			<xsd:enumeration value="MBE"/>
+			<xsd:enumeration value="MC"/>
+			<xsd:enumeration value="IX"/>
+			<xsd:enumeration value="OC"/>
+			<xsd:enumeration value="AO"/>
+			<xsd:enumeration value="OBE"/>
+			<xsd:enumeration value="OM"/>
+			<xsd:enumeration value="QC"/>
+			<xsd:enumeration value="II"/>
+			<xsd:enumeration value="SNR"/>
+			<xsd:enumeration value="VII"/>
+			<xsd:enumeration value="VI"/>
+			<xsd:enumeration value="SC"/>
+			<xsd:enumeration value="X"/>
+			<xsd:enumeration value="III"/>
+			<xsd:enumeration value="VC"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="usage">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="M"/>
+			<xsd:enumeration value="N"/>
+			<xsd:enumeration value="O"/>
+			<xsd:enumeration value="B"/>
+			<xsd:enumeration value="L"/>
+			<xsd:enumeration value="R"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="preferred">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="true"/>
+			<xsd:enumeration value="false"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="conditionalUse">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+			<xsd:enumeration value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+============================= STATUS TYPES ===================================
+-->
+	<xsd:simpleType name="recordStatusTypeSupp">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Verified"/>
+			<xsd:enumeration value="Unverified"/>
+			<xsd:enumeration value="Provisional"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- 
+========================= CONTACT DETAILS TYPES ==============================
+-->
+	<xsd:complexType name="contactDetailsType">
+		<xsd:sequence>
+			<xsd:element name="mobilePhoneNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="emailAddress" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- 
+=========================== ORGANISATION TYPES ===============================
+-->
+	<xsd:complexType name="organisationTypeSupp">
+		<xsd:sequence>
+			<xsd:element name="hpioNumber" type="hpioNumber"/>
+			<xsd:element name="name" type="xsd:string" maxOccurs="unbounded"/>
+			<xsd:element name="organisationService" type="organisationServiceType" maxOccurs="unbounded"/>
+			<xsd:element name="participatingOrganisation" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="hpioNumber" type="hpioNumber"/>
+						<xsd:element name="name" type="xsd:string" maxOccurs="unbounded"/>
+						<xsd:element name="organisationService" type="organisationServiceType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- 
+=========================== INDIVIDUAL TYPES ===============================
+-->
+	<xsd:complexType name="individualTypeSupp">
+		<xsd:sequence>
+			<xsd:element name="name" type="nameTypeSupp"/>
+			<xsd:element ref="sex"/>
+			<xsd:element name="dateOfBirth" type="xsd:date"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="contactPersonTypeSupp">
+		<xsd:sequence>
+			<xsd:element name="type">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Emergency"/>
+						<xsd:enumeration value="Next of Kin"/>
+						<xsd:enumeration value="Carer"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+						<xsd:whiteSpace value="collapse"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="phoneNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="50"/>
+						<xsd:whiteSpace value="collapse"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="emailAddress" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+						<xsd:whiteSpace value="collapse"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="relationship" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+						<xsd:whiteSpace value="collapse"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

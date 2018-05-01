@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--In this sample, the CDA Document author/ uploader to the PCEHR System is the GP (Test Requester)-->
+
+<!--Assumptions-->
+<!--Authorisation Date = Test Request Date (The date of when requester (GP) provide authorisation together with the request message)-->
+<!--ClinicalDocumentAuthor = The author of the CDA Document/uploader (whoever authored the CDA document has to be the uploader)-->
+<!--Reporting Pathologist = The author of the Pathology Report pdf-->
+<!--Introduced dateAvailableToConsumer (at the report level) to indicate that when the link to the document should be made available to consumer upon rendering-->
+<!--Date and Time format within this view is being dependent on the requesting access channel. If the view is being requested from B2B, the date format will be in UTC; if the view is being requested from Portal, the date format will be in AEST/AEDT-->
+
+<pathologyReportViewResponse xsi:schemaLocation="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/PathologyReportView/1.0 file:///C:/Users/daniel.kesuma/Desktop/PCEHR_Schemas-20140630/PCEHR_Schemas-20140826/schema/External/View/PCEHR_PathologyReportView_Response.xsd" xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/PathologyReportView/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<viewMetadata>
+		<individualProfile>
+			<ns1:ihiNumber>8003601234567890</ns1:ihiNumber>
+			<individual>
+				<ns1:name>
+					<ns1:nameTitle>MR</ns1:nameTitle>
+					<ns1:familyName>Stevenson</ns1:familyName>
+					<ns1:givenName>Roger</ns1:givenName>
+					<ns1:givenName>Davis</ns1:givenName>
+					<ns1:nameSuffix>CA</ns1:nameSuffix>
+					<ns1:usage>M</ns1:usage>
+					<ns1:preferred>true</ns1:preferred>
+					<ns1:conditionalUse>1</ns1:conditionalUse>					
+				</ns1:name>
+				<ns1:sex>M</ns1:sex>
+				<ns1:dateOfBirth>1967-08-13</ns1:dateOfBirth>
+			</individual>
+		</individualProfile>
+		<viewParameters>
+			<viewVersionNumber>1.0</viewVersionNumber>
+			<dateFromFilter>2000-08-13</dateFromFilter>
+			<dateToFilter>2002-08-13</dateToFilter>
+		</viewParameters>
+		<informationAvailable>true</informationAvailable>
+	</viewMetadata>
+	<pathologyReport>
+		<dateAvailableToConsumer>2002-01-11T12:11:00Z</dateAvailableToConsumer>
+		<reportInformation>
+			<ns2:CDAeffectiveTime>2001-12-17T11:30:47Z</ns2:CDAeffectiveTime>
+			<ns2:dateTimeReportAuthored>2001-12-17T09:30:47Z</ns2:dateTimeReportAuthored>
+			<ns2:dateTimeAuthorisation>2001-05-17T09:30:47Z</ns2:dateTimeAuthorisation>
+			<ns2:pathologistLocalReportId>1456372</ns2:pathologistLocalReportId>
+			<ns2:reportName>Pathology Report</ns2:reportName>
+			<ns2:reportStatus>
+				<ns2:displayName>Final results</ns2:displayName>
+				<ns2:originalText>Final</ns2:originalText>
+				<ns2:code>F</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.12.123</ns2:codeSystem>
+				<ns2:codeSystemName>HL7 result Status</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</ns2:reportStatus>
+			<ns2:documentId>2.25.208589434190153059836415769186800871817</ns2:documentId>
+			<ns2:documentLink>pcehr:1.2.36.1.2001.1007.10.8003640002000050/2.25.208589434190153059836415769186800871817</ns2:documentLink>
+		</reportInformation>
+		<clinicalDocumentAuthor>
+			<ns2:healthcareProviderOrganisationName>Westmead Hospital</ns2:healthcareProviderOrganisationName>
+			<ns2:healthcareProviderOrganisationIdentifier>8003627896873333</ns2:healthcareProviderOrganisationIdentifier>
+			<ns2:healthcareProviderName>
+				<ns1:nameTitle>Dr</ns1:nameTitle>
+				<ns1:familyName>Bagshaw</ns1:familyName>
+				<ns1:givenName>Todd</ns1:givenName>
+				<ns1:nameSuffix>MBBS</ns1:nameSuffix>
+			</ns2:healthcareProviderName>			
+			<ns2:healthcareProviderIdentifier>1.2.36.1.2001.1003.0.8003617896873333</ns2:healthcareProviderIdentifier>
+			<ns2:healthcareProviderRole>General Practitioner</ns2:healthcareProviderRole>
+		</clinicalDocumentAuthor>
+		<reportingPathologistInformation>
+			<ns2:healthcareProviderOrganisationName>Paramatta Pathology Lab Inc</ns2:healthcareProviderOrganisationName>
+			<ns2:healthcareProviderOrganisationIdentifier>8003627896872546</ns2:healthcareProviderOrganisationIdentifier>
+			<ns2:healthcareProviderName>
+				<ns1:nameTitle>Mr</ns1:nameTitle>
+				<ns1:familyName>Andrew</ns1:familyName>
+				<ns1:givenName>Tom</ns1:givenName>
+				<ns1:nameSuffix>B.Sc.</ns1:nameSuffix>				
+			</ns2:healthcareProviderName>
+			<ns2:healthcareProviderIdentifier>1.2.36.1.2001.1003.0.8003617896872546</ns2:healthcareProviderIdentifier>
+			<ns2:healthcareProviderRole>Scientist</ns2:healthcareProviderRole>
+		</reportingPathologistInformation>
+		<testRequesterInformation>
+			<ns2:testRequestId>123</ns2:testRequestId>
+			<ns2:dateTimeRequested>2001-05-17T09:30:47Z</ns2:dateTimeRequested>
+			<ns2:providerOrganisationName>Westmead Hospital</ns2:providerOrganisationName>
+			<ns2:providerOrganisationIdentifier>8003627896873333</ns2:providerOrganisationIdentifier>
+			<ns2:providerName>
+				<ns1:nameTitle>Dr</ns1:nameTitle>
+				<ns1:familyName>Bagshaw</ns1:familyName>
+				<ns1:givenName>Todd</ns1:givenName>
+				<ns1:nameSuffix>MBBS</ns1:nameSuffix>				
+			</ns2:providerName>
+			<ns2:providerIdentifier>1.2.36.1.2001.1003.0.8003617896873333</ns2:providerIdentifier>
+		</testRequesterInformation>
+		<pathologyTestResult>
+			<specimenCollectionDate>2001-09-17T09:30:47Z</specimenCollectionDate>
+			<pathologyDiscipline>
+				<ns2:displayName>Haematology</ns2:displayName>
+				<ns2:originalText>Haematology</ns2:originalText>
+				<ns2:code>HAE</ns2:code>
+				<ns2:codeSystem>String</ns2:codeSystem>
+				<ns2:codeSystemName>String</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</pathologyDiscipline>
+			<testResultName>
+				<ns2:displayName>FBC</ns2:displayName>
+				<ns2:originalText>FBC</ns2:originalText>
+				<ns2:code>FBC</ns2:code>
+				<ns2:codeSystem>String</ns2:codeSystem>
+				<ns2:codeSystemName>String</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</testResultName>
+			<overallTestResultStatus>
+				<ns2:displayName>Final</ns2:displayName>
+				<ns2:originalText>Final</ns2:originalText>
+				<ns2:code>F</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.12.123</ns2:codeSystem>
+				<ns2:codeSystemName>HL7 result Status</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</overallTestResultStatus>
+		</pathologyTestResult>
+	</pathologyReport>
+</pathologyReportViewResponse>

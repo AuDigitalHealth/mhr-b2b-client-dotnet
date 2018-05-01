@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.1 issued 17 April 2012-->
+<xs:schema xmlns:tns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetChangeHistoryView/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetChangeHistoryView/1.0">
+	<xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="xsd_1.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
+	<xs:element name="getChangeHistoryView">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="documentID" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getChangeHistoryViewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AdhocQueryResponse" nillable="true">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="ns3:RegistryResponseType">
+								<xs:sequence>
+									<xs:element ref="ns4:RegistryObjectList"/>
+								</xs:sequence>
+								<xs:attribute name="startIndex" type="xs:integer"/>
+								<xs:attribute name="totalResultCount" type="xs:integer"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

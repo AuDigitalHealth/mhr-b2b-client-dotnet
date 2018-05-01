@@ -1,0 +1,229 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://australia.gov.au/provisioning/data/common/2011/10/29" targetNamespace="http://australia.gov.au/provisioning/data/common/2011/10/29" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:simpleType name="InteractionIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="40"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="interactionId" type="InteractionIdType"/>
+	
+	<xsd:simpleType name="DialogueTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AC"/>
+			<xsd:enumeration value="PING"/>
+			<xsd:enumeration value="PORO"/>
+			<xsd:enumeration value="OIV"/>							
+			<xsd:enumeration value="LINKREQ"/>							
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="dialogueType" type="DialogueTypeType"/>
+	
+	<xsd:simpleType name="QuestionListIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="40"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:attribute name="questionListId" type="QuestionListIdType"/>
+	
+	<xsd:simpleType name="QuestionIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="40"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+		
+	<xsd:attribute name="questionId" type="QuestionIdType"/>
+	
+	<xsd:simpleType name="AnswerTextType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1024"/>
+		</xsd:restriction>
+	</xsd:simpleType>		
+	
+	<xsd:element name="answerText" type="AnswerTextType"/>
+	
+	<xsd:complexType name="AnswerType">
+		<xsd:sequence>			
+			<xsd:element ref="answerText" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute ref="questionId" use="required" />
+	</xsd:complexType>
+	
+	<xsd:element name="answer" type="AnswerType"/>
+	
+	<xsd:complexType name="AnswerListType">
+		<xsd:sequence>
+			<xsd:element ref="answer" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute ref="questionListId" use="required" />
+	</xsd:complexType>
+	
+	<xsd:element name="answerList" type="AnswerListType"/>
+	
+	<xsd:simpleType name="MpNameType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CLK"/>
+			<xsd:enumeration value="CSA"/>
+			<xsd:enumeration value="MCA"/>
+			<xsd:enumeration value="EHR"/>							
+		</xsd:restriction>
+	</xsd:simpleType>
+		
+	<xsd:simpleType name="StatusType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fail"/>
+			<xsd:enumeration value="link"/>
+			<xsd:enumeration value="open"/>
+			<xsd:enumeration value="sso"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="status" type="StatusType"/>
+	
+	<xsd:simpleType name="LinkStatusType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="fail"/>
+			<xsd:enumeration value="success"/>													
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="linkStatus" type="LinkStatusType"/>
+	
+	<xsd:simpleType name="ReasonTextType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="reasonText" type="ReasonTextType"/>
+
+	<xsd:attribute name="mpName" type="MpNameType" />
+	
+	<xsd:complexType name="MasterProgramType">
+		<xsd:sequence>
+			<xsd:element ref="status" minOccurs="1" maxOccurs="1"/>
+			<xsd:element ref="reasonText" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute ref="mpName" use="required" />
+	</xsd:complexType>
+	
+	<xsd:element name="masterProgram" type="MasterProgramType"/>
+	
+	<xsd:complexType name="StatusListType">
+		<xsd:sequence>
+			<xsd:element ref="masterProgram" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="statusList" type="StatusListType"/>
+	
+	<xsd:complexType name="LinkMasterProgramType">
+		<xsd:sequence>
+			<xsd:element ref="linkStatus" minOccurs="1" maxOccurs="1"/>
+			<xsd:element ref="reasonText" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute ref="mpName" use="required" />
+	</xsd:complexType>
+	
+	<xsd:element name="linkMasterProgram" type="LinkMasterProgramType"/>
+	
+	<xsd:complexType name="StatusLinkListType">
+		<xsd:sequence>
+			<xsd:element ref="linkMasterProgram" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="statusLinkList" type="StatusLinkListType"/>
+	
+	<xsd:simpleType name="QuestionTextType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="questionText" type="QuestionTextType"/>
+	
+	<xsd:complexType name="QuestionType">
+		<xsd:sequence>			
+			<xsd:element ref="questionText" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="answerText" minOccurs="0" maxOccurs="1"/>			
+		</xsd:sequence>		
+		<xsd:attribute ref="questionId" use="required" />
+	</xsd:complexType>
+	
+	<xsd:element name="question" type="QuestionType"/>
+	
+	<xsd:simpleType name="LabelIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="40"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="LabelType">		
+		<xsd:attribute name="labelId" use="required" type="LabelIdType"/>
+	</xsd:complexType>
+	
+	<xsd:element name="label" type="LabelType" />
+	
+	<xsd:complexType name="LabelQuestionType">
+		<xsd:sequence>		
+			<xsd:element ref="label" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="question" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="labelQuestion" type="LabelQuestionType" />
+		
+	<xsd:complexType name="QuestionListType">
+		<xsd:sequence>
+			<xsd:element ref="labelQuestion" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute ref="questionListId" use="required" />
+	</xsd:complexType>
+	
+	<xsd:element name="questionList" type="QuestionListType"/>
+	
+	<xsd:simpleType name="CancelReasonType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CustomerRequest"/>
+			<xsd:enumeration value="TooManyErrors"/>
+			<xsd:enumeration value="Timeout"/>
+			<xsd:enumeration value="SystemError"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="cancelReason" type="CancelReasonType"/>
+	
+	<xsd:simpleType name="LinkIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="40"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="linkId" type="LinkIdType"/>
+	
+	<xsd:complexType name="MasterProgramLinkType">
+		<xsd:sequence>
+			<xsd:element ref="linkId" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+		<xsd:attribute ref="mpName" use="required"/>
+	</xsd:complexType>
+	
+	<xsd:element name="masterProgramLink" type="MasterProgramLinkType"/>
+	
+	<xsd:complexType name="MasterProgramLinkListType">
+		<xsd:sequence>
+			<xsd:element ref="masterProgramLink" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="masterProgramLinkList" type="MasterProgramLinkListType"/>
+</xsd:schema>

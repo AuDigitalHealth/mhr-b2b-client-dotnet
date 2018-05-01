@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.0 issued 11 December 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/MedicareOverview/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/MedicareOverview/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="medicareOverview">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="versionNumber" type="xs:string"/>
+				<xs:element name="fromDate" type="xs:date"/>
+				<xs:element name="toDate" type="xs:date"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

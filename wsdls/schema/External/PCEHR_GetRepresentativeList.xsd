@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.1 issued 24 April 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetRepresentativeList/1.1" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetRepresentativeList/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:element name="getRepresentativeList"/>
+	<xs:element name="getRepresentativeListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responseStatus" type="ns1:responseStatusType"/>
+				<xs:element name="PCEHRRecord" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="representativeList">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="representative" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ID" type="xs:string"/>
+													<xs:element name="type">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="Authorised Representative"/>
+																<xs:enumeration value="Legally Appointed Authorised Representative"/>
+																<xs:enumeration value="Parent"/>
+																<xs:enumeration value="Guardian"/>
+																<xs:enumeration value="Nominated Representative"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="name" type="ns1:nameTypeSupp"/>
+													<xs:element name="address" type="ns1:addressTypeSupp" minOccurs="0"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
