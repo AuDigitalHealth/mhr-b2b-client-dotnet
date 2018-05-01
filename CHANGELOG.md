@@ -1,6 +1,11 @@
 ### Change Log/Revision History
 
 
+1.1.0
+------------------
+- Added PCML ENUM for support future release  
+- Added  Helper function to process getDocumentList XDS data into simple class XDSRecord
+
 1.0.6
 ------------------
 - Added new doc type Australian Immunisation Register

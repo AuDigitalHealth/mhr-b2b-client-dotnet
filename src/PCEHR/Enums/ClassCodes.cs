@@ -109,7 +109,7 @@ namespace Nehta.VendorLibrary.PCEHR
         HealthCheckScheduleView,
 
         /// <summary>
-        /// Medicare Overview
+        /// Observation Overview
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16872",
             ConceptName = "Observation View", AlternateName = "Observation View")]
@@ -230,12 +230,18 @@ namespace Nehta.VendorLibrary.PCEHR
         BirthDetails,
 
         /// <summary>
-        /// Medicare Overview
+        /// Medicines View
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32002",
             ConceptName = "Medicines View", AlternateName = "Medicines View")]
         MedicinesView,
 
+        /// <summary>
+        /// Pharmacist Curated Medicines List
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "56445-0",
+            ConceptName = "Pharmacist Curated Medicines List", AlternateName = "Pharmacist Curated Medicines List")]
+        PharmacistCuratedMedicinesList,
 
         /*
         /// <summary>
