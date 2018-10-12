@@ -237,11 +237,11 @@ namespace Nehta.VendorLibrary.PCEHR
         MedicinesView,
 
         /// <summary>
-        /// Pharmacist Curated Medicines List
+        /// Pharmacist Shared Medicines List
         /// </summary>
         [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "56445-0",
-            ConceptName = "Pharmacist Curated Medicines List", AlternateName = "Pharmacist Curated Medicines List")]
-        PharmacistCuratedMedicinesList,
+            ConceptName = "Pharmacist Shared Medicines List", AlternateName = "Pharmacist Shared Medicines List")]
+        PharmacistSharedMedicinesList,
 
         /*
         /// <summary>

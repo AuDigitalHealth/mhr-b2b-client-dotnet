@@ -5,6 +5,7 @@
 ------------------
 - Added PCML ENUM for support future release  
 - Added  Helper function to process getDocumentList XDS data into simple class XDSRecord
+- Updated PCML to PSML description
 
 1.0.6
 ------------------
