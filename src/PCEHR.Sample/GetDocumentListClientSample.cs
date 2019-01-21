@@ -51,6 +51,8 @@ namespace PCEHR.Sample
 
             // Create PCEHR header
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
 
             // Instantiate the client
             // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getDocumentList"

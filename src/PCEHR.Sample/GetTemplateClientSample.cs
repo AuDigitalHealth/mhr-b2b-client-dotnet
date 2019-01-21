@@ -42,7 +42,7 @@ namespace PCEHR.Sample
 
             // Create PCEHR header
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
-            //PCEHR requires this to be blank
+            // Interface requires this to be blank
             header.IhiNumber = null;
 
             // Create the client

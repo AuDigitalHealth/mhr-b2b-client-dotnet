@@ -43,50 +43,26 @@ namespace PCEHR.Sample
                 true
                 );
 
-            // Create the PCEHR header
-            PCEHRHeader pcehrHeader = new PCEHRHeader();
-
-            // IHI is always 16 digits long starting 800360.
-            pcehrHeader.ihiNumber = "IHI";
-
-            // User Id may be a HPI-I for those who are HPI-I eligible (AHPRA registered)
-            // HPI-I is always 16 digits long starting 800361
-            // For other users such as administration and support staff user ID is set to their local ID
-            pcehrHeader.User = new PCEHRHeaderUser();
-            pcehrHeader.User.ID = "user ID";
-            // Set User.IDType to PCEHRHeaderUserIDType.LocalSystemIdentifier if the user.ID is a local ID rather than a HPI-I
-            pcehrHeader.User.IDType = PCEHRHeaderUserIDType.HPII;
-            pcehrHeader.User.userName = "user name";
-
-            pcehrHeader.accessingOrganisation = new PCEHRHeaderAccessingOrganisation();
-            pcehrHeader.accessingOrganisation.organisationName = "organisation name";
-            // HPI-O is always 16 digits long starting 800362
-            pcehrHeader.accessingOrganisation.organisationID = "organisation HPIO";
-
-            pcehrHeader.clientSystemType = PCEHRHeaderClientSystemType.CIS;
-            // The below information can be found in the My Health Record Vendor Product 
-            // Details Form that you filled out and submitted
-            pcehrHeader.productType = new PCEHRHeaderProductType();
-            pcehrHeader.productType.platform = "platform";
-            pcehrHeader.productType.productName = "product name";
-            pcehrHeader.productType.productVersion = "product version";
-            pcehrHeader.productType.vendor = "product vendor";
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
 
             // Instantiate the client
             // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/gainPCEHRAccess"
             // production endpoint is "https://services.ehealth.gov.au/gainPCEHRAccess"
             GainPCEHRAccessClient gainPcehrAccessClient = new GainPCEHRAccessClient(new Uri("https://GainPCEHRAccessEndpoint"), cert, cert);
 
-            // Create PCEHR header
-            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
-
             // Add server certificate validation callback
             ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
 
             // Create the access request
             gainPCEHRAccessPCEHRRecord accessRequest = new gainPCEHRAccessPCEHRRecord();
+            // if gaining access without a code, authorisationDetails is not required
+            // if gaining access with a code, include authorisationDetails, accessCode and accessType
+            // if gaining emergency access, include authorisationDetails and set accessType to “EmergencyAccess”
+            // Only include the below to pass an access code or gain emergency access
             accessRequest.authorisationDetails = new gainPCEHRAccessPCEHRRecordAuthorisationDetails();
-            // "patient access code" is not required if the patient has open access for there record
             accessRequest.authorisationDetails.accessCode = "patient access code";
             accessRequest.authorisationDetails.accessType = gainPCEHRAccessPCEHRRecordAuthorisationDetailsAccessType.AccessCode;
 

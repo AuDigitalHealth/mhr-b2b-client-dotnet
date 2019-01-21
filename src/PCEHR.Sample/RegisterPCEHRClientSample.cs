@@ -45,8 +45,8 @@ namespace PCEHR.Sample
 
             // Create PCEHR header
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
-            header.IhiNumber = "IHI"; // This value is required in the absence of demographic information.
-
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI"; 
 
             // Create the client
             // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/registerPCEHR"
