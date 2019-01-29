@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Nehta.VendorLibrary.PCEHR")]
+[assembly: AssemblyTitle("Nehta.VendorLibrary.MHR")]
 [assembly: AssemblyDescription("A library for communicating with the MyHealthRecord")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Australian Digital Health Agency")]
-[assembly: AssemblyProduct("Nehta.VendorLibrary.PCEHR")]
+[assembly: AssemblyProduct("Nehta.VendorLibrary.MHR")]
 [assembly: AssemblyCopyright("Copyright ©2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
