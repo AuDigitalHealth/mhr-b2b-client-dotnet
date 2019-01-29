@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nehta.VendorLibrary.Common, Version=4.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nehta.VendorLibrary.Common.4.2.0.1\lib\net40\Nehta.VendorLibrary.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -79,14 +83,13 @@
     <Compile Include="UploadDocumentMetadataClientSample.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{0bdb0698-cb73-4e7b-a182-805831d3a5ac}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PCEHR\PCEHR.csproj">
       <Project>{DC5F3E39-5D6D-4EA1-8032-CBF6EB0D7A3D}</Project>
       <Name>PCEHR</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
