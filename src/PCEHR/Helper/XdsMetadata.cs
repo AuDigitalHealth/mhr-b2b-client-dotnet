@@ -180,9 +180,11 @@ namespace Nehta.VendorLibrary.PCEHR
             documentTypeCode_cl07 = documentTypeCode;
             documentTypeDisplayName_cl07 = documentTypeDisplayName;
             documentTypeCodeSystemName_cl07 = documentTypeCodeSystemName;
+
             // The exception is for Advance Care Information/Advance Care Planning Document
             if (documentTypeCode == "100.16975")
             {
+                documentTypeCode_cl07 = "100.16998";
                 documentTypeDisplayName_cl07 = classCode.GetAttributeValue<CodedValueAttribute, string>(a => a.ConceptName);
             }
 
@@ -308,6 +310,12 @@ namespace Nehta.VendorLibrary.PCEHR
 
                 serviceStopTime = ConvertTimeToUtc(serviceStopTime);
             }
+
+            // As per DEXS-T123, serviceStartTime and serviceStopTime must be at least 8 chars long eg UTC formats: YYYYMMDD, YYYYMMDDhhmm, and YYYYMMDDhhmmss
+            if (serviceStartTime.Length < 8)
+                throw new ArgumentException("The serviceStartTime retrieved from the CDA document must be at least 8 digits long.");
+            if (serviceStopTime.Length < 8)
+                throw new ArgumentException("The serviceStopTime retrieved from the CDA document must be at least 8 digits long.");
 
             // Get Data
             languageCode = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:languageCode/@code", xnm));

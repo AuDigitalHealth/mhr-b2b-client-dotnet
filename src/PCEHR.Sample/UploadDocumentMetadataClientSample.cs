@@ -69,8 +69,8 @@ namespace PCEHR.Sample
                 "unique repository ID",   
                 "formatCode",
                 "formatCodeName",
-                HealthcareFacilityTypeCodes.Transport,
-                PracticeSettingTypes.SpecialistMedicalPractitionerServiceNEC
+                HealthcareFacilityTypeCodes.GeneralPractice,
+                PracticeSettingTypes.GeneralPracticeMedicalClinicService
                 );
 
 

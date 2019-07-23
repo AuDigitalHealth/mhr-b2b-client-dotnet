@@ -77,8 +77,8 @@ namespace PCEHR.Sample
                 packageBytes,
                 "formatCode",       
                 "formatCodeName",
-                HealthcareFacilityTypeCodes.Transport,
-                PracticeSettingTypes.SpecialistMedicalPractitionerServiceNEC
+                HealthcareFacilityTypeCodes.GeneralPractice,                // Update to relevant code
+                PracticeSettingTypes.GeneralPracticeMedicalClinicService    // Update to relevant code
                 );
 
             // To supercede / amend an existing document, the same UploadDocument call is used. However, the request is 
@@ -92,8 +92,8 @@ namespace PCEHR.Sample
             //    packageBytes,
             //    "formatCode",
             //    "formatCodeName",
-            //    HealthcareFacilityTypeCodes.Transport,
-            //    PracticeSettingTypes.SpecialistMedicalPractitionerServiceNEC,
+            //    HealthcareFacilityTypeCodes.GeneralPractice,
+            //    PracticeSettingTypes.GeneralPracticeMedicalClinicService,
             //    "uuidOfDocumentToReplace"
             //    );
 

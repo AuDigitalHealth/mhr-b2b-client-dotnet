@@ -243,6 +243,20 @@ namespace Nehta.VendorLibrary.PCEHR
             ConceptName = "Pharmacist Shared Medicines List", AlternateName = "Pharmacist Shared Medicines List")]
         PharmacistSharedMedicinesList,
 
+        /// <summary>
+        /// Pathology Overview
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32026",
+            ConceptName = "Pathology Overview", AlternateName = "Pathology Overview")]
+        PathologyOverview,
+
+        /// <summary>
+        /// Diagnostic Imaging Overview
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32025",
+            ConceptName = "Diagnostic Imaging Overview", AlternateName = "Diagnostic Imaging Overview")]
+        DiagnosticImagingOverview,
+
         /*
         /// <summary>
         /// Eprescription class code.

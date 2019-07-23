@@ -1,5 +1,10 @@
 ### Change Log/Revision History
 
+1.2.0
+------------------
+- Added ENUMs for PathologyOverview and DiagnosticImagingOverview
+- Fixed support for uploading ACP documents
+- As per DEXS-T-123, serviceStartTime and serviceStopTime must be at least 8 chars long
 
 1.1.0
 ------------------
