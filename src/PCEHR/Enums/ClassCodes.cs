@@ -189,8 +189,25 @@ namespace Nehta.VendorLibrary.PCEHR
         /// Advance care information class code.
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16975",
-            ConceptName = "Advance Care Information", AlternateName = "Advance Care Planning Document")]
+            ConceptName = "Advance Care Information", AlternateName = "Advance Care Information")]
         AdvanceCareInformation,
+
+        /// <summary>
+        /// AdvanceCareInformation Subtype
+        /// Advance care planning type code (NOT CLASS CODE).
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16998",
+            ConceptName = "Advance Care Planning Document", AlternateName = "Advance Care Planning Document")]
+        AciTypeAdvanceCarePlanning,
+
+        /// <summary>
+        /// AdvanceCareInformation Subtype
+        /// Goals Of Care Document type code (NOT CLASS CODE).
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32016",
+            ConceptName = "Goals of Care Document", AlternateName = "Goals of Care Document")]
+        AciTypeGoalsOfCare,
+
 
         // CeHR documents
 

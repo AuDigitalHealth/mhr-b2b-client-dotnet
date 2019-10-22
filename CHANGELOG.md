@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.2.1
+------------------
+- Added support for multiple ACI subtype documents (ACP + GoC)
+
 1.2.0
 ------------------
 - Added ENUMs for PathologyOverview and DiagnosticImagingOverview
