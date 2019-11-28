@@ -1,5 +1,8 @@
 ### Change Log/Revision History
 
+No version change 1.2.1 (.1)
+Updated DotNetZip from 1.9.1.8 to 1.11.0 due to a security vulnerability (High severity). 
+
 1.2.1
 ------------------
 - Added support for multiple ACI subtype documents (ACP + GoC)
