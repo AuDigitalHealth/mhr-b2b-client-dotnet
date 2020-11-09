@@ -13,20 +13,17 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
+using System.ServiceModel.Description;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.DocumentRepository;
-using Nehta.VendorLibrary.PCEHR.Helper;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
     /// <summary>
     /// GetDocumentClient
     /// </summary>
-    public class GetDocumentClient
+    public class GetDocumentClient : IGetDocumentClient
     {
         /// <summary>
         /// Generated client.
@@ -55,12 +52,36 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
+        /// <param name="endpointConfigurationName">Configuration name.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public GetDocumentClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
+        {
+            client = new DocumentRepositoryClient(endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
         public GetDocumentClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert)
         {
             client = new DocumentRepositoryClient(endpointUri, signingCert, tlsCert);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="endpointUri">Service endpoint.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public GetDocumentClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
+        {
+            client = new DocumentRepositoryClient(endpointUri, signingCert, tlsCert, initialisationCallback);
         }
 
         /// <summary>

@@ -14,6 +14,7 @@
 
 using System;
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel.Description;
 using Nehta.VendorLibrary.PCEHR.PCEHRProfile;
 
 namespace Nehta.VendorLibrary.PCEHR
@@ -21,7 +22,7 @@ namespace Nehta.VendorLibrary.PCEHR
     /// <summary>
     /// Client for the 'DoesPCEHRExist' service.
     /// </summary>
-    public class DoesPCEHRExistClient
+    public class DoesPCEHRExistClient : IDoesPCEHRExistClient
     {
         /// <summary>
         /// Profile client.
@@ -50,12 +51,36 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
+        /// <param name="endpointConfigurationName">Configuration name.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public DoesPCEHRExistClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
+        {
+            profileClient = new PCEHRProfileClient(endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
         public DoesPCEHRExistClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert)
         {
             profileClient = new PCEHRProfileClient(endpointUri, signingCert, tlsCert);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="endpointUri">Service endpoint.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public DoesPCEHRExistClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
+        {
+            profileClient = new PCEHRProfileClient(endpointUri, signingCert, tlsCert, initialisationCallback);
         }
 
         /// <summary>

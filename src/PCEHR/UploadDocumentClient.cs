@@ -13,26 +13,22 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using Ionic.Zip;
 using Nehta.VendorLibrary.PCEHR.DocumentRepository;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
-using System.Security.Cryptography;
 using Nehta.VendorLibrary.Common;
-using Nehta.VendorLibrary.PCEHR.Helper;
-using System.ServiceModel;
+using System.ServiceModel.Description;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
     /// <summary>
     /// UploadDocumentClient.
     /// </summary>
-    public class UploadDocumentClient
+    public class UploadDocumentClient : IUploadDocumentClient
     {
         /// <summary>
         /// Generated client.
@@ -61,12 +57,36 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
+        /// <param name="endpointConfigurationName">Configuration name.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public UploadDocumentClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
+        {
+            client = new DocumentRepositoryClient(endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
         public UploadDocumentClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert)
         {
             client = new DocumentRepositoryClient(endpointUri, signingCert, tlsCert);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="endpointUri">Service endpoint.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public UploadDocumentClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
+        {
+            client = new DocumentRepositoryClient(endpointUri, signingCert, tlsCert, initialisationCallback);
         }
 
         /// <summary>

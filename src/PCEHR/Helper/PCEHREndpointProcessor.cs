@@ -122,7 +122,8 @@ namespace Nehta.VendorLibrary.PCEHR
                 // Get SOAP XML from MTOM message, with start and end index
                 int startSoapIndex;
                 var unsignedXml = GetSoapFromString(mtomString, out startSoapIndex);
-                int endSoapIndex = startSoapIndex + unsignedXml.Length;
+                int endSoapIndex = startSoapIndex + Encoding.UTF8.GetBytes(unsignedXml).Length;
+                //int endSoapIndex = startSoapIndex + unsignedXml.Length;
 
                 // If binary MIME parts are found in MTOM message, then replace out base64 content with MTOM include statement
                 string signedFinalXml = signedBigXml;

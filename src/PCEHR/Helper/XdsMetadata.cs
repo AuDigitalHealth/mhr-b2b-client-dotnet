@@ -520,8 +520,12 @@ namespace Nehta.VendorLibrary.PCEHR
             var authorSlots = new List<SlotType1>();
             authorSlots.Add(CreateSlotType("authorInstitution", xonFormattedOrganisation));
             authorSlots.Add(CreateSlotType("authorPerson", xcnFormattedAuthor));
+            // This is the role, not the specialty
+            //if (!String.IsNullOrEmpty(authorSpecialty))
+                //authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
             if (!String.IsNullOrEmpty(authorSpecialty))
-                authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
+                authorSlots.Add(CreateSlotType("authorRole", authorSpecialty));
+
             ClassificationType authorClassification = CreateClassificationType(
                 "cl08",                
                 XDS_SUBMISSION_SET_AUTHOR,
@@ -622,8 +626,13 @@ namespace Nehta.VendorLibrary.PCEHR
             var authorSlots = new List<SlotType1>();
             authorSlots.Add(CreateSlotType("authorInstitution", xonFormattedOrganisation));
             authorSlots.Add(CreateSlotType("authorPerson", xcnFormattedAuthor));
+            // This is the role, not the specialty
+            //if (!String.IsNullOrEmpty(authorSpecialty))
+            //authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
             if (!String.IsNullOrEmpty(authorSpecialty))
-                authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
+                authorSlots.Add(CreateSlotType("authorRole", authorSpecialty));
+
+
             ClassificationType authorClassification = CreateClassificationType(
                 "cl01",
                 XDS_DOCUMENT_ENTRY_AUTHOR,

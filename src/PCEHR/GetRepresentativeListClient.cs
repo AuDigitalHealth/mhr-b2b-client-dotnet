@@ -18,13 +18,14 @@ using System.ServiceModel.Channels;
 using Nehta.VendorLibrary.PCEHR.GetRepresentativeList;
 using Nehta.VendorLibrary.Common;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
     /// <summary>
     /// GetRepresentativeListClient.
     /// </summary>
-    public class GetRepresentativeListClient
+    public class GetRepresentativeListClient : IGetRepresentativeListClient
     {
         /// <summary>
         /// Generated client.
@@ -60,6 +61,20 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
+        /// <param name="endpointConfigurationName">Configuration name.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public GetRepresentativeListClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
+        {
+            Validation.ValidateArgumentRequired("endpointConfigurationName", endpointConfigurationName);
+
+            InitialiseClient(null, endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
@@ -68,6 +83,20 @@ namespace Nehta.VendorLibrary.PCEHR
             Validation.ValidateArgumentRequired("endpointUri", endpointUri);
 
             InitialiseClient(endpointUri.ToString(), null, signingCert, tlsCert);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="endpointUri">Service endpoint.</param>
+        /// <param name="signingCert">Header signing certificate.</param>
+        /// <param name="tlsCert">TLS client certificate.</param>
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        public GetRepresentativeListClient(Uri endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
+        {
+            Validation.ValidateArgumentRequired("endpointUri", endpointUri);
+
+            InitialiseClient(endpointUri.ToString(), null, signingCert, tlsCert, initialisationCallback);
         }
 
         /// <summary>
@@ -94,7 +123,8 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="endpointConfigurationName">Configuration name.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
-        private void InitialiseClient(string endpointUri, string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert)
+        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+        private void InitialiseClient(string endpointUri, string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
         {
             Validation.ValidateArgumentRequired("tlsCert", tlsCert);
 
@@ -124,6 +154,8 @@ namespace Nehta.VendorLibrary.PCEHR
                 }
 
                 getRepresentativeListClient = client;
+
+                initialisationCallback?.Invoke(client.Endpoint);
             }
         }
 

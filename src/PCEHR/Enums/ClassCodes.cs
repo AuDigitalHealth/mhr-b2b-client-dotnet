@@ -76,9 +76,9 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Australian Childhood Immunisation Register class code.
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16659",
-            ConceptName = "Australian Childhood Immunisation Register", AlternateName = "Australian Childhood Immunisation Register")]
-        AustralianChildhoodImmunisationRegister,
+        //[CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16659",
+        //    ConceptName = "Australian Childhood Immunisation Register", AlternateName = "Australian Childhood Immunisation Register")]
+        //AustralianChildhoodImmunisationRegister,
 
         /// <summary>
         /// Australian Immunisation Register class code.

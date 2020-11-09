@@ -1,5 +1,15 @@
 ### Change Log/Revision History
 
+
+1.3.0
+------------------
+- Added support for NUNIT testing exposing interfaces for dummy responses to can test locally
+- Re-mapped Author Role in XDS metadata from authorSpecialty to authorRole (though not used anywhere)
+- Removed ACIR Code as AIR should be the only one needed
+- Added support for non-ASCII Latin-1 chars in xdsmetadata
+
+1.2.1.1
+------------------
 No version change 1.2.1 (.1)
 Updated DotNetZip from 1.9.1.8 to 1.11.0 due to a security vulnerability (High severity). 
 
