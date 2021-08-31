@@ -1,6 +1,14 @@
 ### Change Log/Revision History
 
 
+1.4.0
+------------------
+- Added support for uploading document subtypes (DS,ES,SL) with providing optional params on uploading
+- Added support for downloading new document subtypes using SubTypeCode in the adhocQueryBuilder
+- Updated Samples to show how to use optional params to override default behaviour
+- Updated Samples to show how to use SubTypeCode in the adhocQueryBuilder
+- Added Sample with how to process the Document Registry file - DocumentRegisterClientSample.cs
+
 1.3.0
 ------------------
 - Added support for NUNIT testing exposing interfaces for dummy responses to can test locally

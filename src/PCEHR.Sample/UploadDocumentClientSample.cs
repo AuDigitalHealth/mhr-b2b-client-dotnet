@@ -73,13 +73,31 @@ namespace PCEHR.Sample
             // "eHealth Dispense Record" - 1.2.36.1.2001.1006.1.171.5
             // "Pathology Report" - 1.2.36.1.2001.1006.1.220.4
             // "Diagnostic Imaging Report" - 1.2.36.1.2001.1006.1.222.4
-            ProvideAndRegisterDocumentSetRequestType request = uploadDocumentClient.CreateRequestForNewDocument(
+            ProvideAndRegisterDocumentSetRequestType request1 = uploadDocumentClient.CreateRequestForNewDocument(
                 packageBytes,
                 "formatCode",       
                 "formatCodeName",
                 HealthcareFacilityTypeCodes.GeneralPractice,                // Update to relevant code
                 PracticeSettingTypes.GeneralPracticeMedicalClinicService    // Update to relevant code
                 );
+
+
+            // Example for a Document using Subtypes - these codes will be published on github
+            // DS, ES and SL will now support document subtypes (XDS Metadata: TypeCode)
+            // These values can be passed in using the last 3 fields and are optional parameters so can be ignored or left blank
+            // By providing these values, they will override the default values
+
+            ProvideAndRegisterDocumentSetRequestType request2 = uploadDocumentClient.CreateRequestForNewDocument(
+                packageBytes,
+                "formatCode",
+                "formatCodeName",
+                HealthcareFacilityTypeCodes.GeneralPractice,                // Update to relevant code
+                PracticeSettingTypes.GeneralPracticeMedicalClinicService,    // Update to relevant code
+                "59258-4",
+                "LOINC",
+                "Emergency Department Discharge summary"
+            );
+
 
             // To supercede / amend an existing document, the same UploadDocument call is used. However, the request is 
             // prepared using the CreateRequestForReplacement function.
@@ -88,13 +106,18 @@ namespace PCEHR.Sample
             // the uuidOfDocumentToReplace must be converted to OID format and include the repository OID. 
             // (i.e. a document being replaced in the My Health Record repository is)
 
+            // Example for a Document and using Subtypes
+            // DS, ES and SL now support document subtypes (XDS Metadata: TypeCode)
+            // These values can be passed in using the last 3 fields and are optional parameters so can be ignored or left blank
+
             // ProvideAndRegisterDocumentSetRequestType request = uploadDocumentClient.CreateRequestForReplacement(
             //    packageBytes,
             //    "formatCode",
             //    "formatCodeName",
             //    HealthcareFacilityTypeCodes.GeneralPractice,
             //    PracticeSettingTypes.GeneralPracticeMedicalClinicService,
-            //    "uuidOfDocumentToReplace"
+            //    "uuidOfDocumentToReplace",
+            //    string.Empty, string.Empty, string.Empty
             //    );
 
             // When uploading to the NPDR where the repository unique ID, document size and hash may need to be included
@@ -105,7 +128,7 @@ namespace PCEHR.Sample
             try
             {
                 // Invoke the service
-                RegistryResponseType registryResponse = uploadDocumentClient.UploadDocument(header, request);
+                RegistryResponseType registryResponse = uploadDocumentClient.UploadDocument(header, request1);
 
                 // Get the soap request and response
                 string soapRequest = uploadDocumentClient.SoapMessages.SoapRequest;

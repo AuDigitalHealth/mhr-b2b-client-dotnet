@@ -22,6 +22,9 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
         /// <param name="practiceSetting">Practice setting code.</param>
         /// <param name="uuidOfDocumentToReplace">UUID of document to replace.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
         /// <returns>The populated request object.</returns>
         ProvideAndRegisterDocumentSetRequestType CreateRequestForReplacement(
             byte[] cdaPackageContent,
@@ -29,7 +32,10 @@ namespace Nehta.VendorLibrary.PCEHR
             string formatCodeName,
             HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
             PracticeSettingTypes practiceSetting,
-            string uuidOfDocumentToReplace);
+            string uuidOfDocumentToReplace,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "");
 
         /// <summary>
         /// Helper method to generate the request object when submitting a new document to the PCEHR.
@@ -39,13 +45,19 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="formatCodeName">Format code display name.</param>
         /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
         /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
         /// <returns>The populated request object.</returns>
         ProvideAndRegisterDocumentSetRequestType CreateRequestForNewDocument(
             byte[] cdaPackageContent,
             string formatCode,
             string formatCodeName,
             HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
-            PracticeSettingTypes practiceSetting);
+            PracticeSettingTypes practiceSetting,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "");
 
         /// <summary>
         /// Helper method to include Repository Unique ID, payload hash and payload size information in the XDS metadata.

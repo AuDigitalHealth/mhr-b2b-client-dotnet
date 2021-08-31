@@ -12,11 +12,6 @@
  * under the License.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Nehta.VendorLibrary.PCEHR
 {
     /// <summary>
@@ -273,6 +268,13 @@ namespace Nehta.VendorLibrary.PCEHR
         [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32025",
             ConceptName = "Diagnostic Imaging Overview", AlternateName = "Diagnostic Imaging Overview")]
         DiagnosticImagingOverview,
+
+        /// <summary>
+        /// Immunisation Consolidated View
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32034",
+            ConceptName = "Immunisation Consolidated View", AlternateName = "Immunisation Consolidated View")]
+        ImmunisationConsolidatedView,
 
         /*
         /// <summary>

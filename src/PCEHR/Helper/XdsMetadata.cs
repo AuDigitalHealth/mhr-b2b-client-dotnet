@@ -134,20 +134,20 @@ namespace Nehta.VendorLibrary.PCEHR
 
         private string Description;
 
-        public XdsMetadata(
-            XmlDocument cdaDocument,
-            string repositoryId,
-
-            // FormatCodes formatCode,
-            string formatCode,
-            string formatCodeName,
-
-            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
-            PracticeSettingTypes practiceSetting,
-            int? size,
-            string hash,
-            bool isUpdateMetadata,
-            string uuidOfDocumentToReplace)
+        public XdsMetadata(XmlDocument cdaDocument,
+                            string repositoryId,
+                            string formatCode,
+                            string formatCodeName,
+                            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
+                            PracticeSettingTypes practiceSetting,
+                            int? size,
+                            string hash,
+                            bool isUpdateMetadata,
+                            string uuidOfDocumentToReplace,
+                            string documentSubTypeCode = "",
+                            string documentSubTypeCodeSystem = "",
+                            string documentSubTypeName = ""
+                            )
         {
             this.formatCode = formatCode;
             this.formatCodeName = formatCodeName;
@@ -174,6 +174,7 @@ namespace Nehta.VendorLibrary.PCEHR
             var classCode = GetClassCodeEnum(documentTypeCode);
             documentTypeCodeSystemName = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:code/@codeSystemName", xnm));
             documentTypeDisplayName = classCode.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
+            
             // 14/10 Updated Spec says we should use the AlternateName for both Type and Class Code
             documentClassCodeDisplayName = classCode.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
 
@@ -181,7 +182,19 @@ namespace Nehta.VendorLibrary.PCEHR
             documentTypeDisplayName_cl07 = documentTypeDisplayName;
             documentTypeCodeSystemName_cl07 = documentTypeCodeSystemName;
 
-            // The exception is for Advance Care Information = which has Advance Care Planning Document/Goals of Care Document subtypes
+            // Discharge Summary, Event Summary and Specialist Letter can support subtypes
+            if (documentTypeCode == "18842-5" || documentTypeCode == "34133-9" || documentTypeCode == "51852-2")
+            {
+                if (!string.IsNullOrWhiteSpace(documentSubTypeCode) &&
+                    !string.IsNullOrWhiteSpace(documentSubTypeCodeSystem) && !string.IsNullOrWhiteSpace(documentSubTypeName))
+                {
+                    documentTypeCode_cl07 = documentSubTypeCode;
+                    documentTypeDisplayName_cl07 = documentSubTypeName;
+                    documentTypeCodeSystemName_cl07 = documentSubTypeCodeSystem;
+                }
+            }
+
+            // Subtypes: The exception is for Advance Care Information = which has Advance Care Planning Document/Goals of Care Document subtypes
             if (documentTypeCode == "100.16975")
             {
                 // Get document desc and code from the body

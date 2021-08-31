@@ -71,6 +71,11 @@ namespace PCEHR.Sample
             // See Table 3 XDSDocumentEntry Document Type and Class Code value set from 
             // the Document Exchange Service Technical Service Specification
 
+            // New option to filter document subtypes as strings that are not defined in the ENUM ClassCodes
+            // Tuple<string, string> subtype = new Tuple<string, string>("100.32016", "NCTIS Data Components");
+            // adhocQueryBuilder.SubTypeCode = new List<Tuple<string, string>>();
+            // adhocQueryBuilder.SubTypeCode.Add(subtype);
+
             // Create the request using the query
             AdhocQueryRequest queryRequest = adhocQueryBuilder.BuildRequest();
             

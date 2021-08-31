@@ -44,6 +44,9 @@
       <HintPath>..\packages\Nehta.VendorLibrary.Common.4.2.1\lib\net40\Nehta.VendorLibrary.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -98,6 +101,7 @@
     <Compile Include="GetRepresentativeListClient.cs" />
     <Compile Include="GetViewClient.cs" />
     <Compile Include="Helper\CommonPcehrHeader.cs" />
+    <Compile Include="Helper\MHR_Document_Register.cs" />
     <Compile Include="Helper\SoapMessages.cs" />
     <Compile Include="Helper\SoapSignatureUtility.cs" />
     <Compile Include="Helper\XdsMetadataHelper.cs" />

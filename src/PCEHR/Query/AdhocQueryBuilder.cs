@@ -12,6 +12,7 @@
  * under the License.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Nehta.VendorLibrary.PCEHR.DocumentRegistry;
@@ -38,6 +39,9 @@ namespace Nehta.VendorLibrary.PCEHR
         public IList<ClassCodes> ClassCode { get; set; }
 
         public IList<ClassCodes> TypeCode { get; set; }
+
+        // Use own sub type code as opposed to ENUMs
+        public IList<Tuple<string, string>> SubTypeCode { get; set; }
 
         public IList<PracticeSettingTypes> PracticeSettingCode { get; set; }
 
@@ -121,10 +125,10 @@ namespace Nehta.VendorLibrary.PCEHR
                     slots.Add(CreateClassCodeSlot(ClassCode));
                 }
 
-                // Type code
-                if (TypeCode != null && TypeCode.Count > 0)
+                // Type code + (Sub)Type code
+                if (TypeCode != null || SubTypeCode != null)
                 {
-                    slots.Add(CreateTypeCodeSlot(TypeCode));
+                    slots.Add(CreateTypeCodeSlot(TypeCode, SubTypeCode));
                 }
 
                 // Practice setting
@@ -230,14 +234,29 @@ namespace Nehta.VendorLibrary.PCEHR
             return CreateSlot("$XDSDocumentEntryClassCode", items.ToArray());
         }
 
-        private SlotType1 CreateTypeCodeSlot(IList<ClassCodes> typeCode)
+        private SlotType1 CreateTypeCodeSlot(IList<ClassCodes> typeCode, IList<Tuple<string, string>> subTypeCode)
         {
             IList<string> items = new List<string>();
-            foreach (ClassCodes codes in typeCode)
+            // Enum Subtypes
+            if (typeCode != null)
             {
-                string code = codes.GetAttributeValue<CodedValueAttribute, string>(a => a.ConceptCode);
-                string codeSystem = codes.GetAttributeValue<CodedValueAttribute, string>(a => a.CodingSystem);
-                items.Add(CreateCodeText(code, codeSystem));
+                foreach (ClassCodes codes in typeCode)
+                {
+                    string code = codes.GetAttributeValue<CodedValueAttribute, string>(a => a.ConceptCode);
+                    string codeSystem = codes.GetAttributeValue<CodedValueAttribute, string>(a => a.CodingSystem);
+                    items.Add(CreateCodeText(code, codeSystem));
+                }
+            }
+
+            if (subTypeCode != null)
+            {
+                // Custom Subtypes
+                foreach (var codes in subTypeCode)
+                {
+                    string code = codes.Item1;
+                    string codeSystem = codes.Item2;
+                    items.Add(CreateCodeText(code, codeSystem));
+                }
             }
 
             return CreateSlot("$XDSDocumentEntryTypeCode", items.ToArray());

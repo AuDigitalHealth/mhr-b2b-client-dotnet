@@ -122,6 +122,9 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
         /// <param name="practiceSetting">Practice setting code.</param>
         /// <param name="uuidOfDocumentToReplace">UUID of document to replace.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
         /// <returns>The populated request object.</returns>
         public ProvideAndRegisterDocumentSetRequestType CreateRequestForReplacement(
             byte[] cdaPackageContent,
@@ -129,7 +132,10 @@ namespace Nehta.VendorLibrary.PCEHR
             string formatCodeName,
             HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
             PracticeSettingTypes practiceSetting,
-            string uuidOfDocumentToReplace)
+            string uuidOfDocumentToReplace,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "")
         {
             Validation.ValidateArgumentRequired("uuidOfDocumentToReplace", uuidOfDocumentToReplace);
 
@@ -139,8 +145,10 @@ namespace Nehta.VendorLibrary.PCEHR
                 formatCodeName,
                 healthcareFacilityTypeCode,
                 practiceSetting,
-                uuidOfDocumentToReplace
-                );
+                uuidOfDocumentToReplace,
+                documentSubTypeCode,
+                documentSubTypeCodeSystem,
+                documentSubTypeName);
         }
 
         /// <summary>
@@ -151,13 +159,19 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="formatCodeName">Format code display name.</param>
         /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
         /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
         /// <returns>The populated request object.</returns>
         public ProvideAndRegisterDocumentSetRequestType CreateRequestForNewDocument(
             byte[] cdaPackageContent,
             string formatCode,
             string formatCodeName,
             HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
-            PracticeSettingTypes practiceSetting)
+            PracticeSettingTypes practiceSetting,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "")
         {
             return CreateRequest(
                 cdaPackageContent,
@@ -165,7 +179,10 @@ namespace Nehta.VendorLibrary.PCEHR
                 formatCodeName,
                 healthcareFacilityTypeCode,
                 practiceSetting,
-                null
+                null,
+                documentSubTypeCode,
+                documentSubTypeCodeSystem,
+                documentSubTypeName
                 );
         }
 
@@ -223,6 +240,9 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
         /// <param name="practiceSetting">Practice setting code.</param>
         /// <param name="uuidOfDocumentToReplace">UUID of document to replace. NULL for new documents.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
         /// <returns>The populated request object.</returns>
         internal ProvideAndRegisterDocumentSetRequestType CreateRequest(
             byte[] cdaPackageContent,
@@ -230,7 +250,10 @@ namespace Nehta.VendorLibrary.PCEHR
             string formatCodeName,
             HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
             PracticeSettingTypes practiceSetting,
-            string uuidOfDocumentToReplace)
+            string uuidOfDocumentToReplace,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "")
         {
             Validation.ValidateArgumentRequired("cdaPackageContent", cdaPackageContent);
             Validation.ValidateArgumentRequired("formatCode", formatCodeName);
@@ -250,7 +273,10 @@ namespace Nehta.VendorLibrary.PCEHR
                 null,
                 null,
                 false,
-                uuidOfDocumentToReplace
+                uuidOfDocumentToReplace,
+                documentSubTypeCode,
+                documentSubTypeCodeSystem,
+                documentSubTypeName
                 );
             var sor = metadata.CreateSubmitObjectsRequest();
 

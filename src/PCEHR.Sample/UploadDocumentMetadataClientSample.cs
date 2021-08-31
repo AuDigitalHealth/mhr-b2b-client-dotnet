@@ -64,7 +64,8 @@ namespace PCEHR.Sample
 
             // Create a request from an existing package
             // Format codes and format code names are not fixed, and it is recommended for them to be configurable.
-            SubmitObjectsRequest request = uploadDocumentMetadataClient.CreateRequestForNewDocument(
+            // Example for a Document using Subtypes - these codes will be published on github
+            SubmitObjectsRequest request1 = uploadDocumentMetadataClient.CreateRequestForNewDocument(
                 packageBytes,
                 "unique repository ID",   
                 "formatCode",
@@ -73,12 +74,26 @@ namespace PCEHR.Sample
                 PracticeSettingTypes.GeneralPracticeMedicalClinicService
                 );
 
-
+            // Example for a Document using Subtypes - these codes will be published on github
+            // DS, ES and SL will now support document subtypes (XDS Metadata: TypeCode)
+            // These values can be passed in using the last 3 fields and are optional parameters so can be ignored or left blank
+            // By providing these values, they will override the default values
+            SubmitObjectsRequest request2 = uploadDocumentMetadataClient.CreateRequestForNewDocument(
+                packageBytes,
+                "unique repository ID",
+                "formatCode",
+                "formatCodeName",
+                HealthcareFacilityTypeCodes.GeneralPractice,
+                PracticeSettingTypes.GeneralPracticeMedicalClinicService,
+                  "59258-4",
+                "LOINC",
+                "Emergency Department Discharge summary"
+                );
 
             try
             {
                 // Invoke the service
-                RegistryResponseType registryResponse = uploadDocumentMetadataClient.UploadDocumentMetadata(header, request);
+                RegistryResponseType registryResponse = uploadDocumentMetadataClient.UploadDocumentMetadata(header, request1);
 
                 // Get the soap request and response
                 string soapRequest = uploadDocumentMetadataClient.SoapMessages.SoapRequest;
