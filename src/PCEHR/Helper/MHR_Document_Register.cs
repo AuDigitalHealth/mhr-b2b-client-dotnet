@@ -183,6 +183,8 @@ namespace Nehta.VendorLibrary.PCEHR.DocumentRegister {
         
         private string codeSystemNameField;
         
+        private string categoryField;
+        
         private string displayNameField;
         
         private string descriptionField;
@@ -228,6 +230,16 @@ namespace Nehta.VendorLibrary.PCEHR.DocumentRegister {
             }
             set {
                 this.codeSystemNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string category {
+            get {
+                return this.categoryField;
+            }
+            set {
+                this.categoryField = value;
             }
         }
         

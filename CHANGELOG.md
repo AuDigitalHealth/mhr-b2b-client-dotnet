@@ -1,5 +1,8 @@
 ### Change Log/Revision History
 
+1.4.1
+------------------
+- Minor update to Document Registry file adding field category
 
 1.4.0
 ------------------
