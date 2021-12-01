@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -85,8 +86,30 @@ namespace PCEHR.Sample
                 // Invoke the service
                 AdhocQueryResponse queryResponse = documentListClient.GetDocumentList(header, queryRequest);
 
-                // Process data into a more simple model
+                /////////////////////////////////////////////////////////////////////////////////////////
+
+                // If you want to handle Document Views different to documents in your UI, use the following code to split them out
+
+                // XDS.b Constants
+                var authorInstitution = "My Health Record^^^^^^^^^1.2.36.1.2001.1007.1.8003640001000036";
+                var authorClassification = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
+
+                // Documents Only (Filter our Document Views (ie Medicare Overviews, Medicines View, Pathology Overview, Diagnostic Imaging Overview, Immunisation Consolidated View))
+                var listOfDocuments = queryResponse.RegistryObjectList.ExtrinsicObject.Where(r => r.Classification.Any(c =>
+                        c.classificationScheme == authorClassification && c.Slot.Any(s => s.name == "authorInstitution" && !s.ValueList.Value[0].Equals(authorInstitution)))).ToArray();
+
+                // Document Views only (Filter out documents)
+                var listOfDocumentViews = queryResponse.RegistryObjectList.ExtrinsicObject.Where(r => r.Classification.Any(c =>
+                        c.classificationScheme == authorClassification && c.Slot.Any(s => s.name == "authorInstitution" && s.ValueList.Value[0].Equals(authorInstitution)))).ToArray();
+
+                // For other views, see GetViewClient.cs
+
+                /////////////////////////////////////////////////////////////////////////////////////////
+
+                // Process data into a more simple model - use alternative objects if handling views
                 XdsRecord[] data = XdsMetadataHelper.ProcessXdsMetadata(queryResponse.RegistryObjectList.ExtrinsicObject);
+                //XdsRecord[] dataForDocsOnly = XdsMetadataHelper.ProcessXdsMetadata(listOfDocuments);
+                //XdsRecord[] dataForDocViews = XdsMetadataHelper.ProcessXdsMetadata(listOfDocumentViews);
 
                 // For displaying the data in a list
                 foreach (var row in data)
