@@ -53,7 +53,11 @@ namespace Nehta.VendorLibrary.PCEHR
             InspectorBehavior newBehavior = new InspectorBehavior(soapMessages, signingCertificate);
 
             // Add the behavior
+#if NET40
             endpoint.Behaviors.Add(newBehavior);
+#else
+            endpoint.EndpointBehaviors.Add(newBehavior);
+#endif
         }
 
         /// <summary>
@@ -247,7 +251,11 @@ namespace Nehta.VendorLibrary.PCEHR
 
             public void ApplyClientBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.ClientRuntime clientRuntime)
             {
+#if NET40
                 clientRuntime.MessageInspectors.Add(new MessageInspector(soapMessages, signingCertificate));
+#else
+                clientRuntime.ClientMessageInspectors.Add(new MessageInspector(soapMessages, signingCertificate));
+#endif
             }
 
             public void ApplyDispatchBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.EndpointDispatcher endpointDispatcher)
