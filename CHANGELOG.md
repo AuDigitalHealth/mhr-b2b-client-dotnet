@@ -1,5 +1,10 @@
 ### Change Log/Revision History
 
+1.4.2
+------------------
+- Fixed XdsMetadataHelper to pull out AuthorRole
+- Updated SVT URL in sample code
+
 1.4.1
 ------------------
 - Minor update to Document Registry file adding field category

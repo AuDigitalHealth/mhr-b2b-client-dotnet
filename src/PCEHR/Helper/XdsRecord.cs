@@ -20,6 +20,8 @@ namespace Nehta.VendorLibrary.PCEHR
         public XdsAuthorInstitution authorInstitution { get; set; }
         public XdsAuthorPerson authorPerson { get; set; }
         public string authorSpeciality { get; set; }
+        public string authorRole { get; set; }
+
         public string classCode { get; set; }
         public string classCodeDisplayName { get; set; } //used as Document Type in the Document List
         public string formatCode { get; set; }

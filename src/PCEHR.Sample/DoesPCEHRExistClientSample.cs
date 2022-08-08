@@ -60,7 +60,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/doesPCEHRExist"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/doesPCEHRExist"
             // Production endpoint is "https://services.ehealth.gov.au/doesPCEHRExist"
             DoesPCEHRExistClient doesPcehrExistClient = new DoesPCEHRExistClient(new Uri("https://DoesPCEHRExistEndpoint"), cert, cert);
 

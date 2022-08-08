@@ -49,7 +49,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/gainPCEHRAccess"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/gainPCEHRAccess"
             // production endpoint is "https://services.ehealth.gov.au/gainPCEHRAccess"
             GainPCEHRAccessClient gainPcehrAccessClient = new GainPCEHRAccessClient(new Uri("https://GainPCEHRAccessEndpoint"), cert, cert);
 

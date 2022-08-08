@@ -56,7 +56,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Create the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getRepresentativeList"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getRepresentativeList"
             // production endpoint is "https://services.ehealth.gov.au/getRepresentativeList"
             GetRepresentativeListClient getRepresentativeClient = new GetRepresentativeListClient(
                 new Uri("https://GetRepresentativeListEndpoint"), cert, cert);

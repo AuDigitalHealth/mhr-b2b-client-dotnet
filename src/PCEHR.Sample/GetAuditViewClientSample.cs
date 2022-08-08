@@ -48,7 +48,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getAuditView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getAuditView"
             // production endpoint is "https://services.ehealth.gov.au/getAuditView"
             GetAuditViewClient getAuditViewClient = new GetAuditViewClient(new Uri("https://GetAuditViewEndpoint"), cert, cert);
      

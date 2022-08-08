@@ -51,7 +51,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Create the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getDocument"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getDocument"
             // production endpoint is "https://services.ehealth.gov.au/getDocument"
             GetDocumentClient getDocumentClient = new GetDocumentClient(new Uri("https://GetDocumentEndpoint"), cert, cert);
 

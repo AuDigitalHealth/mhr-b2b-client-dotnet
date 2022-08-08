@@ -48,7 +48,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Create the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/removeDocument"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/removeDocument"
             // production endpoint is "https://services.ehealth.gov.au:443/removeDocument"
             RemoveDocumentClient removeDocumentClient = new RemoveDocumentClient(
                 new Uri("https://RemoveDocumentEndpoint"), cert, cert);

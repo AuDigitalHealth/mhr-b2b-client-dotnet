@@ -177,6 +177,7 @@ namespace Nehta.VendorLibrary.PCEHR
                         record.authorPerson.authorQualifiedIdentifierExtension = (authorId[0] != "" ? authorId[1] : "");
                     }
                     record.authorSpeciality = getTextFromSlot(author.Slot, "authorSpecialty");
+                    record.authorRole = getTextFromSlot(author.Slot, "authorRole");
 
                     ClassificationType classCode = getClassification(row.Classification, XDS_DOCUMENT_ENTRY_CLASS_CODE);
                     record.classCode = classCode.nodeRepresentation;

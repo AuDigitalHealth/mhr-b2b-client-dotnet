@@ -49,7 +49,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getChangeHistoryView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getChangeHistoryView"
             // production endpoint is "https://services.ehealth.gov.au/getChangeHistoryView"
             GetChangeHistoryViewClient changeHistoryViewClient = new GetChangeHistoryViewClient(new Uri("https://GetChangeHistoryViewEndpoint"), cert, cert);
 

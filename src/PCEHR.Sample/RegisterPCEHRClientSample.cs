@@ -49,7 +49,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI"; 
 
             // Create the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/registerPCEHR"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/registerPCEHR"
             // production endpoint is "https://services.ehealth.gov.au/registerPCEHR"
             RegisterPCEHRClient registerClient = new RegisterPCEHRClient(
                 new Uri("https://RegisterPCEHREndpoint"), cert, cert);

@@ -81,7 +81,7 @@ namespace PCEHR.Sample
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
             // production endpoint is "https://services.ehealth.gov.au/getView"
             GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
 
@@ -181,7 +181,7 @@ namespace PCEHR.Sample
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
             // production endpoint is "https://services.ehealth.gov.au/getView"
             GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
 
@@ -241,7 +241,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
             // production endpoint is "https://services.ehealth.gov.au/getView"
             GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
 
@@ -299,7 +299,7 @@ namespace PCEHR.Sample
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
             // production endpoint is "https://services.ehealth.gov.au/getView"
             GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
 
@@ -354,7 +354,7 @@ namespace PCEHR.Sample
             CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
 
             // Instantiate the client
-            // SVT endpoint is "https://b2b.ehealthvendortest.health.gov.au/getView"
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
             // production endpoint is "https://services.ehealth.gov.au/getView"
             GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
 

@@ -53,7 +53,7 @@ namespace PCEHR.Sample
             header.IhiNumber = "IHI";
 
             // Create the client
-            // SVT endpoint is https://b2b.ehealthvendortest.health.gov.au/uploadDocument
+            // SVT endpoint is https://services.svt.gw.myhealthrecord.gov.au/uploadDocument
             // production endpoint is https://services.ehealth.gov.au/uploadDocument
             UploadDocumentClient uploadDocumentClient = new UploadDocumentClient(
                 new Uri("https://UploadDocumentEndpoint"), cert, cert);
