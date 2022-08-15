@@ -1,169 +1,47 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DC5F3E39-5D6D-4EA1-8032-CBF6EB0D7A3D}</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nehta.VendorLibrary.MHR</RootNamespace>
     <AssemblyName>Nehta.VendorLibrary.MHR</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <!-- Package and assembly information -->
+  <PropertyGroup>
+    <Version>1.5.0.0</Version>
+    <Description>A library for communicating with the MyHealthRecord</Description>
+    <Company>Australian Digital Health Agency</Company>
+    <Authors>$(Company)</Authors>
+    <Copyright>Copyright ©2022</Copyright>
+    <PackageReleaseNotes>Added netstandard2.0 compatible version of library</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/AuDigitalHealth/mhr-b2b-client-dotnet</PackageProjectUrl>
+    <PackageTags>ADHA Digital Health Nehta</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
-    <Reference Include="Nehta.VendorLibrary.Common, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nehta.VendorLibrary.Common.4.2.1\lib\net40\Nehta.VendorLibrary.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+      <HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.ServiceModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\ServiceRequestorOption.cs" />
-    <Compile Include="GeneratorCode\PCEHR_AdvanceCarePlanningView.cs" />
-    <Compile Include="GeneratorCode\PCEHR_AdvanceCarePlanningView_Response.cs" />
-    <Compile Include="GeneratorCode\PCEHR_DiagnosticImagingReportView.cs" />
-    <Compile Include="GeneratorCode\PCEHR_DiagnosticImagingReportView_Response.cs" />
-    <Compile Include="GeneratorCode\PCEHR_DocumentRegistry11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_DocumentRepository11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_GetAuditView11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_GetChangeHistoryView11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_GetIndividualDetailsView20.cs" />
-    <Compile Include="GeneratorCode\PCEHR_GetRepresentativeList11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_GetTemplate11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_GetView10.cs" />
-    <Compile Include="GeneratorCode\PCEHR_HealthCheckScheduleView.cs" />
-    <Compile Include="GeneratorCode\PCEHR_HealthRecordOverview.cs" />
-    <Compile Include="GeneratorCode\PCEHR_HealthRecordOverview_Response.cs" />
-    <Compile Include="GeneratorCode\PCEHR_MedicareOverview.cs" />
-    <Compile Include="GeneratorCode\PCEHR_ObservationView.cs" />
-    <Compile Include="GeneratorCode\PCEHR_PathologyReportView.cs" />
-    <Compile Include="GeneratorCode\PCEHR_PathologyReportView_Response.cs" />
-    <Compile Include="GeneratorCode\PCEHR_PCEHRProfile11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_PrescriptionAndDispenseView.cs" />
-    <Compile Include="GeneratorCode\PCEHR_RegisterPCEHR20.cs" />
-    <Compile Include="GeneratorCode\PCEHR_RemoveDocument11.cs" />
-    <Compile Include="GeneratorCode\PCEHR_SearchTemplate11.cs" />
-    <Compile Include="GetIndividualDetailsViewClient.cs" />
-    <Compile Include="GetRepresentativeListClient.cs" />
-    <Compile Include="GetViewClient.cs" />
-    <Compile Include="Helper\CommonPcehrHeader.cs" />
-    <Compile Include="Helper\MHR_Document_Register.cs" />
-    <Compile Include="Helper\SoapMessages.cs" />
-    <Compile Include="Helper\SoapSignatureUtility.cs" />
-    <Compile Include="Helper\XdsMetadataHelper.cs" />
-    <Compile Include="Helper\PCEHRHeaderValidator.cs" />
-    <Compile Include="GeneratorCodeModifications\PCEHR_GetView10.cs" />
-    <Compile Include="Helper\XdsRecord.cs" />
-    <Compile Include="IDoesPCEHRExistClient.cs" />
-    <Compile Include="IGainPCEHRAccessClient.cs" />
-    <Compile Include="IGetAuditViewClient.cs" />
-    <Compile Include="IGetChangeHistoryViewClient.cs" />
-    <Compile Include="IGetDocumentClient.cs" />
-    <Compile Include="IGetDocumentListClient.cs" />
-    <Compile Include="IGetIndividualDetailsViewClient.cs" />
-    <Compile Include="IGetRepresentativeListClient.cs" />
-    <Compile Include="IGetTemplateClient.cs" />
-    <Compile Include="IGetViewClient.cs" />
-    <Compile Include="IRegisterPCEHRClient.cs" />
-    <Compile Include="IRemoveDocumentClient.cs" />
-    <Compile Include="ISearchTemplateClient.cs" />
-    <Compile Include="ISoapClient.cs" />
-    <Compile Include="IUploadDocumentClient.cs" />
-    <Compile Include="IUploadDocumentMetadataClient.cs" />
-    <Compile Include="RegisterPCEHRClient.cs" />
-    <Compile Include="SearchTemplateClient.cs" />
-    <Compile Include="GetTemplateClient.cs" />
-    <Compile Include="GetAuditViewClient.cs" />
-    <Compile Include="Enums\ClassCodes.cs" />
-    <Compile Include="Enums\HealthcareFacilityTypeCodes.cs" />
-    <Compile Include="Enums\PracticeSettingTypes.cs" />
-    <Compile Include="GetChangeHistoryViewClient.cs" />
-    <Compile Include="GetDocumentClient.cs" />
-    <Compile Include="Query\Author.cs" />
-    <Compile Include="Helper\BindingHelper.cs" />
-    <Compile Include="Enums\DocumentStatus.cs" />
-    <Compile Include="Helper\CodedValueAttribute.cs" />
-    <Compile Include="Helper\XdsMetadata.cs" />
-    <Compile Include="Query\ISO8601DateTime.cs" />
-    <Compile Include="Query\AdhocQueryBuilder.cs" />
-    <Compile Include="RemoveDocumentClient.cs" />
-    <Compile Include="UploadDocumentClient.cs" />
-    <Compile Include="UploadDocumentMetadataClient.cs" />
-    <Compile Include="DocumentRegistryClient.cs" />
-    <Compile Include="DoesPCEHRExistClient.cs" />
-    <Compile Include="GainPCEHRAccessClient.cs" />
-    <Compile Include="DocumentRepositoryClient.cs" />
-    <Compile Include="GetDocumentListClient.cs" />
-    <Compile Include="PCEHRProfileClient.cs" />
-    <Compile Include="Helper\PCEHREndpointProcessor.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="DotNetZip" Version="1.16.0" />
+    <PackageReference Include="Nehta.VendorLibrary.Common" Version="4.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
+  <PropertyGroup />
   <ItemGroup>
-    <None Include="packages.config" />
+    <Content Include="..\..\LICENSE.txt" Link="Properties\LICENSE.txt" PackagePath="LICENSE.txt" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

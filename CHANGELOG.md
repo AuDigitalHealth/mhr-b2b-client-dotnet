@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.0
+------------------
+- Added support for netstandard2.0
+
 1.4.2
 ------------------
 - Fixed XdsMetadataHelper to pull out AuthorRole
