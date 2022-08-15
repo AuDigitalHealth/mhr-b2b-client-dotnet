@@ -40,7 +40,10 @@
     <PackageReference Include="Nehta.VendorLibrary.Common" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
-  <PropertyGroup />
+  <ItemGroup>
+    <InternalsVisibleTo Include="Nehta.VendorLibrary.PCEHR.Test" />
+  </ItemGroup>
+ <PropertyGroup />
   <ItemGroup>
     <Content Include="..\..\LICENSE.txt" Link="Properties\LICENSE.txt" PackagePath="LICENSE.txt" />
   </ItemGroup>
