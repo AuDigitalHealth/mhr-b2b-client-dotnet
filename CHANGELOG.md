@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.1
+------------------
+- Added mapping Author Role in XDS metadata to both authorSpecialty to authorRole and included originalTexty
+
 1.5.0
 ------------------
 - Added support for netstandard2.0

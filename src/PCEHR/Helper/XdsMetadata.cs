@@ -408,8 +408,12 @@ namespace Nehta.VendorLibrary.PCEHR
             authorPrefix = CheckNullText(authorNode.SelectSingleNode("cda:assignedPerson/cda:name/cda:prefix", xnm));
             authorSuffix = CheckNullText(authorNode.SelectSingleNode("cda:assignedPerson/cda:name/cda:suffix", xnm));
 
-            // Author specialty
+            // Author specialty - check if original text exists
             authorSpecialty = CheckNullValue(authorNode.SelectSingleNode("cda:code/@displayName", xnm));
+            if (string.IsNullOrWhiteSpace(authorSpecialty))
+            {
+                authorSpecialty = CheckNullText(authorNode.SelectSingleNode("cda:code/cda:originalText", xnm));
+            }
 
             // HI numbers (for header)
             hpioNumber = authorQualifiedOrgId.Replace("1.2.36.1.2001.1003.0.", "");
@@ -533,9 +537,9 @@ namespace Nehta.VendorLibrary.PCEHR
             var authorSlots = new List<SlotType1>();
             authorSlots.Add(CreateSlotType("authorInstitution", xonFormattedOrganisation));
             authorSlots.Add(CreateSlotType("authorPerson", xcnFormattedAuthor));
-            // This is the role, not the specialty
-            //if (!String.IsNullOrEmpty(authorSpecialty))
-                //authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
+            // 24/01/23 Defect - should be ion both authorSpecialty and authorRole
+            if (!String.IsNullOrEmpty(authorSpecialty))
+                authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
             if (!String.IsNullOrEmpty(authorSpecialty))
                 authorSlots.Add(CreateSlotType("authorRole", authorSpecialty));
 

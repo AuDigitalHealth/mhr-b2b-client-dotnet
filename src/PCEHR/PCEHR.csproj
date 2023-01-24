@@ -12,7 +12,7 @@
   </PropertyGroup>
   <!-- Package and assembly information -->
   <PropertyGroup>
-    <Version>1.5.0.0</Version>
+    <Version>1.5.1.0</Version>
     <Description>A library for communicating with the MyHealthRecord</Description>
     <Company>Australian Digital Health Agency</Company>
     <Authors>$(Company)</Authors>
@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Nehta.VendorLibrary.PCEHR.Test" />
-  </ItemGroup>
- <PropertyGroup />
+  </ItemGroup>  
+  <PropertyGroup />
   <ItemGroup>
     <Content Include="..\..\LICENSE.txt" Link="Properties\LICENSE.txt" PackagePath="LICENSE.txt" />
   </ItemGroup>
