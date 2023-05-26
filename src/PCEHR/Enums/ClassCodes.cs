@@ -276,6 +276,38 @@ namespace Nehta.VendorLibrary.PCEHR
             ConceptName = "Immunisation Consolidated View", AlternateName = "Immunisation Consolidated View")]
         ImmunisationConsolidatedView,
 
+
+
+        /// <summary>
+        /// ACTS - Residential Care Transfer Reason
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32044",
+            ConceptName = "Residential Care Transfer Reason", AlternateName = "Residential Care Transfer Reason")]
+        ACTSResidentialCareTransferReason,
+
+        /// <summary>
+        /// ACTS - Residential Care Transfer Reason
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32046",
+            ConceptName = "Residential Care Medication Chart", AlternateName = "Residential Care Medication Chart")]
+        ACTSResidentialCareMedicationChart,
+
+        /// <summary>
+        /// ACTS - Residential Care Transfer Reason
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32049",
+            ConceptName = "Residential Care Health Summary", AlternateName = "Residential Care Health Summary")]
+        ACTSResidentialCareHealthSummary,
+
+
+        /// <summary>
+        /// MyMedicare Registered Practice Information
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32048",
+            ConceptName = "MyMedicare Registered Practice Information", AlternateName = "MyMedicare Registered Practice Information")]
+        MyMedicareRegisteredPracticeInformation,
+
+
         /*
         /// <summary>
         /// Eprescription class code.

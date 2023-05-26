@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.2
+------------------
+- Added new document Types for Residential Care and MyMedicare Registered Practice Information
+
 1.5.1
 ------------------
 - Added mapping Author Role in XDS metadata to both authorSpecialty to authorRole and included originalTexty

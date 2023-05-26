@@ -12,11 +12,11 @@
   </PropertyGroup>
   <!-- Package and assembly information -->
   <PropertyGroup>
-    <Version>1.5.1.0</Version>
+    <Version>1.5.2.0</Version>
     <Description>A library for communicating with the MyHealthRecord</Description>
     <Company>Australian Digital Health Agency</Company>
     <Authors>$(Company)</Authors>
-    <Copyright>Copyright ©2022</Copyright>
+    <Copyright>Copyright ©2023</Copyright>
     <PackageReleaseNotes>Added netstandard2.0 compatible version of library</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/AuDigitalHealth/mhr-b2b-client-dotnet</PackageProjectUrl>
     <PackageTags>ADHA Digital Health Nehta</PackageTags>
