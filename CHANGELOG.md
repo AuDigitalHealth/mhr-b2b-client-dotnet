@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.3
+------------------
+- Fixed document Types for Residential Care
+
 1.5.2
 ------------------
 - Added new document Types for Residential Care and MyMedicare Registered Practice Information

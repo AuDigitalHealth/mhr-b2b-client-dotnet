@@ -279,31 +279,58 @@ namespace Nehta.VendorLibrary.PCEHR
 
 
         /// <summary>
-        /// ACTS - Residential Care Transfer Reason
+        /// ACTS - Type - Residential Care Transfer Summary
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32044",
-            ConceptName = "Residential Care Transfer Reason", AlternateName = "Residential Care Transfer Reason")]
-        ACTSResidentialCareTransferReason,
-
-        /// <summary>
-        /// ACTS - Residential Care Transfer Reason
-        /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32046",
-            ConceptName = "Residential Care Medication Chart", AlternateName = "Residential Care Medication Chart")]
-        ACTSResidentialCareMedicationChart,
-
-        /// <summary>
-        /// ACTS - Residential Care Transfer Reason
-        /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32049",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32049",
             ConceptName = "Residential Care Health Summary", AlternateName = "Residential Care Health Summary")]
-        ACTSResidentialCareHealthSummary,
+        ActsTypeResidentialCareHealthSummary,
+
+        /// <summary>
+        /// ACTS - Class - Residential Care Transfer Summary
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32050",
+            ConceptName = "Patient Health Summary", AlternateName = "Residential Care Health Summary")]
+        ActsClassResidentialCareHealthSummary,
+
+        /// <summary>
+        /// ACTS - Type - Residential Care Medication Chart
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32046",
+            ConceptName = "Residential Care Medication Chart", AlternateName = "Residential Care Medication Chart")]
+        ActsTypeResidentialCareMedicationChart,
+
+        /// <summary>
+        /// ACTS - Class - Residential Care Medication Chart
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "80565-5",
+            ConceptName = "Medication Administration Record", AlternateName = "Residential Care Medication Chart")]
+        ActsClassResidentialCareMedicationChart,
+
+        /// <summary>
+        /// ACTS - Type - Residential Care Transfer Reason
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32044",
+            ConceptName = "Residential Care Transfer Note", AlternateName = "Residential Care Transfer Reason")]
+        ActsTypeResidentialCareTransferNote,
+
+        /// <summary>
+        /// ACTS - Class - Residential Care Transfer Note
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "18761-7",
+            ConceptName = "Transfer Summary Note", AlternateName = "Residential Care Transfer Reason")]
+        ActsClassResidentialCareTransferNote,
+
+        /// ACTS - Type - Residential Care Transfer Overview (view)
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32047",
+            ConceptName = "Residential Care Transfer Overview", AlternateName = "Residential Care Transfer Overview")]
+        ActsTypeResidentialCareTransferOverview,
 
 
         /// <summary>
         /// MyMedicare Registered Practice Information
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32048",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32048",
             ConceptName = "MyMedicare Registered Practice Information", AlternateName = "MyMedicare Registered Practice Information")]
         MyMedicareRegisteredPracticeInformation,
 
