@@ -286,11 +286,11 @@ namespace Nehta.VendorLibrary.PCEHR
         ActsTypeResidentialCareHealthSummary,
 
         /// <summary>
-        /// ACTS - Class - Residential Care Transfer Summary
+        /// ACTS - Class - Patient Health Summary
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32050",
-            ConceptName = "Patient Health Summary", AlternateName = "Residential Care Health Summary")]
-        ActsClassResidentialCareHealthSummary,
+            ConceptName = "Patient Health Summary", AlternateName = "Patient Health Summary")]
+        ActsClassPatientHealthSummary,
 
         /// <summary>
         /// ACTS - Type - Residential Care Medication Chart
@@ -300,25 +300,25 @@ namespace Nehta.VendorLibrary.PCEHR
         ActsTypeResidentialCareMedicationChart,
 
         /// <summary>
-        /// ACTS - Class - Residential Care Medication Chart
+        /// ACTS - Class - Medication Chart
         /// </summary>
         [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "80565-5",
-            ConceptName = "Medication Administration Record", AlternateName = "Residential Care Medication Chart")]
-        ActsClassResidentialCareMedicationChart,
+            ConceptName = "Medication Chart", AlternateName = "Medication Chart")]
+        ActsClassMedicationChart,
 
         /// <summary>
         /// ACTS - Type - Residential Care Transfer Reason
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32044",
-            ConceptName = "Residential Care Transfer Note", AlternateName = "Residential Care Transfer Reason")]
+            ConceptName = "Residential Care Transfer Reason", AlternateName = "Residential Care Transfer Reason")]
         ActsTypeResidentialCareTransferNote,
 
         /// <summary>
         /// ACTS - Class - Residential Care Transfer Note
         /// </summary>
         [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "18761-7",
-            ConceptName = "Transfer Summary Note", AlternateName = "Residential Care Transfer Reason")]
-        ActsClassResidentialCareTransferNote,
+            ConceptName = "Transfer Summary", AlternateName = "Transfer Summary")]
+        ActsClassTransferSummary,
 
         /// ACTS - Type - Residential Care Transfer Overview (view)
         /// </summary>

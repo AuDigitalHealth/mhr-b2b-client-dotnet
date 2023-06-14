@@ -1,8 +1,8 @@
 ### Change Log/Revision History
 
-1.5.3
+1.5.3 + 1.5.4
 ------------------
-- Fixed document Types for Residential Care
+- Fixed document Types for Residential Care and descriptions
 
 1.5.2
 ------------------
