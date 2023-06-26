@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.5
+------------------
+- Min f/w 4.5.2
+
 1.5.3 + 1.5.4
 ------------------
 - Fixed document Types for Residential Care and descriptions

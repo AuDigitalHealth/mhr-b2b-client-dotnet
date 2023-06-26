@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <OutputType>Library</OutputType>
     <RootNamespace>Nehta.VendorLibrary.MHR</RootNamespace>
     <AssemblyName>Nehta.VendorLibrary.MHR</AssemblyName>
@@ -12,7 +12,7 @@
   </PropertyGroup>
   <!-- Package and assembly information -->
   <PropertyGroup>
-    <Version>1.5.4.0</Version>
+    <Version>1.5.5.0</Version>
     <Description>A library for communicating with the MyHealthRecord</Description>
     <Company>Australian Digital Health Agency</Company>
     <Authors>$(Company)</Authors>
@@ -27,7 +27,7 @@
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <Reference Include="System.Configuration" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel">
@@ -38,7 +38,7 @@
   <ItemGroup>
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="Nehta.VendorLibrary.Common" Version="4.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Nehta.VendorLibrary.PCEHR.Test" />
