@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.6
+------------------
+- Fixed XDS Metadata for Residential Care document subtypes
+
 1.5.5
 ------------------
 - Min f/w 4.5.2
