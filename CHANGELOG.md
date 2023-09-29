@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.5.7
+------------------
+- Added new document sub types for DS, SL and ES as ENUMs
+
 1.5.6
 ------------------
 - Fixed XDS Metadata for Residential Care document subtypes

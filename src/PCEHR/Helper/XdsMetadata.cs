@@ -183,7 +183,7 @@ namespace Nehta.VendorLibrary.PCEHR
             // For New documents that are sub typed where the code in the CDA doc is actually the typecode, need to update the class codes
             switch (documentTypeCode)
             {
-                // TODO codeSystem names ALSO need to be set correctly for either NCTIS or LOINC
+                // ACTS - codeSystem names ALSO need to be set correctly for either NCTIS or LOINC
                 case "100.32044":  documentTypeCode = "18761-7"; classCode = GetClassCodeEnum(documentTypeCode); documentTypeCodeSystemName = "LOINC"; break;
                 case "100.32046":  documentTypeCode = "80565-5"; classCode = GetClassCodeEnum(documentTypeCode); documentTypeCodeSystemName = "LOINC"; break;
                 case "100.32049":  documentTypeCode = "100.32050"; classCode = GetClassCodeEnum(documentTypeCode); documentTypeCodeSystemName = "NCTIS Data Components"; break;
@@ -192,7 +192,8 @@ namespace Nehta.VendorLibrary.PCEHR
             // 14/10 Updated Spec says we should use the AlternateName for both Type and Class Code
             documentClassCodeDisplayName = classCode.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
 
-            // Discharge Summary, Event Summary and Specialist Letter can support subtypes
+            // Discharge Summary, Event Summary and Specialist Letter can support subtypes.
+            // But unlike ACTS, these get passed into this function rather than existing in the document
             if (documentTypeCode == "18842-5" || documentTypeCode == "34133-9" || documentTypeCode == "51852-2")
             {
                 if (!string.IsNullOrWhiteSpace(documentSubTypeCode) &&

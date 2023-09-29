@@ -41,6 +41,20 @@ namespace Nehta.VendorLibrary.PCEHR
         SpecialistLetter,
 
         /// <summary>
+        /// Gastroenterology Letter type code.
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "84106-4",
+            ConceptName = "Gastroenterology Letter", AlternateName = "Gastroenterology Letter")]
+        GastroenterologyLetter,
+
+        /// <summary>
+        /// Plastic surgery Letter type code.
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "68593-3",
+            ConceptName = "Plastic surgery Letter", AlternateName = "Plastic surgery Letter")]
+        PlasticSurgeryLetter,
+
+        /// <summary>
         /// Discharge summary class code.
         /// </summary>
         [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "18842-5",
@@ -48,11 +62,32 @@ namespace Nehta.VendorLibrary.PCEHR
         DischargeSummary,
 
         /// <summary>
+        /// Emergency Department Discharge Summary type code.
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "59258-4",
+            ConceptName = "Emergency department Discharge summary", AlternateName = "Emergency department Discharge summary")]
+        EmergencyDepartmentDischargeSummary,
+
+        /// <summary>
+        /// Outpatient hospital Discharge summary type code.
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "88645-7",
+            ConceptName = "Outpatient hospital Discharge summary", AlternateName = "Outpatient hospital Discharge summary")]
+        OutpatientHospitalDischargeSummary,
+
+        /// <summary>
         /// Event summary class code.
         /// </summary>
         [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "34133-9",
             ConceptName = "Summarization of episode note", AlternateName = "Event Summary")]
         EventSummary,
+
+        /// <summary>
+        /// Oncology Summary Note type code.
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "96344-7",
+            ConceptName = "Oncology Summary note", AlternateName = "Oncology Summary note")]
+        OncologySummaryNote,
 
         /// <summary>
         /// Pharmaceutical Benefits Report class code.
