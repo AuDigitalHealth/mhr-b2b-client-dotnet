@@ -1,5 +1,11 @@
 ### Change Log/Revision History
 
+1.5.8
+------------------
+- Added new document sub types for Medical Conditions View and Aged Care Support Plan
+- Added support for ACSP document upload from a repository
+- BUG: Fix document Type in Subset XDS Metadata for Subtypes of ACI,Residential Care + DS,SL,ES docs
+
 1.5.7
 ------------------
 - Added new document sub types for DS, SL and ES as ENUMs

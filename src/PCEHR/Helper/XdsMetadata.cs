@@ -68,10 +68,10 @@ namespace Nehta.VendorLibrary.PCEHR
         private const string formatCodeCodingScheme = "PCEHR_FormatCodes";
 
         // Document (Class) Type;
-        private string documentTypeCode;
+        private string documentClassCode;
         private string documentTypeCodeSystem;
-        private string documentTypeCodeSystemName;
-        private string documentTypeDisplayName;
+        private string documentClassCodeSystemName;
+        private string documentClassDisplayName;
         private string documentClassCodeDisplayName;
 
         // Type Code - For Advance care type and other sub types
@@ -169,32 +169,40 @@ namespace Nehta.VendorLibrary.PCEHR
             xnm.AddNamespace("cda", "urn:hl7-org:v3");
             xnm.AddNamespace("ext", "http://ns.electronichealth.net.au/Ci/Cda/Extensions/3.0");
 
-            // Document Type
-            documentTypeCode = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:code/@code", xnm));
-            var classCode = GetClassCodeEnum(documentTypeCode);
-            documentTypeCodeSystemName = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:code/@codeSystemName", xnm));
-            documentTypeDisplayName = classCode.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
-            
-            // Type Codes
-            documentTypeCode_cl07 = documentTypeCode;
-            documentTypeDisplayName_cl07 = documentTypeDisplayName;
-            documentTypeCodeSystemName_cl07 = documentTypeCodeSystemName;
+            // Document Class 
+            documentClassCode = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:code/@code", xnm));
+            var classCodeEnum = GetClassCodeEnum(documentClassCode);
+            documentClassCodeSystemName = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:code/@codeSystemName", xnm));
+            documentClassDisplayName = classCodeEnum.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
 
-            // For New documents that are sub typed where the code in the CDA doc is actually the typecode, need to update the class codes
-            switch (documentTypeCode)
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // SUBTYPES:
+            // 1) ACTS and ACSP documents have the Type code in the document, so need to update the class code to the overarching document Class
+            // 2) Discharge Summary, Event Summary and Specialist Letter - the Subtype is passed into this function
+            // 3) ACI - Subtypes are defined in the body - Advance Care Planning Document AND Goals of Care Document
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Type Codes
+            documentTypeCode_cl07 = documentClassCode;
+            documentTypeDisplayName_cl07 = documentClassDisplayName;
+            documentTypeCodeSystemName_cl07 = documentClassCodeSystemName;
+
+            // 1) For New documents that are sub typed where the code in the CDA doc is actually the typecode, need to update the class codes
+            switch (documentClassCode)
             {
-                // ACTS - codeSystem names ALSO need to be set correctly for either NCTIS or LOINC
-                case "100.32044":  documentTypeCode = "18761-7"; classCode = GetClassCodeEnum(documentTypeCode); documentTypeCodeSystemName = "LOINC"; break;
-                case "100.32046":  documentTypeCode = "80565-5"; classCode = GetClassCodeEnum(documentTypeCode); documentTypeCodeSystemName = "LOINC"; break;
-                case "100.32049":  documentTypeCode = "100.32050"; classCode = GetClassCodeEnum(documentTypeCode); documentTypeCodeSystemName = "NCTIS Data Components"; break;
+                // ACTS + ACSP - codeSystem names ALSO needs to be set correctly for either NCTIS or LOINC
+                case "100.32044": documentClassCode = "18761-7"; classCodeEnum = GetClassCodeEnum(documentClassCode); documentClassCodeSystemName = "LOINC"; break;
+                case "100.32046": documentClassCode = "80565-5"; classCodeEnum = GetClassCodeEnum(documentClassCode); documentClassCodeSystemName = "LOINC"; break;
+                case "100.32049": documentClassCode = "100.32050"; classCodeEnum = GetClassCodeEnum(documentClassCode); documentClassCodeSystemName = "NCTIS Data Components"; break;
+                case "100.32052": documentClassCode = "18776-5"; classCodeEnum = GetClassCodeEnum(documentClassCode); documentClassCodeSystemName = "LOINC"; break;
             }
 
             // 14/10 Updated Spec says we should use the AlternateName for both Type and Class Code
-            documentClassCodeDisplayName = classCode.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
+            documentClassCodeDisplayName = classCodeEnum.GetAttributeValue<CodedValueAttribute, string>(a => a.AlternateName);
 
-            // Discharge Summary, Event Summary and Specialist Letter can support subtypes.
-            // But unlike ACTS, these get passed into this function rather than existing in the document
-            if (documentTypeCode == "18842-5" || documentTypeCode == "34133-9" || documentTypeCode == "51852-2")
+            // 2) Discharge Summary, Event Summary and Specialist Letter can support subtypes.
+            // But unlike ACTS and ACSP, these get passed into this function rather than existing in the document
+            if (documentClassCode == "18842-5" || documentClassCode == "34133-9" || documentClassCode == "51852-2")
             {
                 if (!string.IsNullOrWhiteSpace(documentSubTypeCode) &&
                     !string.IsNullOrWhiteSpace(documentSubTypeCodeSystem) && !string.IsNullOrWhiteSpace(documentSubTypeName))
@@ -205,8 +213,8 @@ namespace Nehta.VendorLibrary.PCEHR
                 }
             }
 
-            // Subtypes: The exception is for Advance Care Information = which has Advance Care Planning Document/Goals of Care Document subtypes
-            if (documentTypeCode == "100.16975")
+            // 3) Subtypes: The exception is for Advance Care Information = which has Advance Care Planning Document/Goals of Care Document subtypes
+            if (documentClassCode == "100.16975")
             {
                 // Get document desc and code from the body
                 documentTypeCode_cl07 = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:act/cda:reference/cda:externalDocument/cda:code/@code", xnm));
@@ -216,18 +224,24 @@ namespace Nehta.VendorLibrary.PCEHR
                     throw new ArgumentException("The Advance Care Information does not reference an externalDocument.");
             }
 
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /// END OF SUBTYPES
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            
             // Get time stuff
             effectiveTime = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:effectiveTime/@value", xnm));
             effectiveTime = ConvertTimeToUtc(effectiveTime);
 
             // Set service start and stop time
-            if (documentTypeCode == "51852-2")
+            if (documentClassCode == "51852-2")
             {
                 // If document is Specialist Letter
                 serviceStartTime = effectiveTime;
                 serviceStopTime = effectiveTime;
             }
-            else if (documentTypeCode == "100.16764")
+            else if (documentClassCode == "100.16764")
             {
                 // If document is PCEHR Prescription Record
                 var authorTime = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:author/cda:time/@value", xnm));
@@ -235,7 +249,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 serviceStartTime = ConvertTimeToUtc(authorTime);
                 serviceStopTime = serviceStartTime;
             } 
-            else if (documentTypeCode == "100.16765")
+            else if (documentClassCode == "100.16765")
             {
                 // If document is PCEHR Dispense Record
                 var supplyTime = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:component/cda:structuredBody/" +
@@ -245,7 +259,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 serviceStartTime = ConvertTimeToUtc(supplyTime);
                 serviceStopTime = serviceStartTime;
             }
-            else if (documentTypeCode == "100.32001")
+            else if (documentClassCode == "100.32001")
             {
                 // R5: If document is Pathology Report - Could contain multiple records
                 // Need to get LATEST Date - if multiple returned
@@ -278,7 +292,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 serviceStartTime = ConvertTimeToUtc(firstCollectionDateTime);
                 serviceStopTime = ConvertTimeToUtc(lastCollectionDateTime);
             }
-            else if (documentTypeCode == "100.16957")
+            else if (documentClassCode == "100.16957")
             {
                 // R5: If document is Diagnostic Imaging - Could contain multiple records
                 // Need to get LATEST Date - if multiple returned
@@ -309,7 +323,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 serviceStartTime = ConvertTimeToUtc(firstImagingDateTime);
                 serviceStopTime = ConvertTimeToUtc(lastImagingDateTime);
             }
-            else if (documentTypeCode == "100.16975") 
+            else if (documentClassCode == "100.16975") 
             {
                 // Advance Care Planning Document
                 var authorTime = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:code/@code='101.16973']/cda:entry/cda:act/cda:author/cda:time/@value", xnm));
@@ -351,7 +365,7 @@ namespace Nehta.VendorLibrary.PCEHR
             if (String.IsNullOrEmpty(languageCode))
                 languageCode = "en-AU";
             cdaTitle = CheckNullText(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:title", xnm));
-            documentTitle = !string.IsNullOrEmpty(cdaTitle) ? cdaTitle : documentTypeDisplayName;
+            documentTitle = !string.IsNullOrEmpty(cdaTitle) ? cdaTitle : documentClassDisplayName;
 
             // Process document ID
             XdsMetadataHelper.IdType? idType;
@@ -369,7 +383,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 authorNode = cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:author/cda:assignedAuthor", xnm);
             
             // If document author doesn't exist, and document is pathology
-            if (authorNode == null && documentTypeCode == "100.32001")
+            if (authorNode == null && documentClassCode == "100.32001")
             {
                 authorNode = cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section[cda:code/@code='101.20018']/cda:author/cda:assignedAuthor", xnm);
             }
@@ -390,15 +404,21 @@ namespace Nehta.VendorLibrary.PCEHR
             
             // Check Custodian if Author has no Org [Dont need code - as it would fail PCEHR validation for the NCAP 5 documents]
             string authorOrgIdCust = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/ext:asEntityIdentifier[@classCode='IDENT']/ext:id[@assigningAuthorityName='HPI-O']/@root", xnm));
+            // Check for Device (PAI-D)
+            string authorOrgIdCustPaid = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/ext:asEntityIdentifier[@classCode='IDENT']/ext:id[@assigningAuthorityName='PAI-O']/@root", xnm));
             string authorOrgNameCust = CheckNullText(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:name", xnm));
 
             // Check Health Care Facility in Component Of if Author has no Org
             string authorOrgIdHCF = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:location/cda:healthCareFacility/cda:serviceProviderOrganization/cda:asOrganizationPartOf/cda:wholeOrganization/ext:asEntityIdentifier[@classCode='IDENT']/ext:id[@assigningAuthorityName='HPI-O']/@root", xnm));
             string authorOrgNameHCF = CheckNullText(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:location/cda:healthCareFacility/cda:serviceProviderOrganization/cda:asOrganizationPartOf/cda:wholeOrganization/cda:name", xnm));
 
-            authorQualifiedOrgId = (authorOrgIdCurr != "" ? authorOrgIdCurr : (authorOrgIdCust != "" ? authorOrgIdCust : authorOrgIdHCF));
+            authorQualifiedOrgId = (authorOrgIdCurr != "" ? authorOrgIdCurr : (authorOrgIdCust != "" ? authorOrgIdCust : (authorOrgIdHCF != "" ? authorOrgIdHCF : authorOrgIdCustPaid)));
+
             if (String.IsNullOrEmpty(authorOrgName))
+            {
                 authorOrgName = (authorOrgNameCurr != "" ? authorOrgNameCurr : (authorOrgNameCust != "" ? authorOrgNameCust : authorOrgNameHCF));
+            }
+                
 
             // AUTHOR
             authorQualifiedId = CheckNullValue(authorNode.SelectSingleNode("cda:assignedPerson/ext:asEntityIdentifier[@classCode='IDENT']/ext:id[@assigningAuthorityName='HPI-I']/@root", xnm));
@@ -419,6 +439,12 @@ namespace Nehta.VendorLibrary.PCEHR
             authorPrefix = CheckNullText(authorNode.SelectSingleNode("cda:assignedPerson/cda:name/cda:prefix", xnm));
             authorSuffix = CheckNullText(authorNode.SelectSingleNode("cda:assignedPerson/cda:name/cda:suffix", xnm));
 
+            // See if the author is a device
+            if (string.IsNullOrWhiteSpace(authorGiven))
+            {
+                authorGiven = CheckNullText(authorNode.SelectSingleNode("cda:assignedAuthoringDevice/cda:softwareName", xnm));
+            }
+
             // Author specialty - check if original text exists
             authorSpecialty = CheckNullValue(authorNode.SelectSingleNode("cda:code/@displayName", xnm));
             if (string.IsNullOrWhiteSpace(authorSpecialty))
@@ -426,8 +452,10 @@ namespace Nehta.VendorLibrary.PCEHR
                 authorSpecialty = CheckNullText(authorNode.SelectSingleNode("cda:code/cda:originalText", xnm));
             }
 
-            // HI numbers (for header)
+            // HPIO number (for header) Either HPIO or PAI-O
             hpioNumber = authorQualifiedOrgId.Replace("1.2.36.1.2001.1003.0.", "");
+            hpioNumber = authorQualifiedOrgId.Replace("1.2.36.1.2001.1007.0.", "");
+            // IHI number (for header)
             ihiNumber = CheckNullValue(cdaDocument.SelectSingleNode("/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/ext:asEntityIdentifier[@classCode='IDENT']/ext:id[@assigningAuthorityName='IHI']/@root", xnm)).Replace("1.2.36.1.2001.1003.0.", "");
 
             // Formatted Ids
@@ -438,6 +466,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 xcnFormattedAuthor = string.Format("^{0}^{1}^^^{2}^^^&{3}&ISO", authorFamily, authorGiven, authorPrefix, authorQualifiedId);
             else
                 xcnFormattedAuthor = string.Format("^{0}^{1}^^^{2}^^^{3}&{4}&ISO", authorFamily, authorGiven, authorPrefix, authorQualifiedId, authorQualifiedIdExtension);
+
             xonFormattedOrganisation = string.Format("{0}^^^^^^^^^{1}", authorOrgName, authorQualifiedOrgId);
         }
 
@@ -529,7 +558,7 @@ namespace Nehta.VendorLibrary.PCEHR
             var externalIdentifiers = new List<ExternalIdentifierType>();
 
             // Name
-            registryPackage.Name = CreateInternationalStringType(documentTypeDisplayName);
+            registryPackage.Name = CreateInternationalStringType(documentClassDisplayName);
 
             // Type
             registryPackage.objectType = XDS_REGISTRY_PACKAGE;
@@ -542,7 +571,7 @@ namespace Nehta.VendorLibrary.PCEHR
                 CreateSlotType("submissionTime", DateTime.Now.ToUniversalTime().ToString(DateTimeFormatString)) 
             };
 
-            //registryPackage.Name = CreateInternationalStringType(documentTypeDisplayName);
+            //registryPackage.Name = CreateInternationalStringType(documentClassDisplayName);
 
             // Author - 4 components - Only populate author institution, author person (not role and specialty)
             var authorSlots = new List<SlotType1>();
@@ -568,12 +597,12 @@ namespace Nehta.VendorLibrary.PCEHR
                 CreateCodedValueClassification(
                     "cl09",
                     registryPackage.id,
-                    documentTypeCode,
-                    documentClassCodeDisplayName,
-                    documentTypeCodeSystemName,
+                    documentTypeCode_cl07,
+                    documentTypeDisplayName_cl07,
+                    documentTypeCodeSystemName_cl07,
                     XDS_SUBMISSION_SET_CONTENT_TYPE_CODE
-                    )
-                );
+                )
+            );
 
             // UniqueId
             externalIdentifiers.Add(
@@ -675,9 +704,9 @@ namespace Nehta.VendorLibrary.PCEHR
                 CreateCodedValueClassification(
                     "cl02",
                     extrinsicObject.id,
-                    documentTypeCode,
+                    documentClassCode,
                     documentClassCodeDisplayName,
-                    documentTypeCodeSystemName,     
+                    documentClassCodeSystemName,     
                     XDS_DOCUMENT_ENTRY_CLASS_CODE
                     )
                 );

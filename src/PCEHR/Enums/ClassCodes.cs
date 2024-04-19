@@ -148,21 +148,21 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Medicare Overview
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16767",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16767",
             ConceptName = "Medicare Overview", AlternateName = "Medicare Overview")]
         MedicareOverview,
 
         /// <summary>
         /// Medicare Overview - all
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16767.1",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16767.1",
             ConceptName = "Medicare Overview - all", AlternateName = "Medicare Overview - all")]
         MedicareOverviewAll,
 
         /// <summary>
         /// Medicare Overview - past 12 months
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16767.2",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.16767.2",
             ConceptName = "Medicare Overview - past 12 months", AlternateName = "Medicare Overview - past 12 months")]
         MedicareOverviewPast12Months,
 
@@ -279,7 +279,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Medicines View
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32002",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32002",
             ConceptName = "Medicines View", AlternateName = "Medicines View")]
         MedicinesView,
 
@@ -293,21 +293,21 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Pathology Overview
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32026",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32026",
             ConceptName = "Pathology Overview", AlternateName = "Pathology Overview")]
         PathologyOverview,
 
         /// <summary>
         /// Diagnostic Imaging Overview
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32025",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32025",
             ConceptName = "Diagnostic Imaging Overview", AlternateName = "Diagnostic Imaging Overview")]
         DiagnosticImagingOverview,
 
         /// <summary>
         /// Immunisation Consolidated View
         /// </summary>
-        [CodedValueAttribute(CodingSystem = "NCTIS", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32034",
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32034",
             ConceptName = "Immunisation Consolidated View", AlternateName = "Immunisation Consolidated View")]
         ImmunisationConsolidatedView,
 
@@ -361,13 +361,36 @@ namespace Nehta.VendorLibrary.PCEHR
             ConceptName = "Residential Care Transfer Overview", AlternateName = "Residential Care Transfer Overview")]
         ActsTypeResidentialCareTransferOverview,
 
-
         /// <summary>
         /// MyMedicare Registered Practice Information
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32048",
             ConceptName = "MyMedicare Registered Practice Information", AlternateName = "MyMedicare Registered Practice Information")]
         MyMedicareRegisteredPracticeInformation,
+
+        /// <summary>
+        /// Class - Patient Health Summary - Type - Medical Conditions View (L1) - R24.3
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32051",
+            ConceptName = "Medical Conditions View", AlternateName = "Medical Conditions View")]
+        PHSTypeMedicalConditionsView,
+
+
+        // https://confluence.digitalhealth.gov.au/display/IARC/Support-at-Home+Aged+Care+Support+Plan+-+Information+Architecture
+        /// <summary>
+        /// Plan of care - Class
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "LOINC", CodingSystemOID = "2.16.840.1.113883.6.1", ConceptCode = "18776-5",
+            ConceptName = "Plan of care", AlternateName = "Care or support plan")]
+        CareOrSupportPlanClass,
+
+        /// <summary>
+        /// Plan of care - Type - Aged Care Support Plan
+        /// </summary>
+        [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32052",
+            ConceptName = "Aged Care Support Plan", AlternateName = "Aged Care Support Plan")]
+        CareOrSupportPlanTypeAgedCareSupportPlan,
+
 
 
         /*
