@@ -1,5 +1,10 @@
 ### Change Log/Revision History
 
+1.5.9
+------------------
+- Updated MHR_Document_Register to include 'Health' as a upload actor
+
+
 1.5.8
 ------------------
 - Added new document sub types for Medical Conditions View and Aged Care Support Plan

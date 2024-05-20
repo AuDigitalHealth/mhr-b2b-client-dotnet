@@ -436,6 +436,9 @@ namespace Nehta.VendorLibrary.PCEHR.DocumentRegister {
         
         /// <remarks/>
         NPDR,
+
+        /// <remarks/>
+        Health,
     }
     
     /// <remarks/>
