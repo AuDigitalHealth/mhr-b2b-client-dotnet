@@ -1,9 +1,12 @@
 ### Change Log/Revision History
 
+1.5.10
+------------------
+- Added authorSpecialty for ExtrinsicObject to match RegistryPackage
+
 1.5.9
 ------------------
 - Updated MHR_Document_Register to include 'Health' as a upload actor
-
 
 1.5.8
 ------------------
@@ -33,7 +36,7 @@
 
 1.5.1
 ------------------
-- Added mapping Author Role in XDS metadata to both authorSpecialty to authorRole and included originalTexty
+- Added mapping Author Role in XDS metadata to both authorSpecialty to authorRole and included originalText
 
 1.5.0
 ------------------

@@ -12,7 +12,7 @@
   </PropertyGroup>
   <!-- Package and assembly information -->
   <PropertyGroup>
-    <Version>1.5.9.0</Version>
+    <Version>1.5.10.0</Version>
     <Description>A library for communicating with the MyHealthRecord</Description>
     <Company>Australian Digital Health Agency</Company>
     <Authors>$(Company)</Authors>
@@ -24,7 +24,7 @@
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.3" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">

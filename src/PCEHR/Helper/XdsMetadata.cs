@@ -577,7 +577,7 @@ namespace Nehta.VendorLibrary.PCEHR
             var authorSlots = new List<SlotType1>();
             authorSlots.Add(CreateSlotType("authorInstitution", xonFormattedOrganisation));
             authorSlots.Add(CreateSlotType("authorPerson", xcnFormattedAuthor));
-            // 24/01/23 Defect - should be ion both authorSpecialty and authorRole
+            // 24/01/23 Defect - should be in both authorSpecialty and authorRole
             if (!String.IsNullOrEmpty(authorSpecialty))
                 authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
             if (!String.IsNullOrEmpty(authorSpecialty))
@@ -683,9 +683,9 @@ namespace Nehta.VendorLibrary.PCEHR
             var authorSlots = new List<SlotType1>();
             authorSlots.Add(CreateSlotType("authorInstitution", xonFormattedOrganisation));
             authorSlots.Add(CreateSlotType("authorPerson", xcnFormattedAuthor));
-            // This is the role, not the specialty
-            //if (!String.IsNullOrEmpty(authorSpecialty))
-            //authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
+            // 26/07/24 Added in to align with submission set - should be in both authorSpecialty and authorRole
+            if (!String.IsNullOrEmpty(authorSpecialty))
+                authorSlots.Add(CreateSlotType("authorSpecialty", authorSpecialty));
             if (!String.IsNullOrEmpty(authorSpecialty))
                 authorSlots.Add(CreateSlotType("authorRole", authorSpecialty));
 
