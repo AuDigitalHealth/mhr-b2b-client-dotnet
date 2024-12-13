@@ -15,9 +15,9 @@
 using System;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using Ionic.Zip;
 using Nehta.VendorLibrary.PCEHR.DocumentRepository;
 using System.IO;
+using System.IO.Compression;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Nehta.VendorLibrary.Common;
@@ -301,24 +301,26 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <returns>Zip file entries and their content.</returns>
         internal static byte[] GetCdaDocument(byte[] fileContent)
         {
-            var zipFile = ZipFile.Read(new MemoryStream(fileContent));
+            var inputStream = new MemoryStream(fileContent);
 
-            if (zipFile != null)
+            if (fileContent.Length > 0)
             {
-                // Iterate through all entries and add their filename and contents.
-                foreach (ZipEntry entry in zipFile.Entries)
+                // Iterate through all entries and find cda_root
+                using (ZipArchive zipArchive = new ZipArchive(inputStream, ZipArchiveMode.Read))
                 {
-                    var readStream = new MemoryStream();
-
-                    // Ony process files.
-                    if (!entry.IsDirectory)
+                    foreach (var entry in zipArchive.Entries)
                     {
-                        string filename = entry.FileName;
-
-                        if (Regex.IsMatch(filename, @"[/\\]?[^/\\]+[/\\][^/\\]+[/\\]CDA_ROOT.XML", RegexOptions.IgnoreCase))
+                        // Ony process files.
+                        if (entry.Length > 0)
                         {
-                            entry.Extract(readStream);
-                            return readStream.ToArray();
+                            string filename = entry.FullName;
+
+                            if (Regex.IsMatch(filename, @"[/\\]?[^/\\]+[/\\][^/\\]+[/\\]CDA_ROOT.XML", RegexOptions.IgnoreCase))
+                            {
+                                var output = new MemoryStream();
+                                entry.Open().CopyTo(output);
+                                return output.ToArray();
+                            }
                         }
                     }
                 }

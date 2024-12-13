@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+1.6.0
+=====
+Removed DotNetZip library. No longer required as using System.IO.Compression.
+
 1.5.10
 ------------------
 - Added authorSpecialty for ExtrinsicObject to match RegistryPackage

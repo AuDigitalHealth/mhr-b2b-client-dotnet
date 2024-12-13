@@ -355,6 +355,7 @@ namespace Nehta.VendorLibrary.PCEHR
             ConceptName = "Transfer Summary", AlternateName = "Transfer Summary")]
         ActsClassTransferSummary,
 
+        /// <summary>
         /// ACTS - Type - Residential Care Transfer Overview (view)
         /// </summary>
         [CodedValueAttribute(CodingSystem = "NCTIS Data Components", CodingSystemOID = "1.2.36.1.2001.1001.101", ConceptCode = "100.32047",
