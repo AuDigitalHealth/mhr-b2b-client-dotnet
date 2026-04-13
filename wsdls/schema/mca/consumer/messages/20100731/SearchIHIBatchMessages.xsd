@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	===========================================================================
+	@File:        SearchIHIBatchMessages.xsd
+	@Author:      Medicare Australia, UHI Tower 4
+	@Version:     2010/07/31 
+	@CreatedDate: 2009/05/15 
+	@Release:     3
+	@Description: IHI-16: This xsd contains the Consumer Bulk Search IHI Request/Response data elements
+	===========================================================================
+-->
+<xsd:schema 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:sch="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHI/3.0"
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+    <xsd:annotation>
+        <xsd:documentation>
+==============================  IMPORTS  =======================================
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHI/3.0"
+        schemaLocation="SearchIHIMessages.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+        schemaLocation="../../../common/20100731/CommonCoreElements.xsd" />
+    <xsd:annotation>
+        <xsd:documentation>
+==============================  ELEMENTS =======================================
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="submitSearchIHIBatch">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="searchIHIBatchRequest" type="cwm:SearchIHIRequestType" minOccurs="1" maxOccurs="2000"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="submitSearchIHIBatchResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="ce:serviceMessages" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="cwm:batchIdentifier" minOccurs="0" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="retrieveSearchIHIBatch">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="retrieveSearchIHIBatchResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="searchIHIBatchResult" type="cwm:SearchIHIResultType" minOccurs="1" maxOccurs="2000"/>
+                <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getSearchIHIBatchStatus">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getSearchIHIBatchStatusResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="getSearchIHIBatchStatusResult" type="cwm:SearchIHIBatchStatusType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="deleteSearchIHIBatch">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="deleteSearchIHIBatchResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="deleteSearchIHIBatchResult" type="cwm:SearchIHIBatchStatusType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="batchIdentifier" type="tns:UniqueIdentifierType"/>
+    <xsd:annotation>
+        <xsd:documentation>
+==============================  TYPE DEF =======================================
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:complexType name="SearchIHIRequestType">
+        <xsd:sequence>
+            <xsd:element ref="sch:searchIHI" />
+            <xsd:element name="requestIdentifier" type="tns:UniqueIdentifierType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="SearchIHIBatchRetrieveRequestType">
+        <xsd:sequence>
+            <xsd:element ref="tns:batchIdentifier"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SearchIHIBatchStatusType">
+        <xsd:sequence>
+            <xsd:element ref="tns:batchIdentifier"/>
+            <xsd:element name="status" type="tns:BatchResponseStatusType" />
+            <xsd:element ref="ce:serviceMessage" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SearchIHIResultType"  >
+        <xsd:sequence>
+            <xsd:element ref="sch:searchIHIResult" />
+            <xsd:element name="requestIdentifier" type="tns:UniqueIdentifierType" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="BatchResponseStatusType" >
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="RECEIVED">
+            <xsd:annotation>
+              <xsd:documentation>Batch is received.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="PROCESSING">
+            <xsd:annotation>
+              <xsd:documentation>Batch is being processed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="COMPLETED">
+            <xsd:annotation>
+              <xsd:documentation>Batch has been processed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+
+          <xsd:enumeration value="RETRIEVED">
+            <xsd:annotation>
+              <xsd:documentation>Batch is retrieved</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="DELETED">
+            <xsd:annotation>
+              <xsd:documentation>Provided Batch is deleted</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="NOTFOUND">
+            <xsd:annotation>
+              <xsd:documentation>Provided Batch identifier is not found</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="ERROR" >
+            <xsd:annotation>
+              <xsd:documentation>An error status</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>    
+    </xsd:simpleType>
+   
+    <xsd:simpleType name="UniqueIdentifierType">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="36"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation>
+        <xsd:documentation>
+================================================================================
+        </xsd:documentation>
+    </xsd:annotation>
+</xsd:schema>

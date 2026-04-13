@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerMergeProvisionalIHIInterface-3.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/07/31 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/03/23
+@Release:       3
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+    xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+    xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+    xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+    xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/MergeProvisionalIHI/3.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerMergeProvisionalIHI/3.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerMergeProvisionalIHI/3.0"
+    name="ConsumerMergeProvisionalIHI">
+    
+    <wsdl:types>
+        <xsd:schema 
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerMergeProvisionalIHI/3.0"
+            elementFormDefault="qualified">
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/ConsumerCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/MergeProvisionalIHI/3.0"
+                schemaLocation="../../../schema/mca/consumer/messages/20100731/MergeProvisionalIHIMessages.xsd"/>
+                <xsd:element name="mergeProvisionalIHI">
+                    <xsd:annotation>
+                        <xsd:documentation>Resolve Provisional IHI - Merge Records Request
+                            Note:   the first occurrence of the ihiNumber is the provisional IHI that will be resolved
+                                    the second occurrence of the ihiNumber is the IHI that the provisional IHI will be merged with
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="cce:ihiNumber" minOccurs="2" maxOccurs="2" />
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="mergeProvisionalIHIResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:mergeProvisionalIHIResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="mergeProvisionalIHIInMsg">
+        <wsdl:part name="request" element="tns:mergeProvisionalIHI"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>          
+    </wsdl:message>
+    <wsdl:message name="mergeProvisionalIHIOutMsg">
+        <wsdl:part name="response" element="tns:mergeProvisionalIHIResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerMergeProvisionalIHIPortType">
+        <wsdl:operation name="mergeProvisionalIHI">
+            <wsdl:input 
+                message="tns:mergeProvisionalIHIInMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerMergeProvisionalIHI/3.0/ConsumerMergeProvisionalIHIPortType/mergeProvisionalIHIRequest"/>
+            <wsdl:output 
+                message="tns:mergeProvisionalIHIOutMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerMergeProvisionalIHI/3.0/ConsumerMergeProvisionalIHIPortType/mergeProvisionalIHIResponse"/>
+            <wsdl:fault 
+                name="standardError" 
+                message="tns:standardErrorMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerMergeProvisionalIHI/3.0/ConsumerMergeProvisionalIHIPortType/mergeProvisionalIHI/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

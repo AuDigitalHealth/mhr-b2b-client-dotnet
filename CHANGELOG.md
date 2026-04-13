@@ -1,5 +1,15 @@
 ### Change Log/Revision History
 
+
+2.0.0
+------------------
+- moved from fw452 to fw472 to update vulnerable packages
+- Net10.0 added to target frameworks
+- Updated packages to latest compatible versions and .net 10
+- System.Configuration.ConfigurationManager 6.0.0 --> 9.0.0
+- Microsoft.Windows.Compatibility 6.0.0 --> 6.0.9
+- No longer support using app.settings for configuration
+
 1.6.0
 ------------------
 Removed DotNetZip library. No longer required as using System.IO.Compression.

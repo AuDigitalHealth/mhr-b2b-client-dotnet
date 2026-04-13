@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== 
+  @File: ProviderType.xsd @Author: Medicare Australia 
+  @Version: 2010/09/30 
+  @CreatedDate: 2009/04/17 
+  @Release: 3 
+  @Description: This XML Schema contains elements and data types for Provider Type. 
+  =========================================================================== -->
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.1">
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+    <xsd:element
+        name="providerType"
+        type="tns:ProviderType" />
+    <xsd:element
+        name="providerTypeRecord"
+        type="tns:ProviderTypeRecord" />
+    <xsd:complexType
+        name="ProviderTypeRecord">
+        <xsd:complexContent>
+            <xsd:extension
+                base="tns:ProviderType">
+                <xsd:sequence>
+                    <xsd:element
+                        name="clientRef"
+                        type="pce:ClientRefType"
+                        minOccurs="0" />
+                    <xsd:element
+                        name="externalIdentifier"
+                        type="pce:ExternalIdentifierType"
+                        minOccurs="0" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType
+        name="ProviderType">
+        <xsd:sequence>
+            <xsd:element
+                name="providerTypeCode"
+                type="tns:ProviderTypeCode" />
+            <xsd:element
+                name="startDate"
+                type="pce:DateAndAccuracyType" />
+            <xsd:element
+                name="endDate"
+                type="pce:DateAndAccuracyType"
+                minOccurs="0" />
+            <xsd:element
+                name="providerSpecialty"
+                type="tns:ProviderSpecialtyType"
+                minOccurs="0" />
+            <xsd:element
+                name="providerSpecialisation"
+                type="tns:ProviderSpecialisationType"
+                minOccurs="0" />
+            <xsd:element
+                name="registrationId"
+                type="tns:RegistrationIdType"
+                minOccurs="0" />
+            <xsd:element
+                name="registrationType"
+                type="tns:RegistrationType"
+                minOccurs="0" />
+            <xsd:element
+                name="registrationIssuer"
+                type="tns:RegistrationIssuerType"
+                minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType
+        name="ProviderTypeCode">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="7" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="ProviderSpecialtyType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="7" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="ProviderSpecialisationType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="10" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="RegistrationIdType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="20" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="RegistrationIssuerType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="200" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="RegistrationType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="50" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

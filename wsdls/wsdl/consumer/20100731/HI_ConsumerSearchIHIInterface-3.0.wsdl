@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerSearchIHIInterface-3.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/07/31 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+	    	    2014/05/03 - Add backward compatible optional unstructured address. 		
+				2024/06/01 - Allowed searching via electronicCommunication (mobile/email)				
+@CreatedDate:   2010/04/23
+@Release:       3
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+    xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+    xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+    xmlns:ihi="http://ns.electronichealth.net.au/hi/xsd/consumercore/IHI/3.0"
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHI/3.0" 
+	xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHI/3.0" 	
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHI/3.0"
+    name="ConsumerSearchIHI" >
+    <wsdl:types>
+        <xsd:schema 
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHI/3.0" 
+            elementFormDefault="qualified">
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+                schemaLocation="../../../schema/mca/common/20100731/IndividualNameCore.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/ConsumerCoreElements.xsd"/>
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/Address.xsd"/>
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/ElectronicCommunication.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHI/3.0"
+                schemaLocation="../../../schema/mca/consumer/messages/20100731/SearchIHIMessages.xsd"/>
+            <xsd:element name="searchIHI">
+                <xsd:annotation>
+                    <xsd:documentation>Search IHI Request</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cce:ihiNumber" minOccurs="0"/>
+                        <xsd:element ref="cce:medicareCardNumber" minOccurs="0"/>
+                        <xsd:element ref="cce:medicareIRN" minOccurs="0"/>
+                        <xsd:element ref="cce:dvaFileNumber" minOccurs="0"/>
+						<!-- 2024/06/01 Add backward compatible optional electronicCommunication-->
+						<xsd:element ref="ec:electronicCommunication" minOccurs="0"/>
+                        <xsd:element ref="ce:dateOfBirth"/>
+                        <xsd:element ref="ce:sex"/>
+                        <xsd:element ref="cin:familyName"/>
+                        <xsd:element ref="cin:givenName" minOccurs="0"/>
+                        <xsd:element ref="address:australianPostalAddress" minOccurs="0"/>
+                        <xsd:element ref="address:australianStreetAddress" minOccurs="0"/>
+                        <!-- 2014/05/03 - Add backward compatible optional unstructured address -->
+                        <xsd:element ref="address:australianUnstructuredStreetAddress" minOccurs="0"/>
+                        <xsd:element ref="address:internationalAddress" minOccurs="0"/>
+						<xsd:element ref="cce:history" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="searchIHIResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:searchIHIResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="searchIHIInMsg">
+        <wsdl:part name="request" element="tns:searchIHI"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>	
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>          	
+    </wsdl:message>
+    <wsdl:message name="searchIHIOutMsg">
+        <wsdl:part name="response" element="tns:searchIHIResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>		
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerSearchIHIPortType">
+        <wsdl:operation name="searchIHI">
+            <wsdl:input 
+                message="tns:searchIHIInMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHI/3.0/ConsumerSearchIHIPortType/searchIHIRequest"/>
+            <wsdl:output 
+                message="tns:searchIHIOutMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHI/3.0/ConsumerSearchIHIPortType/searchIHIResponse"/>
+            <wsdl:fault 
+                name="standardError" 
+                message="tns:standardErrorMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHI/3.0/ConsumerSearchIHIPortType/searchIHI/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

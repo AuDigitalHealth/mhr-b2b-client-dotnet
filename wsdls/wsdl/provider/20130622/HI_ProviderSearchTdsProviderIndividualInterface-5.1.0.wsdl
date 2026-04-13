@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderSearchTdsProviderIndividualInterface-5.1.0.wsdl
+@Author:        Medicare Australia
+@Version:       5.1.0
+@CreatedDate:   2013/06/22
+@Release:       5.1.0
+@Description:   TECH.SIS.HI.35
+===========================================================================
+-->
+<wsdl:definitions 
+	name="ProviderSearchTdsProviderIndividualService" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsa="http://www.w3.org/2005/08/addressing"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+	xmlns:cdt="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreDatatypes/3.0" 
+	xmlns:ppt="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0"
+	xmlns:tmi="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchTdsProviderIndividual/5.1.0" 
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderSearchTdsProviderIndividual/5.1.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchTdsProviderIndividual/5.1.0">
+
+    <wsdl:types>
+        <xsd:schema
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchTdsProviderIndividual/5.1.0"  elementFormDefault="qualified">
+			<xsd:import 
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchTdsProviderIndividual/5.1.0" 
+				schemaLocation="../../../schema/mca/provider/messages/20100930/SearchTdsProviderIndividualMessages.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+                  				  		
+                  				  		
+			<xsd:element name="searchTdsProviderIndividual">
+			    <xsd:annotation>
+			      <xsd:documentation>
+			        TDS Search For Provider Individual Request element
+				   </xsd:documentation>
+			    </xsd:annotation>
+			    <xsd:complexType>
+			      <xsd:sequence>
+				       	<xsd:element ref="tmi:hpiiNumber"  minOccurs="0"/>
+				       	<xsd:element ref="tmi:registrationId"  minOccurs="0" />
+				       	<xsd:element ref="tmi:familyName"  minOccurs="1" maxOccurs="1"/>
+				       	<xsd:element ref="tmi:givenName" minOccurs="0" maxOccurs="unbounded"/>
+				       	<xsd:element ref="tmi:providerTypeCode"  minOccurs="0"/>
+				  		<xsd:element ref="tmi:dateOfBirth"  minOccurs="1" maxOccurs="1" />
+				  		<xsd:element ref="tmi:sex"  minOccurs="0"/>
+				  		<xsd:element ref="tmi:postcode"  minOccurs="0"/>
+						<xsd:element ref="tmi:state"  minOccurs="0"/>
+			      </xsd:sequence>
+			    </xsd:complexType>
+			  </xsd:element>
+  
+            <xsd:element name="searchTdsProviderIndividualResponse">
+			    <xsd:annotation>
+			      <xsd:documentation>
+			        TDS Search For Provider Individual Response element
+			        </xsd:documentation>
+			    </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="tmi:searchTdsProviderIndividualResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+
+	
+   <wsdl:message
+        name="searchTdsProviderIndividualInMsg">
+        <wsdl:part name="request" element="tns:searchTdsProviderIndividual" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part name="timestampHeader" element="cce:timestamp" />
+        <wsdl:part name="signatureHeader" element="cce:signature" />
+        <wsdl:part name="userHeader" element="cce:user" />
+    </wsdl:message>
+    <wsdl:message
+        name="searchTdsProviderIndividualOutMsg">
+        <wsdl:part name="response" element="tns:searchTdsProviderIndividualResponse" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part  name="signatureHeader" element="cce:signature" />
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault"  element="cce:serviceMessages" />
+    </wsdl:message>	
+
+    
+	<wsdl:portType name="ProviderSearchTdsProviderIndividualPortType">
+        <wsdl:operation
+            name="searchTdsProviderIndividual">
+            <wsdl:input
+                message="tns:searchTdsProviderIndividualInMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchTdsProviderIndividual/5.1.0/ProviderSearchTdsProviderIndividualPortType/searchTdsProviderIndividualRequest" />
+            <wsdl:output
+                message="tns:searchTdsProviderIndividualOutMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchTdsProviderIndividual/5.1.0/ProviderSearchTdsProviderIndividualPortType/searchTdsProviderIndividualResponse" />
+            <wsdl:fault
+                name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchTdsProviderIndividual/5.1.0/ProviderSearchTdsProviderIndividualPortType/searchTdsProviderIndividual/Fault/standardError" />
+        </wsdl:operation>
+	</wsdl:portType>
+	
+</wsdl:definitions>

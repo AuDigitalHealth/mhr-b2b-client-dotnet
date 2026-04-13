@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!--
+    =========================================================================== 
+    @File: Certificate.xsd 
+    @Author: Medicare Australia 
+    @Version: 2010/09/30 
+    @CreatedDate: 2009/04/17 
+    @Release: 3B
+    @Description: This XML Schema contains elements and data types for Certificate entity.
+    ===========================================================================
+  -->
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Certificate/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/Certificate/3.2.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.1">
+    <!-- Externally Used Types -->
+    <xsd:element
+        name="certificate"
+        type="tns:CertificateType" />
+    <xsd:element
+        name="certificateResponse"
+        type="tns:CertificateResponseType" />
+    <!-- Internally Used Types -->
+    <xsd:element
+        name="requestCertificate"
+        type="xsd:boolean" />
+    <xsd:element
+        name="raNumber"
+        type="tns:RANumberType" />
+    <xsd:element
+        name="token"
+        type="tns:TokenType" />
+    <xsd:element
+        name="operatingSystem"
+        type="tns:OperatingSystemType" />
+    <xsd:element
+        name="otherOperatingSystem"
+        type="tns:OtherOperatingSystemType" />
+    <xsd:element
+        name="distinguishedName"
+        type="tns:DistinguishedNameType" />
+    <!-- Externally Used Types -->
+    <xsd:complexType
+        name="CertificateType">
+        <xsd:sequence>
+            <xsd:element
+                ref="tns:linkCertificateRequest"
+                minOccurs="0" />
+            <xsd:element
+                ref="tns:newCertificateRequest"
+                minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType
+        name="CertificateResponseType">
+        <xsd:sequence>
+            <xsd:element
+                ref="tns:raNumber"
+                minOccurs="0" />
+            <xsd:element
+                ref="tns:distinguishedName"
+                minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element
+        name="newCertificateRequest"
+        type="tns:NewCertificateRequestType" />
+    <xsd:complexType
+        name="NewCertificateRequestType">
+        <xsd:sequence>
+            <xsd:element
+                ref="tns:token" />
+            <xsd:element
+                ref="tns:operatingSystem" />
+            <xsd:element
+                ref="tns:otherOperatingSystem"
+                minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element
+        name="linkCertificateRequest"
+        type="tns:LinkCertificateRequestType" />
+    <xsd:complexType
+        name="LinkCertificateRequestType">
+        <xsd:sequence>
+            <xsd:element
+                ref="tns:distinguishedName" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType
+        name="RANumberType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="10" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="TokenType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="6" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="OperatingSystemType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="6" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="OtherOperatingSystemType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="250" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="DistinguishedNameType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:minLength
+                value="1" />
+            <xsd:maxLength
+                value="230" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

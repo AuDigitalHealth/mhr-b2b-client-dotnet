@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!--
+    =========================================================================== 
+    @File: Status.xsd 
+    @Author: Medicare Australia 
+    @Version: 2010/07/31 
+    @CreatedDate: 2009/04/17 
+    @Release: 3 
+    @Description: This XML Schema contains elements and data types for Status entity.
+    ===========================================================================
+  -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Status/3.2.0"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/Status/3.2.0"
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" 
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+	</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd"/>
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+	</xsd:documentation>
+  </xsd:annotation>
+
+
+  <!-- Externally Used Types -->
+  <xsd:element name="status" type="tns:Status" />
+  
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== COMPLEX TYPES ==================================
+	</xsd:documentation>
+  </xsd:annotation>
+
+  <!-- Externally Used Types -->
+
+  <xsd:complexType name="Status">
+    <xsd:sequence>
+	 <xsd:element name="status" type="pce:StatusType" />
+     <xsd:element name="reason" type="tns:ReasonType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+ 
+    <xsd:simpleType name="ReasonType">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="250" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>

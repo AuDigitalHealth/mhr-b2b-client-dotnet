@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ===========================================================================
+    @File:          NotifyReplicaIHIMessages.xsd
+    @Author:        Medicare Australia, UHI Tower 4
+    @Version:       2010/09/30
+    @CreatedDate:   2010/06/09
+    @Release:       3b
+    @Description:   IHI-??: This xsd contains the Consumer Notify Replica IHI via 
+                    B2B request and response data elements
+    ===========================================================================
+-->
+<xsd:schema 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/consumermessages/NotifyReplicaIHI/3.2.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/NotifyReplicaIHI/3.2.0"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+    <xsd:annotation>
+        <xsd:documentation>
+==============================  IMPORTS  =======================================
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:import 
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+        schemaLocation="../../../common/20100731/CommonCoreElements.xsd"/>
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.2.0"
+        schemaLocation="../../core/20100930/ConsumerCoreElements.xsd"/>
+    <xsd:annotation>
+        <xsd:documentation>
+==============================  ELEMENTS =======================================
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="notifyReplicaIHI">
+        <xsd:annotation>
+            <xsd:documentation>Notify Replica IHI Request</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="cce:ihiNumber"/>
+                <xsd:element ref="cce:comment"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="notifyReplicaIHIResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:notifyReplicaIHIResult"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="notifyReplicaIHIResult">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="cce:ihiNumber" minOccurs="0"/>
+                <xsd:element ref="cce:ihiRecordStatus" minOccurs="0"/>
+                <xsd:element ref="cce:ihiStatus" minOccurs="0"/>
+                <xsd:element ref="ce:serviceMessages" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:annotation>
+        <xsd:documentation>
+================================================================================
+        </xsd:documentation>
+    </xsd:annotation>
+</xsd:schema>

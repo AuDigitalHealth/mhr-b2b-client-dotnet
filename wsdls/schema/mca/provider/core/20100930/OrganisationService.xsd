@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   ===========================================================================
+    @File:          OrganisationService.xsd
+    @Author:        Medicare Australia
+    @Version:       2010/07/31
+    @CreatedDate:   2009/04/17
+    @Release:       3
+    @Description:   This XML Schema contains elements and data types for Organisation Service.
+    ===========================================================================
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationService/3.2.0" 
+	xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationService/3.2.0" 
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+	
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  IMPORTS  =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd"/>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+    
+    <xsd:element name="organisationService" type="tns:OrganisationService"/>
+    <xsd:element name="organisationServiceRecord" type="tns:OrganisationServiceRecord"/>
+    
+	<xsd:annotation>
+		<xsd:documentation>
+============================= COMPLEX TYPES ====================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+   <xsd:complexType name="OrganisationServiceRecord">
+    <xsd:complexContent>
+      <xsd:extension base="tns:OrganisationService">
+        <xsd:sequence>
+          <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+          <xsd:element name="externalIdentifier" type="pce:ExternalIdentifierType" minOccurs="0" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="OrganisationService">
+    <xsd:sequence>
+      <xsd:element name="organisationType" type="tns:OrganisationType"/>
+      <xsd:element name="organisationServiceType" type="tns:ServiceType"/>
+      <xsd:element name="organisationServiceUnit" type="tns:ServiceUnitType" minOccurs="0"/>
+      <xsd:element name="organisationServiceComments" type="tns:ServiceCommentsType" minOccurs="0"/>
+      <xsd:element name="startDate" type="pce:DateAndAccuracyType"/>
+      <xsd:element name="endDate" type="pce:DateAndAccuracyType" minOccurs="0" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+	<xsd:annotation>
+		<xsd:documentation>
+============================= SIMPLE TYPES ====================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:simpleType name="OrganisationType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="7"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ServiceType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="7"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="ServiceUnitType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="1000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ServiceCommentsType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="250"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

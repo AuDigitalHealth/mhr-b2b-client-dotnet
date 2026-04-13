@@ -395,7 +395,6 @@ namespace PCEHR.Sample
             }
         }
 
-
         // Sample code for getting Medicine View CDA document
         // Until getView returns Medicine View, two calls need to be made,
         // 1) getDocumentList to retrieve the doc id of the Mediciew View CDA document
@@ -561,7 +560,5 @@ namespace PCEHR.Sample
             object rv = xs.Deserialize(read);
             return (rv);
         }
-
-
     }
 }

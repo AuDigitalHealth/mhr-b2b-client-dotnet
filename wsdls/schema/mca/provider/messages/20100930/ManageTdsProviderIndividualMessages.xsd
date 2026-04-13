@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File: TDSManageProviderIndividual.xsd
+@Author: Medicare Australia
+@Version: 2010/12/31
+@CreatedDate: 2010/04/15
+@Release: 3B
+@Description: This XML Schema contains message elements for Manage Provider Individual web service.
+===========================================================================
+ -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageTdsProviderIndividual/3.2.0"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageTdsProviderIndividual/3.2.0"
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+  xmlns:tpc="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements"
+  xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+  xmlns:pin="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/5.1.0"
+  xmlns:ppd="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/3.2.0"
+  xmlns:pad="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/5.1.0"
+  xmlns:pec="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/5.1.0"
+  xmlns:ppt="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.1"
+  xmlns:pst="http://ns.electronichealth.net.au/hi/xsd/providercore/Status/3.2.0"
+  xmlns:pct="http://ns.electronichealth.net.au/hi/xsd/providercore/Certificate/3.2.0"
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+        </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+  <xsd:import namespace="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements" schemaLocation="../../../../mca/provider/core/20130622/TdsProviderCoreElements.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/5.1.0" schemaLocation="../../../../mca/provider/core/20130622/TdsIndividualName.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/IndividualName.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/PersonalDetails.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/Address.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/5.1.0" schemaLocation="../../../../mca/provider/core/20130622/TdsAddress.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ElectronicCommunication.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/5.1.0" schemaLocation="../../../../mca/provider/core/20130622/TdsElectronicCommunication.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderType.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.1" schemaLocation="../../../../mca/provider/core/20130622/TdsProviderType.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Certificate/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/Certificate.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Status/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/Status.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+        </xsd:documentation>
+  </xsd:annotation>
+
+     <xsd:element name="providerIndividuals" type="tns:providerIndividual" />
+       
+    <xsd:element name="manageTdsProviderIndividual">
+        <xsd:annotation>
+            <xsd:documentation>
+        Manage Provider Individual Request element
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:providerIndividuals" minOccurs="1" maxOccurs="100" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="manageTdsProviderIndividualResult">
+    <xsd:annotation>
+      <xsd:documentation>
+        Manage Provider Individual Response element
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="providerIndividualResponses" type="tns:providerIndividualResponse" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+    <xsd:complexType name="providerIndividual">
+      <xsd:sequence>
+        <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+        <xsd:element name="hpiiNumber" type="pce:HpiiNumberType" minOccurs="0"/>
+        <xsd:element ref="pst:status" minOccurs="0"/>
+        <xsd:element ref="ppd:personalDetails" minOccurs="0"/>
+        <xsd:element ref="pin:individualNameRecord" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="pad:addressRecord" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="ppt:providerTypeRecord" minOccurs="0" maxOccurs="unbounded" />       
+        <xsd:element ref="pec:electronicCommunicationRecord" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="ppd:deathNotification" minOccurs="0" />
+        <xsd:element ref="pct:certificate" minOccurs="0" />
+      </xsd:sequence>
+    </xsd:complexType>
+   
+    <xsd:complexType name="providerIndividualResponse">
+      <xsd:sequence>
+        <xsd:element name="hpiiNumber" type="pce:HpiiNumberType" minOccurs="0" />
+        <xsd:element name="status" type="pce:StatusType" minOccurs="0" />
+        <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+        <xsd:element name="individualNameResponses" type="tpc:DetailsResponseType" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="addressResponses" type="tpc:DetailsResponseType" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="providerTypeResponses" type="tpc:DetailsResponseType" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="electronicCommunicationResponses" type="tpc:DetailsResponseType" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="pct:certificateResponse" minOccurs="0" />
+        <xsd:element ref="cce:serviceMessages" minOccurs="0" /> 
+      </xsd:sequence>
+    </xsd:complexType>
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ================================================================================
+        </xsd:documentation>
+  </xsd:annotation>
+</xsd:schema>

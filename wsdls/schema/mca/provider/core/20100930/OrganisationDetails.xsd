@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   ===========================================================================
+    @File:          OrganisationDetails.xsd
+    @Author:        Medicare Australia
+    @Version:       2010/09/30
+    @CreatedDate:   2009/04/17
+    @Release:       3B
+    @Description:   This XML Schema contains elements and data types for Organisations.
+    ===========================================================================
+-->
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/3.2.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.1">
+    <xsd:element
+        name="organisationDetails"
+        type="tns:OrganisationDetails" />
+    <xsd:complexType
+        name="OrganisationDetails">
+        <xsd:sequence>
+            <xsd:element
+                name="australianBusinessNumber"
+                type="tns:AustralianBusinessNumberType"
+                minOccurs="0" />
+            <xsd:element
+                name="australianCompanyNumber"
+                type="tns:AustralianCompanyNumberType"
+                minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType
+        name="AustralianBusinessNumberType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:length
+                value="11" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType
+        name="AustralianCompanyNumberType">
+        <xsd:restriction
+            base="xsd:string">
+            <xsd:length
+                value="9" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

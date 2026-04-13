@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderManageProviderDirectoryEntryInterface-3.2.0.wsdl
+@Author:        Medicare Australia
+@Version:       3.2.0
+@CreatedDate:   2010/09/30
+@Release:       3.2.0
+@Description:   TECH.SIS.HI.19
+===========================================================================
+-->
+<wsdl:definitions
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+    xmlns:pds="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+    xmlns:pwmi="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageProviderDirectoryEntry/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderManageProviderDirectoryEntry/3.2.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderManageProviderDirectoryEntry/3.2.0"
+    name="ProviderManageProviderDirectoryEntry">
+    <wsdl:types>
+        <xsd:schema
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderManageProviderDirectoryEntry/3.2.0"
+            elementFormDefault="qualified">
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+                schemaLocation="../../../schema/mca/provider/core/20100930/ProviderCoreElements.xsd" />
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+                schemaLocation="../../../schema/mca/provider/core/20100930/ProviderDirectoryService.xsd" />
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageProviderDirectoryEntry/3.2.0"
+                schemaLocation="../../../schema/mca/provider/messages/20100930/ManageProviderDirectoryEntryMessages.xsd" />
+            <xsd:element
+                name="manageProviderDirectoryEntry">
+                <xsd:annotation>
+                    <xsd:documentation> Manage PDS Entry Request element
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element 
+                            ref="pwmi:qualifiedIdentifier"/>
+                        <xsd:element
+                            ref="pwmi:organisationEntry"
+                            minOccurs="0"
+                            maxOccurs="unbounded" />
+                        <xsd:element
+                            ref="pwmi:individualEntry"
+                            minOccurs="0"
+                            maxOccurs="unbounded" />
+                        <xsd:element
+                            ref="pwmi:organisationDeleteEntry"
+                            minOccurs="0"
+                            maxOccurs="unbounded" />
+                        <xsd:element
+                            ref="pwmi:individualDeleteEntry"
+                            minOccurs="0"
+                            maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element
+                name="manageProviderDirectoryEntryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element
+                            ref="pwmi:manageProviderDirectoryEntryResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message
+        name="manageProviderDirectoryEntryInMsg">
+        <wsdl:part name="request" element="tns:manageProviderDirectoryEntry" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part name="timestampHeader" element="cce:timestamp" />
+        <wsdl:part name="signatureHeader" element="cce:signature" />
+        <wsdl:part name="userHeader" element="cce:user" />
+         <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="cce:hpio"/>
+    </wsdl:message>
+    <wsdl:message
+        name="manageProviderDirectoryEntryOutMsg">
+        <wsdl:part
+            name="response"
+            element="tns:manageProviderDirectoryEntryResponse" />
+        <wsdl:part
+            name="productHeader"
+            element="cce:product" />
+        <wsdl:part
+            name="signatureHeader"
+            element="cce:signature" />
+    </wsdl:message>
+    <wsdl:message
+        name="standardErrorMsg">
+        <wsdl:part
+            name="fault"
+            element="cce:serviceMessages" />
+    </wsdl:message>
+    <wsdl:portType
+        name="ProviderManageProviderDirectoryEntryPortType">
+        <wsdl:operation
+            name="manageProviderDirectoryEntry">
+            <wsdl:input
+                message="tns:manageProviderDirectoryEntryInMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderManageProviderDirectoryEntry/3.2.0/ProviderManageProviderDirectoryEntryPortType/manageProviderDirectoryEntryRequest" />
+            <wsdl:output
+                message="tns:manageProviderDirectoryEntryOutMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderManageProviderDirectoryEntry/3.2.0/ProviderManageProviderDirectoryEntryPortType/manageProviderDirectoryEntryResponse" />
+            <wsdl:fault
+                name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderManageProviderDirectoryEntry/3.2.0/ProviderManageProviderDirectoryEntryPortType/manageProviderDirectoryEntry/Fault/standardError" />
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

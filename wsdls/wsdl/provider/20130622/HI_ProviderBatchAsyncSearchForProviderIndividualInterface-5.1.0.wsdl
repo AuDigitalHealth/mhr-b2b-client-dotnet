@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderBatchAsyncSearchForProviderIndividualInterface-5.1.0.wsdl
+@Author:        Medicare Australia
+@Version:       5.1.0 - Initial version   		    	
+@CreatedDate:   2013/06/01
+@Release:       5.1.0
+@Description:   TECH.SIS.HI.33
+===========================================================================
+-->
+
+<wsdl:definitions 
+	name="ProviderBatchSearchForProviderIndividual" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:ppt="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.0"
+	xmlns:ssi="http://ns.electronichealth.net.au/hi/xsd/providermessages/SubmitSearchProviderIndividual/5.1.0"
+	xmlns:rpi="http://ns.electronichealth.net.au/hi/xsd/providermessages/RetrieveSearchProviderIndividual/5.1.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0" 
+					elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+				schemaLocation="../../../schema/mca/provider/core/20130601/ProviderCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.0"
+				schemaLocation="../../../schema/mca/provider/core/20130601/ProviderType.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />				
+			<xsd:import 
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SubmitSearchProviderIndividual/5.1.0" 
+				schemaLocation="../../../schema/mca/provider/messages/20130601/SubmitSearchForProviderIndividualMessages.xsd"/>
+			<xsd:import 
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/RetrieveSearchProviderIndividual/5.1.0" 
+				schemaLocation="../../../schema/mca/provider/messages/20130601/RetrieveSearchForProviderIndividualResultsMessages.xsd"/>
+		
+				<xsd:element name="submitSearchForProviderIndividual">
+					<xsd:annotation>
+						<xsd:documentation>
+							Submit Batch Search for Provider Individual Request element
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="ppt:batchSearchForProviderIndividualCriteria" maxOccurs="50" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			
+				<xsd:element name="submitSearchForProviderIndividualResponse">
+						<xsd:annotation>
+							<xsd:documentation>
+								Submit Batch Search for Provider Individual Response element
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element ref="ssi:submitSearchForProviderIndividualResult" />
+							</xsd:sequence>
+						</xsd:complexType>
+				</xsd:element>
+				
+				
+				<xsd:element name="retrieveSearchForProviderIndividual">
+					<xsd:annotation>
+						<xsd:documentation>
+							Retrieve Batch Search for Provider Individual Results Request element
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="pce:batchIdentifier" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			
+				<xsd:element name="retrieveSearchForProviderIndividualResponse">
+						<xsd:annotation>
+							<xsd:documentation>
+								Retrieve Batch Search for Provider Individual Results Response element
+							</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element ref="rpi:retrieveSearchForProviderIndividualResult" />
+							</xsd:sequence>
+						</xsd:complexType>
+				</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="submitSearchForProviderIndividualInMsg">
+		<wsdl:part name="request" element="tns:submitSearchForProviderIndividual" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />
+		<wsdl:part name="hpioHeader" element="cce:hpio" />	
+	</wsdl:message>
+	<wsdl:message name="submitSearchForProviderIndividualOutMsg">
+		<wsdl:part name="response" element="tns:submitSearchForProviderIndividualResponse"/>
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+	</wsdl:message>
+	<wsdl:message name="retrieveSearchForProviderIndividualInMsg">
+		<wsdl:part name="request" element="tns:retrieveSearchForProviderIndividual" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />
+		<wsdl:part name="hpioHeader" element="cce:hpio" />
+	</wsdl:message>
+	<wsdl:message name="retrieveSearchForProviderIndividualOutMsg">
+		<wsdl:part name="response" element="tns:retrieveSearchForProviderIndividualResponse"/>
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />		
+	</wsdl:message>
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="fault" element="cce:serviceMessages" />
+	</wsdl:message>
+	<wsdl:portType name="SearchForProviderIndividualBatchAsyncPortType">
+		<wsdl:operation name="submitSearchForProviderIndividual">
+			<wsdl:input name="submitSearchForProviderIndividualRequest" message="tns:submitSearchForProviderIndividualInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0/SearchForProviderIndividualBatchAsyncPortType/submitSearchForProviderIndividualRequest"/>
+			<wsdl:output name="submitSearchForProviderIndividualResponse" message="tns:submitSearchForProviderIndividualOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0/SearchForProviderIndividualBatchAsyncPortType/submitSearchForProviderIndividualResponse"/>
+		    <wsdl:fault name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0/SearchForProviderIndividualBatchAsyncPortType/submitSearchForProviderIndividual/Fault/standardError"/>
+	    </wsdl:operation>
+		<wsdl:operation name="retrieveSearchForProviderIndividual">
+			<wsdl:input 
+				name="retrieveSearchForProviderIndividualRequest" 
+				message="tns:retrieveSearchForProviderIndividualInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0/SearchForProviderIndividualBatchAsyncPortType/retrieveSearchForProviderIndividualRequest"/>
+			<wsdl:output 
+				name="retrieveSearchForProviderIndividualResponse" 
+				message="tns:retrieveSearchForProviderIndividualOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0/SearchForProviderIndividualBatchAsyncPortType/retrieveSearchForProviderIndividualResponse"/>
+		    <wsdl:fault 
+		    	name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderIndividual/5.1.0/SearchForProviderIndividualBatchAsyncPortType/retrieveSearchForProviderIndividual/Fault/standardError"/>
+        </wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

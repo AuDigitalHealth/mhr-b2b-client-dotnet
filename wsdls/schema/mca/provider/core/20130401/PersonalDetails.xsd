@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+	@File: PersonalDetails.xsd 
+	@Author: Department of Human Services 
+	@Version: 2013/04/01 
+	@CreatedDate: 2009/04/17 
+	@Release: CR77 
+	@Description: This XML Schema contains elements and data types for Individual PersonalDetailss. 
+ =========================================================================== 
+ -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/5.0.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/5.0.0"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.1">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== IMPORTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="dateOfBirth" type="xsd:date" />
+
+</xsd:schema>    

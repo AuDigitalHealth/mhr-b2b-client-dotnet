@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+  @File: ElectronicCommunication.xsd 
+  @Author: Medicare Australia 
+  @Version: 2010/09/30 
+  @CreatedDate: 2009/04/17 @Release: 3b
+  @Description: This XML Schema contains elements and data types for Electronic Communication. 
+  =========================================================================== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/5.1.0"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/5.1.0" 
+  xmlns:ecn="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/3.2.0"
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+  xmlns:cec="http://ns.electronichealth.net.au/hi/xsd/common/ElectronicCommunicationCore/3.0" 
+  xmlns:tpc="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements"  
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+  
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ElectronicCommunication.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/common/ElectronicCommunicationCore/3.0" schemaLocation="../../../../mca/common/20100731/ElectronicCommunicationCore.xsd" />
+  <xsd:import namespace="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements" schemaLocation="../../../../mca/provider/core/20130622/TdsProviderCoreElements.xsd" />  
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+  
+  <xsd:element name="electronicCommunicationRecord" type="tns:ElectronicCommunicationRecord" />
+  
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================= COMPLEX TYPES ====================================
+		</xsd:documentation>
+  </xsd:annotation>
+   
+   <xsd:complexType name="ElectronicCommunicationRecord">
+  	<xsd:sequence>
+         <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+         <xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType"/>
+         <xsd:element name="electronicCommunication" type="ecn:ElectronicCommunication" />
+     </xsd:sequence>
+  </xsd:complexType> 
+  
+   <xsd:complexType name="ElectronicCommunicationRecordResponse">
+  	<xsd:sequence>
+         <xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType" minOccurs="0"/>
+         <xsd:element name="electronicCommunication" type="ecn:ElectronicCommunication" />
+     </xsd:sequence>
+  </xsd:complexType>   
+  
+</xsd:schema>

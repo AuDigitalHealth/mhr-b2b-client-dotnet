@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== @File: Endpoint.xsd @Author: Medicare Australia @Version: 2010/07/31 
+  @CreatedDate: 2009/07/30 @Release: 3 @Description: This XML Schema contains elements and data types for Endpoint Locator Service. =========================================================================== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/EndPoint/3.2.0"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/EndPoint/3.2.0" 
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:element name="endpointLocatorService" type="tns:EndpointLocatorService" />
+  <xsd:element name="endpointLocatorServiceRecord" type="tns:EndpointLocatorServiceRecord" />
+
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================= COMPLEX TYPES ====================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:complexType name="EndpointLocatorServiceRecord">
+    <xsd:complexContent>
+      <xsd:extension base="tns:EndpointLocatorService">
+        <xsd:sequence>
+          <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+          <xsd:element name="externalIdentifier" type="pce:ExternalIdentifierType" minOccurs="0" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="EndpointLocatorService">
+    <xsd:sequence>
+      <xsd:element name="serviceIdentity" type="tns:ServiceIdentityType" minOccurs="0" />
+      <xsd:element name="serviceAddress" type="tns:ServiceAddressType" minOccurs="0" />
+      <xsd:element name="securityCertificateReference" type="tns:SecurityCertificateReferenceType" minOccurs="0" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================= SIMPLE TYPES ====================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:simpleType name="ServiceIdentityType">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="255" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ServiceAddressType">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="1024" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="SecurityCertificateReferenceType">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="1024" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+</xsd:schema>

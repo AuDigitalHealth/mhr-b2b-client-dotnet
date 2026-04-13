@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!--
+    =========================================================================== 
+    @File: Address.xsd 
+    @Author: Medicare Australia 
+    @Version: 2010/07/31 
+    @CreatedDate: 2009/04/17 
+    @Release: 3 
+    @Description: This XML Schema contains elements and data types for Address entity.
+    ===========================================================================
+  -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/5.1.0"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/5.1.0" 
+  xmlns:add="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0"
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+  xmlns:cac="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0"
+  xmlns:tpc="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements"  
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+	</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/Address.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0" schemaLocation="../../../../mca/common/20100731/AddressCore.xsd" />
+  <xsd:import namespace="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements" schemaLocation="../../../../mca/provider/core/20130622/TdsProviderCoreElements.xsd" />  
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+	</xsd:documentation>
+  </xsd:annotation>
+  
+    <xsd:element name="addressRecord" type="tns:AddressRecord" />
+  
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== COMPLEX TYPES ==================================
+	</xsd:documentation>
+  </xsd:annotation>
+ 
+  <xsd:complexType name="AddressRecord">
+  		<xsd:sequence>
+          <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+          <xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType"/>
+          <xsd:element name="address" type="add:Address"/>
+        </xsd:sequence>
+  	</xsd:complexType>
+  	
+  <xsd:complexType name="AddressRecordResponse">
+  		<xsd:sequence>
+          <xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType" minOccurs="0"/>
+          <xsd:element name="address" type="add:Address"/>
+        </xsd:sequence>
+  	</xsd:complexType>  	
+  
+</xsd:schema>

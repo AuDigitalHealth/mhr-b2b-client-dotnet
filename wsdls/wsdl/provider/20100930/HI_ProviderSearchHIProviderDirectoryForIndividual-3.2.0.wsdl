@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderSearchHIProviderDirectoryForIndividual-3.2.0.wsdl
+@Author:        Medicare Australia
+@Version:       3.2.0 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/09/30
+@Release:       3.2.0
+@Description:   TECH.SIS.HI.17
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsp="http://www.w3.org/ns/ws-policy"
+    xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0"
+    name="Provider.SearchHIProviderDirectoryForIndividual.3.2.0">
+    <wsp:Policy xml:id="AddressingPolicy">
+        <wsam:Addressing/>
+    </wsp:Policy>
+    <wsp:Policy xml:id="TlsPolicy">
+        <sp:TransportBinding>
+            <wsp:Policy>
+                <sp:TransportToken>
+                    <wsp:Policy>
+                        <sp:HttpsToken> 
+                            <wsp:Policy>
+                                <sp:RequireClientCertificate />
+                            </wsp:Policy>
+                        </sp:HttpsToken>
+                    </wsp:Policy>
+                </sp:TransportToken>
+            </wsp:Policy>
+        </sp:TransportBinding>
+    </wsp:Policy>
+    <wsdl:import 
+        namespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0" 
+        location="HI_ProviderSearchHIProviderDirectoryForIndividualInterface-3.2.0.wsdl"/>
+    <wsdl:binding name="ProviderSearchHIProviderDirectoryForIndividualSOAP12Binding" type="tns:ProviderSearchHIProviderDirectoryForIndividualPortType">
+        <wsp:PolicyReference URI="#AddressingPolicy"/>
+        <wsp:PolicyReference URI="#TlsPolicy"/>
+        <wsoap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="searchHIProviderDirectoryForIndividual">
+            <wsoap12:operation soapActionRequired="false" style="document" />
+            <wsdl:input>
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualInMsg" part="productHeader" use="literal"/>
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualInMsg" part="signatureHeader" use="literal"/>
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualInMsg" part="timestampHeader" use="literal"/>
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualInMsg" part="userHeader" use="literal"/>
+                <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualInMsg" part="hpioHeader" use="literal"/>
+                <wsoap12:body parts="request" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualOutMsg" part="productHeader" use="literal"/>
+                <wsoap12:header message="tns:searchHIProviderDirectoryForIndividualOutMsg" part="signatureHeader" use="literal"/>
+                <wsoap12:body parts="response" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="standardError">
+                <wsoap12:fault name="standardError" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ProviderSearchHIProviderDirectoryForIndividualService">
+        <wsdl:port name="ProviderSearchHIProviderDirectoryForIndividualSOAP12Port" binding="tns:ProviderSearchHIProviderDirectoryForIndividualSOAP12Binding">
+            <wsoap12:address location="http://esbservice/soap/services"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

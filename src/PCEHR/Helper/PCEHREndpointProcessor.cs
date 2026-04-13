@@ -131,7 +131,10 @@ namespace Nehta.VendorLibrary.PCEHR
                     for (int x = 0; x < partHeaderMatches.Count; x++)
                     {
                         var contentId = Regex.Match(partHeaderMatches[x].Value, "Content-ID: <(.*?)>");
-                        var encodedContentId = HttpUtility.UrlEncode(contentId.Groups[1].Value).Replace(".", @"\.");
+                        
+                        var encodedContentId = System.Uri.EscapeUriString(contentId.Groups[1].Value).Replace(".", @"\.");
+                        //var encodedContentId = HttpUtility.UrlEncode(contentId.Groups[1].Value).Replace(".", @"\.");
+
                         var unencodedContentId = contentId.Groups[1].Value.Replace(".", @"\.");
                         
                         // var xopIncludeMatch = Regex.Match(unsignedXml, "(<[^>]+?>)(<([^>]+?:)?Include href=\"cid:(" + encodedContentId + ")\"[^>]*?/>)(</[^>]+?>)", RegexOptions.IgnoreCase);

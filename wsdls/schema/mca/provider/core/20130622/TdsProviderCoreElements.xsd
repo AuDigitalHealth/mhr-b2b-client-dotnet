@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   ===========================================================================
+    @File:          ProviderCoreElements.xsd
+    @Author:        Medicare Australia
+    @Version:       2010/07/31
+    @CreatedDate:   2009/04/17
+    @Release:       3
+    @Description:   This XML Schema contains message elements common to Provider based web services.
+    ===========================================================================
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements" 
+	xmlns:tns="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+	
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  IMPORTS  =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+    <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd"/>
+
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+    <xsd:complexType name="DetailsResponseType">
+      <xsd:sequence>
+        <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+        <xsd:element name="tdsReference" type="tns:TdsReferenceIdentifierType" minOccurs="0" />
+      </xsd:sequence>
+    </xsd:complexType>
+
+  <xsd:simpleType name="TdsReferenceIdentifierType">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1" />
+      <xsd:maxLength value="32" />
+    </xsd:restriction>
+  </xsd:simpleType>
+ 
+	<xsd:annotation>
+		<xsd:documentation>
+================================================================================
+		</xsd:documentation>
+	</xsd:annotation>
+</xsd:schema>

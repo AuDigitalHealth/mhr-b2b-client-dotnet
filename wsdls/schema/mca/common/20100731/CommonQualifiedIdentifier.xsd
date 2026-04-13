@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ===========================================================================
+    @File:          CommonQualifiedIdentifier.xsd
+    @Author:        Medicare Australia
+    @Version:       2010/07/31
+    @CreatedDate:   2010/05/15
+    @Release:       1
+    @Description:   This xsd contains Medicare Qualified Identifier Schema
+    ===========================================================================
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:cqi="http://ns.electronichealth.net.au/hi/xsd/common/QualifiedIdentifier/3.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/common/QualifiedIdentifier/3.0"
+    elementFormDefault="qualified">
+    <xsd:element name="qualifiedId" type="cqi:QualifiedId"/>
+   <xsd:complexType name="QualifiedId">
+      <xsd:sequence>
+         <xsd:element name="qualifier" type="xsd:anyURI" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

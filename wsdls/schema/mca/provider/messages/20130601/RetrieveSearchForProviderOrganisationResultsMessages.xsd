@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+	@File: 			RetrieveSearchForProviderOrganisationResultsMessages.xsd 
+	@Author: 		Department of Human Services 
+	@Version: 		2013/06/01 
+	@CreatedDate: 	2013/01/22 
+	@Release: 		CR77 
+	@Description: 	This XML Schema contains message elements for Retrieve  
+	Search For Provider Organisation Results web service. 
+=========================================================================== 
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/RetrieveSearchProviderOrganisation/5.1.0"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+	xmlns:pod="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/5.1.0" 
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.1">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== IMPORTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+		schemaLocation="../../../../mca/provider/core/20130601/ProviderCoreElements.xsd" />
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/5.1.0"
+		schemaLocation="../../../../mca/provider/core/20130601/OrganisationDetails.xsd" />
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+		schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== ELEMENTS	=======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="retrieveSearchForProviderOrganisation">
+		<xsd:annotation>
+			<xsd:documentation>
+				Retrieve Batch Search for Provider Organisation Results Request element
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="pce:batchIdentifier" />
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>
+
+	<xsd:element name="retrieveSearchForProviderOrganisationResult">
+		<xsd:annotation>
+			<xsd:documentation>
+				Retrieve Batch Search for Provider Organisation Results Response element
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="pce:batchIdentifier" minOccurs="0" />
+				<xsd:element ref="pod:batchSearchForProviderOrganisationResult" minOccurs="0" maxOccurs="50" />
+				<xsd:element ref="cce:serviceMessages" minOccurs="0" />
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>
+
+</xsd:schema>

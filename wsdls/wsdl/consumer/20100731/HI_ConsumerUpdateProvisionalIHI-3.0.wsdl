@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerUpdateProvisionalIHI-3.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/07/31 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/04/23
+@Release:       3
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsp="http://www.w3.org/ns/ws-policy"
+    xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateProvisionalIHI/3.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateProvisionalIHI/3.0"
+    name="ConsumerUpdateProvisionalIHI">
+    <wsp:Policy xml:id="AddressingPolicy">
+        <wsam:Addressing/>
+    </wsp:Policy>
+    <wsp:Policy xml:id="TlsPolicy">
+        <sp:TransportBinding>
+            <wsp:Policy>
+                <sp:TransportToken>
+                    <wsp:Policy>
+                        <sp:HttpsToken>
+                            <wsp:Policy>
+                                <sp:RequireClientCertificate />
+                            </wsp:Policy>
+                        </sp:HttpsToken>
+                    </wsp:Policy>
+                </sp:TransportToken>
+            </wsp:Policy>
+        </sp:TransportBinding>
+    </wsp:Policy>
+    <wsdl:import 
+        namespace="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateProvisionalIHI/3.0" 
+        location="HI_ConsumerUpdateProvisionalIHIInterface-3.0.wsdl"/>
+    <wsdl:binding name="ConsumerUpdateProvisionalIHISOAP12Binding" type="tns:ConsumerUpdateProvisionalIHIPortType">
+        <wsp:PolicyReference URI="#AddressingPolicy"/>
+        <wsp:PolicyReference URI="#TlsPolicy"/>
+        <wsoap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="updateProvisionalIHI">
+            <wsoap12:operation soapAction="http://ns.electronichealth.net.au/" style="document" />
+            <wsdl:input>
+                <wsoap12:header message="tns:updateProvisionalIHIInMsg" part="productHeader" use="literal"/>
+                <wsoap12:header message="tns:updateProvisionalIHIInMsg" part="signatureHeader" use="literal"/>
+                <wsoap12:header message="tns:updateProvisionalIHIInMsg" part="timestampHeader" use="literal"/>
+                <wsoap12:header message="tns:updateProvisionalIHIInMsg" part="userHeader" use="literal"/>
+                <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+                <wsoap12:header message="tns:updateProvisionalIHIInMsg" part="hpioHeader" use="literal"/>
+                <wsoap12:body parts="request" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <wsoap12:header message="tns:updateProvisionalIHIOutMsg" part="productHeader" use="literal"/>
+                <wsoap12:header message="tns:updateProvisionalIHIOutMsg" part="signatureHeader" use="literal"/>
+                <wsoap12:body parts="response" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="standardError">
+                <wsoap12:fault name="standardError" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="UpdateProvisionalIHIService">
+        <wsdl:port name="UpdateProvisionalIHISOAP12Port" binding="tns:ConsumerUpdateProvisionalIHISOAP12Binding">
+            <wsoap12:address location="http://esbservice/soap/services"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

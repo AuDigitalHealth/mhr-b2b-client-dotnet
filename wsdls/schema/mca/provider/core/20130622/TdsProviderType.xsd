@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== 
+  @File: ProviderType.xsd @Author: Medicare Australia 
+  @Version: 2010/09/30 
+  @CreatedDate: 2009/04/17 
+  @Release: 3 
+  @Description: This XML Schema contains elements and data types for Provider Type. 
+  =========================================================================== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.1"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.1" 
+  xmlns:pty="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0"
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+  xmlns:tpc="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements"  
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderType.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+  <xsd:import namespace="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements" schemaLocation="../../../../mca/provider/core/20130622/TdsProviderCoreElements.xsd" />  
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:element name="providerTypeRecord" type="tns:ProviderTypeRecord" />
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== COMPLEX TYPES =======================================
+		</xsd:documentation>
+  </xsd:annotation>
+
+ 
+  <xsd:complexType name="ProviderTypeRecord">
+  	 <xsd:sequence>
+         <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+          <xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType"/>
+          <xsd:element name="providerType" type="pty:ProviderType" />
+        </xsd:sequence>
+    </xsd:complexType>  
+
+  <xsd:complexType name="ProviderTypeRecordResponse">
+  	 <xsd:sequence>
+          <xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType" minOccurs="0"/>
+          <xsd:element name="providerType" type="pty:ProviderType" />
+        </xsd:sequence>
+    </xsd:complexType>  
+
+</xsd:schema>

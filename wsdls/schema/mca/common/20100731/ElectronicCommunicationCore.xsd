@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		===========================================================================
+		@File: ElectronicCommunication.xsd 
+		@Author: Medicare Australia
+		@Version: 2010/07/31
+		@CreatedDate: 2009/11/23 
+		@Release: 3
+		@Description: This XML Schema contains elements and data types for
+		Electronic Communication.
+		===========================================================================
+	-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:cdt="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreDatatypes/3.0"
+	xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/common/ElectronicCommunicationCore/3.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/common/ElectronicCommunicationCore/3.0"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.0">
+	<xsd:import 
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreDatatypes/3.0" 
+        schemaLocation="CommonCoreDatatypes.xsd"/>	
+
+	<xsd:annotation>
+		<xsd:documentation>
+			==============ELEMENTS=================
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="usage" type="cdt:UsageType"/>
+	<xsd:element name="medium" type="cdt:MediumType"/>
+	<xsd:element name="details" type="cdt:DetailsType"/>
+</xsd:schema>

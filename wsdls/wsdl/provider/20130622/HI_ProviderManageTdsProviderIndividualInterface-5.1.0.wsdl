@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderManageTdsProviderIndividualInterface-5.1.0.wsdl
+@Author:        Medicare Australia
+@Version:       5.1.0
+@CreatedDate:   2013/06/22
+@Release:       5.1.0
+@Description:   TECH.SIS.HI.20
+===========================================================================
+-->
+<wsdl:definitions
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:pwmi="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageTdsProviderIndividual/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderManageTdsProviderIndividual/5.1.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderManageTdsProviderIndividual/5.1.0"
+    name="ProviderManageTdsProviderIndividual">
+    <wsdl:types>
+        <xsd:schema
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderManageTdsProviderIndividual/5.1.0"
+            elementFormDefault="qualified">
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageTdsProviderIndividual/3.2.0"
+                schemaLocation="../../../schema/mca/provider/messages/20100930/ManageTdsProviderIndividualMessages.xsd" />
+
+			  <xsd:element name="manageTdsProviderIndividual">
+			    <xsd:annotation>
+			      <xsd:documentation>
+			        Manage Provider Individual Request element
+					</xsd:documentation>
+			    </xsd:annotation>
+			    <xsd:complexType>
+			      <xsd:sequence>
+			        <xsd:element ref="pwmi:providerIndividuals" minOccurs="1" maxOccurs="100" />
+			      </xsd:sequence>
+			    </xsd:complexType>
+			  </xsd:element>
+            <xsd:element name="manageTdsProviderIndividualResponse">
+			    <xsd:annotation>
+			      <xsd:documentation>
+			        Manage Provider Individual Response element
+			        </xsd:documentation>
+			    </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="pwmi:manageTdsProviderIndividualResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message
+        name="manageTdsProviderIndividualInMsg">
+        <wsdl:part name="request" element="tns:manageTdsProviderIndividual" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part name="timestampHeader" element="cce:timestamp" />
+        <wsdl:part name="signatureHeader" element="cce:signature" />
+        <wsdl:part name="userHeader" element="cce:user" />
+    </wsdl:message>
+    <wsdl:message name="manageTdsProviderIndividualOutMsg">
+        <wsdl:part name="response" element="tns:manageTdsProviderIndividualResponse" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part name="signatureHeader" element="cce:signature" />
+    </wsdl:message>
+    <wsdl:message
+        name="standardErrorMsg">
+        <wsdl:part name="fault" element="cce:serviceMessages" />
+    </wsdl:message>
+    <wsdl:portType
+        name="ProviderManageTdsProviderIndividualPortType">
+        <wsdl:operation name="manageTdsProviderIndividual">
+            <wsdl:input
+                message="tns:manageTdsProviderIndividualInMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderManageTdsProviderIndividual/5.1.0/ProviderManageTdsProviderIndividualPortType/manageTdsProviderIndividualRequest" />
+            <wsdl:output
+                message="tns:manageTdsProviderIndividualOutMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderManageTdsProviderIndividual/5.1.0/ProviderManageTdsProviderIndividualPortType/manageTdsProviderIndividualResponse" />
+            <wsdl:fault
+                name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderManageTdsProviderIndividual/5.1.0/ProviderManageTdsProviderIndividualPortType/manageTdsProviderIndividual/Fault/standardError" />
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

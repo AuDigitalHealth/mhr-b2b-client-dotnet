@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== 
+  @File: ReadReference.xsd 
+  @Author: Medicare Australia 
+  @Version: 2010/07/31 
+  @CreatedDate: 2010/04/15 
+  @Release: 3B 
+  @Description: This XML Schema contains message elements for Read Reference
+  web service. 
+  =========================================================================== -->
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ReadReferenceData/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providermessages/ReadReferenceData/3.2.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.1">
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+        schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+    <xsd:element
+        name="elementNames"
+        type="pce:ElementNameType" />
+    <xsd:element
+        name="readReferenceData">
+        <xsd:annotation>
+            <xsd:documentation> Read Reference Data Request element
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:elementNames"
+                    maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element
+        name="readReferenceDataResult">
+        <xsd:annotation>
+            <xsd:documentation> Read Reference Data Response element
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    name="elementReferenceValues"
+                    type="tns:ElementReferenceValuesType"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="cce:serviceMessages"
+                    minOccurs="0" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType
+        name="ElementReferenceValuesType">
+        <xsd:sequence>
+            <xsd:element
+                name="elementName"
+                type="pce:ElementNameType"></xsd:element>
+            <xsd:element
+                name="referenceSet"
+                type="pce:ReferenceSetType"
+                minOccurs="0"
+                maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

@@ -40,29 +40,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        public DoesPCEHRExistClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert)
-        {
-            profileClient = new PCEHRProfileClient(endpointConfigurationName, signingCert, tlsCert);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        public DoesPCEHRExistClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
-        {
-            profileClient = new PCEHRProfileClient(endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>

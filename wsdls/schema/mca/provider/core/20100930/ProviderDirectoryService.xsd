@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+  @File: ProviderDirectoryService.xsd 
+  @Author: Medicare Australia 
+  @Version: 2010/09/30 
+  @CreatedDate: 2009/04/17 
+  @Release: 3B 
+  @Description: This XML Schema contains elements and data types for Provider Drietory 
+  Service entity. 
+=========================================================================== 
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0" xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1">
+    <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+    <xsd:complexType name="ProviderDirectoryIndividualEntry">
+        <xsd:sequence>
+            <xsd:element name="nameExternalId" type="pce:ExternalIdentifierType" />
+            <xsd:element name="addressExternalId" type="pce:ExternalIdentifierType" />
+            <xsd:element name="electronicCommunicationExternalId" type="pce:ExternalIdentifierType"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="providerTypeExternalId" type="pce:ExternalIdentifierType" minOccurs="0"
+                maxOccurs="unbounded" />
+            <xsd:element name="additionalComments" type="pce:AdditionalCommentsType" minOccurs="0" />
+            <!-- KG 26.10.10 -->
+            <!-- <xsd:element name="displayInHIPDS" type="xsd:boolean" minOccurs="0" /> -->
+            <xsd:element name="display" type="xsd:boolean" />
+            <xsd:element name="priorityNumber" type="pce:PriorityNumberType" />
+            <xsd:element name="displayPersonalDetails" type="xsd:boolean" />
+            <!-- <xsd:element ref="tns:displayLinkedOrganisations" minOccurs="0" /> -->
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ProviderDirectoryIndividualEntryRecord">
+        <xsd:complexContent>
+            <xsd:extension base="tns:ProviderDirectoryIndividualEntry">
+                <xsd:sequence>
+                    <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+                    <xsd:element name="externalIdentifier" type="pce:ExternalIdentifierType" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ProviderDirectoryOrganisationEntry">
+        <xsd:sequence>
+            <xsd:element name="nameExternalId" type="pce:ExternalIdentifierType" />
+            <xsd:element name="addressExternalId" type="pce:ExternalIdentifierType" />
+            <xsd:element name="electronicCommunicationExternalId" type="pce:ExternalIdentifierType"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="organisationServiceExternalId" type="pce:ExternalIdentifierType" minOccurs="0"
+                maxOccurs="unbounded" />
+            <xsd:element name="endpointLocatorServiceExternalId" type="pce:ExternalIdentifierType"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="additionalComments" type="pce:AdditionalCommentsType" minOccurs="0" />
+            <!-- KG 26.10.10 -->
+            <xsd:element name="display" type="xsd:boolean" />
+            <xsd:element name="displayPrivateDetails" type="xsd:boolean" />
+            <xsd:element name="priorityNumber" type="pce:PriorityNumberType" />
+            <!--<xsd:element ref="tns:displayLinkedProviders" minOccurs="0" /> -->
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ProviderDirectoryOrganisationEntryRecord">
+        <xsd:complexContent>
+            <xsd:extension base="tns:ProviderDirectoryOrganisationEntry">
+                <xsd:sequence>
+                    <xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+                    <xsd:element name="externalIdentifier" type="pce:ExternalIdentifierType" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerCreateVerifiedIHI-4.0.0.wsdl
+@Author:        Medicare Australia
+@Version:       4.0.0 - Initial version   		    	  
+@CreatedDate:   2011/10/07
+@Release:       4.0.0
+@Description:   Create Verified IHI for new born Binding WSDL.
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsp="http://www.w3.org/ns/ws-policy"
+    xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0"                
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0"
+    name="ConsumerCreateVerifiedIHI">
+    <wsp:Policy xml:id="AddressingPolicy">
+        <wsam:Addressing/>
+    </wsp:Policy>
+    <wsp:Policy xml:id="TlsPolicy">
+        <sp:TransportBinding>
+            <wsp:Policy>
+                <sp:TransportToken>
+                    <wsp:Policy>
+                        <sp:HttpsToken>
+                            <wsp:Policy>
+                                <sp:RequireClientCertificate />
+                            </wsp:Policy>
+                        </sp:HttpsToken>
+                    </wsp:Policy>
+                </sp:TransportToken>
+            </wsp:Policy>
+        </sp:TransportBinding>
+    </wsp:Policy>
+    <wsdl:import 
+        namespace="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0" 
+        location="HI_ConsumerCreateVerifiedIHIInterface-4.0.0.wsdl"/>
+    <wsdl:binding name="ConsumerCreateVerifiedIHISOAP12Binding" type="tns:ConsumerCreateVerifiedIHIPortType">
+        <wsp:PolicyReference URI="#AddressingPolicy"/>
+        <wsp:PolicyReference URI="#TlsPolicy"/>
+        <wsoap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="createVerifiedIHI">
+            <wsoap12:operation soapAction="" style="document"/>
+            <wsdl:input>
+                <wsoap12:header message="tns:createVerifiedIHIInMsg" part="productHeader" use="literal"/>
+                <wsoap12:header message="tns:createVerifiedIHIInMsg" part="signatureHeader" use="literal"/>
+                <wsoap12:header message="tns:createVerifiedIHIInMsg" part="timestampHeader" use="literal"/>
+                <wsoap12:header message="tns:createVerifiedIHIInMsg" part="userHeader" use="literal"/>
+                <wsoap12:header message="tns:createVerifiedIHIInMsg" part="hpioHeader" use="literal"/>
+                <wsoap12:body parts="request" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <wsoap12:header message="tns:createVerifiedIHIOutMsg" part="productHeader" use="literal"/>
+                <wsoap12:header message="tns:createVerifiedIHIOutMsg" part="signatureHeader" use="literal"/>
+                <wsoap12:body parts="response" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="standardError">
+                <wsoap12:fault name="standardError" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ConsumerCreateVerifiedIHIService">
+        <wsdl:port name="ConsumerCreateVerifiedIHISOAP12Port" binding="tns:ConsumerCreateVerifiedIHISOAP12Binding">
+            <wsoap12:address location="http://esbservice/soap/services"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

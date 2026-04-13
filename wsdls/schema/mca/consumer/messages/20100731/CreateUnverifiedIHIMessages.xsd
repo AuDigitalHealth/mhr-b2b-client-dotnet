@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ===========================================================================
+    @File:          CreateUnverifiedIHIMessages.xsd
+    @Author:        Medicare Australia, UHI Tower 4
+    @Version:       2010/07/31
+    @CreatedDate:   2009/08/05
+    @Release:       3
+    @Description:   IHI-10: This xsd contains the Consumer Create Unverified IHI Request data elements
+    ===========================================================================
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+	xmlns:ihi="http://ns.electronichealth.net.au/hi/xsd/consumercore/IHI/3.0" 
+	xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+	xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+	xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+	xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/consumermessages/CreateUnverifiedIHI/3.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/CreateUnverifiedIHI/3.0" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  IMPORTS  =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+		schemaLocation="../../../common/20100731/CommonCoreElements.xsd"/>
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+		schemaLocation="../../core/20100731/ConsumerCoreElements.xsd"/>
+	<xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/IHI/3.0" 
+		schemaLocation="../../core/20100731/IndividualHealthcareIdentification.xsd"/>
+    <xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0" 
+		schemaLocation="../../core/20100731/Address.xsd"/>
+    <xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0" 
+		schemaLocation="../../core/20100731/IndividualName.xsd"/>
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+		schemaLocation="../../../common/20100731/IndividualNameCore.xsd"/>
+    <xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0" 
+		schemaLocation="../../core/20100731/ElectronicCommunication.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="createUnverifiedIHI">
+		<xsd:annotation>
+			<xsd:documentation>Create Unverified IHI Request</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ihi:individualHealthcareIdentity"/>
+                <xsd:element ref="ec:electronicCommunication" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="cin:nameTitle" minOccurs="0"/>
+				<xsd:element ref="cin:familyName"/>
+				<xsd:element ref="cin:givenName" minOccurs="0" maxOccurs="2"/>
+				<xsd:element ref="cin:nameSuffix" minOccurs="0"/>
+				<xsd:element ref="cin:usage"/>
+				<xsd:element ref="name:conditionalUse" minOccurs="0"/>
+                <xsd:element ref="address:address" minOccurs="0" maxOccurs="2"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="createUnverifiedIHIResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:createUnverifiedIHIResult"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+	<xsd:element name="createUnverifiedIHIResult">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="cce:ihiNumber" minOccurs="0"/>
+				<xsd:element ref="cce:ihiRecordStatus" minOccurs="0"/>
+				<xsd:element ref="cce:ihiStatus" minOccurs="0"/>
+				<xsd:element ref="ce:serviceMessages" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+================================================================================
+		</xsd:documentation>
+	</xsd:annotation>
+</xsd:schema>

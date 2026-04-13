@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File: HI_ProviderReadReferenceDataInterface-3.2.0.wsdl 
+@Author: Medicare Australia 
+@Version: 3.2.0 - Initial version
+   		  2011/06/25 - added backward compatible optional element "hpio" 
+	      for Contracted Service Provider usage.   
+@CreatedDate: 2010/09/30 
+@Release: 3.2.0 
+@Description: TECH.SIS.HI.22
+===========================================================================
+-->
+<wsdl:definitions
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+    xmlns:pwmi="http://ns.electronichealth.net.au/hi/xsd/providermessages/ReadReferenceData/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderReadReferenceData/3.2.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderReadReferenceData/3.2.0"
+    name="ProviderReadReferenceData">
+    <wsdl:types>
+        <xsd:schema
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderReadReferenceData/3.2.0"
+            elementFormDefault="qualified">
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ReadReferenceData/3.2.0"
+                schemaLocation="../../../schema/mca/provider/messages/20100930/ReadReferenceDataMessages.xsd" />
+            <xsd:element
+                name="readReferenceData">
+                <xsd:annotation>
+                    <xsd:documentation> Read Reference Data Request element
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element
+                            ref="pwmi:elementNames"
+                            maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element
+                name="readReferenceDataResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element
+                            ref="pwmi:readReferenceDataResult" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message
+        name="readReferenceDataInMsg">
+        <wsdl:part name="request" element="tns:readReferenceData" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part name="timestampHeader" element="cce:timestamp" />
+        <wsdl:part name="signatureHeader" element="cce:signature" />
+        <wsdl:part name="userHeader" element="cce:user" />
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="cce:hpio"/>
+    </wsdl:message>
+    <wsdl:message
+        name="readReferenceDataOutMsg">
+        <wsdl:part name="response" element="tns:readReferenceDataResponse" />
+        <wsdl:part name="productHeader" element="cce:product" />
+        <wsdl:part name="signatureHeader" element="cce:signature" />
+    </wsdl:message>
+    <wsdl:message
+        name="standardErrorMsg">
+        <wsdl:part name="fault" element="cce:serviceMessages" />
+    </wsdl:message>
+    <wsdl:portType
+        name="ProviderReadReferenceDataPortType">
+        <wsdl:operation
+            name="readReferenceData">
+            <wsdl:input
+                message="tns:readReferenceDataInMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderReadReferenceData/3.2.0/ProviderReadReferenceDataPortType/readReferenceDataRequest" />
+            <wsdl:output
+                message="tns:readReferenceDataOutMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderReadReferenceData/3.2.0/ProviderReadReferenceDataPortType/readReferenceDataResponse" />
+            <wsdl:fault
+                name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderReadReferenceData/3.2.0/ProviderReadReferenceDataPortType/readReferenceData/Fault/standardError" />
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

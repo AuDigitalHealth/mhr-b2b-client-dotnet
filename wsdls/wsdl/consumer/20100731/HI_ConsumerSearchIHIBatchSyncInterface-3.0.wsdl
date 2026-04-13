@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerSearchIHIBatchSyncInterface-3.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/07/31 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/04/23
+@Release:       3
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0" 
+    xmlns:wsldResponse="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSyncResponse/3.0" 
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSyncRequest/3.0" 
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSyncRequest/3.0" 
+    name="ConsumerSearchIHIBatchSync">
+    <wsdl:types>
+        <xsd:schema 
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSyncRequest/3.0"
+            elementFormDefault="qualified">
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0"
+                schemaLocation="../../../schema/mca/consumer/messages/20100731/SearchIHIBatchMessages.xsd"/>
+
+            <xsd:element name="searchIHIBatchSync">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="searchIHIBatchRequest" type="cwm:SearchIHIRequestType" minOccurs="1" maxOccurs="100"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="searchIHIBatchResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="searchIHIBatchResult" type="cwm:SearchIHIResultType" minOccurs="1" maxOccurs="100"/>
+                        <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="searchIHIBatchSyncInMsg">
+        <wsdl:part name="request" element="tns:searchIHIBatchSync"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>          
+    </wsdl:message>
+    <wsdl:message name="searchIHIBatchSyncOutMsg">
+        <wsdl:part name="response" element="tns:searchIHIBatchResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerSearchIHIBatchSyncPortType">
+        <wsdl:operation name="searchIHIBatchSync">
+            <wsdl:input 
+                message="tns:searchIHIBatchSyncInMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSync/3.0/ConsumerSearchIHIBatchSyncPortType/searchIHIBatchSyncRequest"/>
+            <wsdl:output 
+                message="tns:searchIHIBatchSyncOutMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSync/3.0/ConsumerSearchIHIBatchSyncPortType/searchIHIBatchSyncResponse"/>
+            <wsdl:fault 
+                name="standardError" 
+                message="tns:standardErrorMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchSync/3.0/ConsumerSearchIHIBatchSyncPortType/searchIHIBatchSync/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

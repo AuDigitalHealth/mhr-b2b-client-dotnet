@@ -63,8 +63,6 @@ namespace PCEHR.Sample
                         var documentTypeCodeSystemName = subType.codeSystemName;
                     }
                 }
-
-
             }
             catch (FaultException fex)
             {

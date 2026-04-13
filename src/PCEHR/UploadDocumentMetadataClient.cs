@@ -46,29 +46,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        public UploadDocumentMetadataClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert)
-        {
-            documentRegistryClient = new DocumentRegistryClient(endpointConfigurationName, signingCert, tlsCert);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        public UploadDocumentMetadataClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
-        {
-            documentRegistryClient = new DocumentRegistryClient(endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== 
+	@ File: HI_ConsumerCerateVerifiedIHIInterface-4.0.0.wsdl 
+	@ Author: Medicare Australia 
+	@ Version: 2011/12/01 - Initial version 
+	@ CreatedDate: 2011/10/07 
+	@              2014/05/03 - Add privacy notification, onlyNameIndicator. 
+	@						  - Add unstructured addresses.	
+	@ Release: 4 
+	@ Description: Create Verified IHI for new born. 
+=========================================================================== -->
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+	xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+	xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+	xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+	xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+	xmlns:cvim="http://ns.electronichealth.net.au/hi/xsd/consumermessages/CreateVerifiedIHI/4.0.0" 
+	xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0"
+	name="ConsumerCreateVerifiedIHI">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0"
+			elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+				schemaLocation="../../../schema/mca/consumer/core/20100731/ConsumerCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+				schemaLocation="../../../schema/mca/consumer/core/20100731/ElectronicCommunication.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/IndividualNameCore.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+				schemaLocation="../../../schema/mca/consumer/core/20100731/IndividualName.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+				schemaLocation="../../../schema/mca/consumer/core/20100731/Address.xsd" />		
+		    <xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/CreateVerifiedIHI/4.0.0"
+				schemaLocation="../../../schema/mca/consumer/messages/20111201/CreateVerifiedIHI.xsd" />				
+
+			<xsd:element name="createVerifiedIHI">
+				<xsd:annotation>
+					<xsd:documentation>Create Verified IHI Request</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="ce:dateOfBirth" />
+						<xsd:element ref="ce:dateOfBirthAccuracyIndicator" />
+						<xsd:element ref="ce:sex" />
+						<xsd:element ref="cce:birthPlurality" minOccurs="0" />
+						<xsd:element ref="cce:birthOrder" minOccurs="0" />
+						<xsd:element ref="ce:dateOfDeath" minOccurs="0" />
+						<xsd:element ref="ce:dateOfDeathAccuracyIndicator" minOccurs="0" />
+						<xsd:element ref="cce:sourceOfDeathNotification" minOccurs="0" />
+						<xsd:element ref="ec:electronicCommunication" minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element ref="cin:nameTitle" minOccurs="0" />
+						<xsd:element ref="cin:familyName" />
+						<xsd:element ref="cin:givenName" minOccurs="0" maxOccurs="2" />
+				        <!-- 2014/05/03 Added onlyNameIndicator -->
+				        <xsd:element ref="name:onlyNameIndicator" minOccurs="0" maxOccurs="1"/>						
+						<xsd:element ref="cin:nameSuffix" minOccurs="0" />
+						<xsd:element ref="cin:usage" />
+						<xsd:element ref="name:conditionalUse" minOccurs="0" />
+						<xsd:element ref="address:address" minOccurs="1" maxOccurs="1" />
+						<!-- 2014/05/03 Added privacyNotification -->
+				        <xsd:element ref="cce:privacyNotification" minOccurs="1" maxOccurs="1" />						
+					</xsd:sequence>
+				</xsd:complexType> 
+			</xsd:element>
+			<xsd:element name="createVerifiedIHIResponse">
+				<xsd:annotation>
+					<xsd:documentation>Create Verified IHI Response
+						</xsd:documentation>
+				</xsd:annotation>
+				 <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cvim:createVerifiedIHIResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="createVerifiedIHIInMsg">
+		<wsdl:part name="request" element="tns:createVerifiedIHI" />
+		<wsdl:part name="productHeader" element="ce:product" />
+		<wsdl:part name="timestampHeader" element="ce:timestamp" />
+		<wsdl:part name="signatureHeader" element="ce:signature" />
+		<wsdl:part name="userHeader" element="ce:user" />
+		<wsdl:part name="hpioHeader" element="ce:hpio" />
+	</wsdl:message>
+	<wsdl:message name="createVerifiedIHIOutMsg">
+		<wsdl:part name="response" element="tns:createVerifiedIHIResponse" />
+		<wsdl:part name="productHeader" element="ce:product" />
+		<wsdl:part name="signatureHeader" element="ce:signature" />
+	</wsdl:message>
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="fault" element="ce:serviceMessages" />
+	</wsdl:message>
+	<wsdl:portType name="ConsumerCreateVerifiedIHIPortType">
+		<wsdl:operation name="createVerifiedIHI">
+			<wsdl:input message="tns:createVerifiedIHIInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0/ConsumerCreateVerifiedIHIPortType/createVerifiedIHIRequest" />
+			<wsdl:output message="tns:createVerifiedIHIOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerCreateVerifiedIHI/4.0.0/ConsumerCreateVerifiedIHIPortType/createVerifiedIHIResponse" />
+			<wsdl:fault name="standardError" message="tns:standardErrorMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/4.0.0/ConsumerCreateVerifiedIHIPortType/createVerifiedIHI/Fault/standardError" />
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

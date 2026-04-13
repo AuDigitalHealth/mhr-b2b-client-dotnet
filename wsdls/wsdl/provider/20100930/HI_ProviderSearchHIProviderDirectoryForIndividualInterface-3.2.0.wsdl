@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+==========================================================================
+@File: 		HI_ProviderSearchHIProviderDirectoryForIndividualInterface-3.2.0.wsdl
+@Author: 	Medicare Australia 
+@Version: 	3.2.0 - Initial version
+			2011/06/25 - added backward compatible optional element "hpio" for
+			Contracted Service Provider usage. @CreatedDate: 2010/09/30 
+@Release:	3.2.0 
+@Description: TECH.SIS.HI.17
+===========================================================================
+-->
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:pad="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0"
+	xmlns:ppd="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/3.2.0"
+	xmlns:pin="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/3.2.0"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:cdt="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreDatatypes/3.0"
+	xmlns:pds="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+	xmlns:pos="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationService/3.2.0"
+	xmlns:pon="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationName/3.2.0"
+	xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+	xmlns:ppt="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/3.2.0"
+	xmlns:pec="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/3.2.0"
+	xmlns:pwmi="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchIndividual/3.2.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0"
+	name="ProviderSearchHIProviderDirectoryForIndividual">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0"
+			elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/IndividualNameCore.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchIndividual/3.2.0"
+				schemaLocation="../../../schema/mca/provider/messages/20100930/SearchHIProviderDirectoryForIndividualMessages.xsd" />
+			<xsd:element name="searchHIProviderDirectoryForIndividual">
+				<xsd:annotation>
+					<xsd:documentation> Search for Provider Individual Request
+						element</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="pwmi:hpiiNumber" minOccurs="0" />
+						<xsd:element ref="cin:familyName" minOccurs="0" />
+						<xsd:element ref="cin:givenName" minOccurs="0" />
+						<xsd:element ref="cce:sex" minOccurs="0" />
+						<xsd:element ref="pwmi:providerTypeCode" minOccurs="0" />
+						<xsd:element ref="pwmi:providerSpecialty" minOccurs="0" />
+						<xsd:element ref="pwmi:providerSpecialisation"
+							minOccurs="0" />
+						<xsd:element ref="pwmi:australianAddressCriteria"
+							minOccurs="0" />
+						<xsd:element ref="pwmi:internationalAddressCriteria"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="searchHIProviderDirectoryForIndividualResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="pwmi:searchHIProviderDirectoryForIndividualResult" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="searchHIProviderDirectoryForIndividualInMsg">
+		<wsdl:part name="request" element="tns:searchHIProviderDirectoryForIndividual" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />
+		<!-- hpio: Backward compatible change, added June 2011 release for CSPs.-->
+		<wsdl:part name="hpioHeader" element="cce:hpio" />
+	</wsdl:message>
+	<wsdl:message name="searchHIProviderDirectoryForIndividualOutMsg">
+		<wsdl:part name="response"
+			element="tns:searchHIProviderDirectoryForIndividualResponse" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+	</wsdl:message>
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="fault" element="cce:serviceMessages" />
+	</wsdl:message>
+	<wsdl:portType name="ProviderSearchHIProviderDirectoryForIndividualPortType">
+		<wsdl:operation name="searchHIProviderDirectoryForIndividual">
+			<wsdl:input message="tns:searchHIProviderDirectoryForIndividualInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0/ProviderSearchHIProviderDirectoryForIndividualPortType/searchHIProviderDirectoryForIndividualRequest" />
+			<wsdl:output message="tns:searchHIProviderDirectoryForIndividualOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0/ProviderSearchHIProviderDirectoryForIndividualPortType/searchHIProviderDirectoryForIndividualResponse" />
+			<wsdl:fault name="standardError" message="tns:standardErrorMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchHIProviderDirectoryForIndividual/3.2.0/ProviderSearchHIProviderDirectoryForIndividualPortType/searchHIProviderDirectoryForIndividual/Fault/standardError" />
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerNotifyDuplicateIHIInterface-3.2.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/09/30 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/06/09
+@Release:       3b
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.2.0"
+    xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+    xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+    xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+    xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/NotifyDuplicateIHI/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyDuplicateIHI/3.2.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyDuplicateIHI/3.2.0"
+    name="ConsumerNotifyDuplicateIHI">
+    
+    <wsdl:types>
+        <xsd:schema 
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyDuplicateIHI/3.2.0"
+            elementFormDefault="qualified">
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.2.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100930/ConsumerCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/NotifyDuplicateIHI/3.2.0"
+                schemaLocation="../../../schema/mca/consumer/messages/20100930/NotifyDuplicateIHIMessages.xsd"/>
+                <xsd:element name="notifyDuplicateIHI">
+                    <xsd:annotation>
+                        <xsd:documentation>Notify Duplicate IHI Request</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+							<xsd:element ref="cce:ihiNumber" minOccurs="2" maxOccurs="12"/>
+							<xsd:element ref="cce:comment"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="notifyDuplicateIHIResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:notifyDuplicateIHIResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="notifyDuplicateIHIInMsg">
+        <wsdl:part name="request" element="tns:notifyDuplicateIHI"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>       
+    </wsdl:message>
+    <wsdl:message name="notifyDuplicateIHIOutMsg">
+        <wsdl:part name="response" element="tns:notifyDuplicateIHIResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerNotifyDuplicateIHIPortType">
+        <wsdl:operation name="notifyDuplicateIHI">
+            <wsdl:input 
+                message="tns:notifyDuplicateIHIInMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyDuplicateIHI/3.2.0/ConsumerNotifyDuplicateIHIPortType/notifyDuplicateIHIRequest"/>
+            <wsdl:output 
+                message="tns:notifyDuplicateIHIOutMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyDuplicateIHI/3.2.0/ConsumerNotifyDuplicateIHIPortType/notifyDuplicateIHIResponse"/>
+            <wsdl:fault 
+                name="standardError" 
+                message="tns:standardErrorMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyDuplicateIHI/3.2.0/ConsumerNotifyDuplicateIHIPortType/notifyDuplicateIHI/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

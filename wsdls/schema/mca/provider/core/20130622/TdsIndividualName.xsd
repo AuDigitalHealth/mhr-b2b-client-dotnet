@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== 
+@File: IndividualName.xsd 
+@Author: Medicare Australia 
+@Version: 2010/07/31 
+@CreatedDate: 2009/04/17 
+@Release: 3 
+@Description: This XML Schema contains elements and data types for Individual Names. 
+=========================================================================== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/5.1.0"
+  xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/5.1.0" 
+  xmlns:idn="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/3.2.0"
+  xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+  xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+  xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+  xmlns:tpc="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements"  
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== IMPORTS =======================================
+	</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/IndividualName.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0" schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+  <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+  <xsd:import namespace="http://ns.medicareaustralia.gov.au/provider/schema/2013/06/22/elements" schemaLocation="../../../../mca/provider/core/20130622/TdsProviderCoreElements.xsd" />  
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================== ELEMENTS =======================================
+	</xsd:documentation>
+  </xsd:annotation>
+  
+  <xsd:element name="individualNameRecord" type="tns:IndividualNameRecord" />
+
+  <xsd:annotation>
+    <xsd:documentation>
+      ============================= COMPLEX TYPES ===================================
+	</xsd:documentation>
+  </xsd:annotation>
+
+	<xsd:complexType name="IndividualNameRecord">
+	  	<xsd:sequence>
+    		<xsd:element name="clientRef" type="pce:ClientRefType" minOccurs="0" />
+        	<xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType" />
+        	<xsd:element name="individualName" type="idn:IndividualName" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IndividualNameRecordResponse">
+	  	<xsd:sequence>
+        	<xsd:element name="tdsReference" type="tpc:TdsReferenceIdentifierType" minOccurs="0" />
+        	<xsd:element name="individualName" type="idn:IndividualName" />
+		</xsd:sequence>
+	</xsd:complexType>
+ 
+  
+</xsd:schema>

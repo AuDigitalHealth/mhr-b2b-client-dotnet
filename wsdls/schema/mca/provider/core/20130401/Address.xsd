@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+	@File: Address.xsd 
+	@Author: Department of Human Services 
+	@Version: 2013/04/01 
+	@CreatedDate: 2009/04/17 
+	@Release: CR77 
+	@Description: This XML Schema contains elements and data types for Addresses. 
+=========================================================================== 
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/5.0.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/5.0.0"
+	xmlns:pad="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0"
+	xmlns:cac="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.1">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== IMPORTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0"
+		schemaLocation="../../../../mca/common/20100731/AddressCore.xsd" />
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0"
+		schemaLocation="../../../../mca/provider/core/20100930/Address.xsd" />
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="searchAustralianAddress" type="tns:SearchAustralianAddressType" />
+	<xsd:element name="searchInternationalAddress" type="tns:SearchInternationalAddressType" />
+	<xsd:element name="australianAddress" type="pad:AustralianAddressType" />
+	<xsd:element name="internationalAddress" type="pad:InternationalAddressType" />
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== COMPLEX TYPES ==================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:complexType name="SearchAustralianAddressType">
+		<xsd:sequence>
+			<xsd:element ref="cac:unitGroup" minOccurs="0" />
+			<xsd:element ref="cac:levelGroup" minOccurs="0" />
+			<xsd:element ref="cac:addressSiteName" minOccurs="0" />
+			<xsd:element ref="cac:streetNumber" minOccurs="0" />
+			<xsd:element ref="cac:lotNumber" minOccurs="0" />
+			<xsd:element ref="cac:streetName" minOccurs="0" />
+			<xsd:element ref="cac:streetType" minOccurs="0" />
+			<xsd:element ref="cac:streetSuffix" minOccurs="0" />
+			<xsd:element ref="cac:postalDeliveryGroup" minOccurs="0" />
+			<xsd:element ref="cac:suburb" />
+			<xsd:element ref="cac:state" />
+			<xsd:element ref="cac:postcode" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SearchInternationalAddressType">
+		<xsd:sequence>
+			<xsd:element ref="cac:internationalAddressLine" minOccurs="0" />
+			<xsd:element ref="cac:internationalStateProvince" minOccurs="0" />
+			<xsd:element ref="cac:internationalPostcode" minOccurs="0" />
+			<xsd:element ref="cac:country" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

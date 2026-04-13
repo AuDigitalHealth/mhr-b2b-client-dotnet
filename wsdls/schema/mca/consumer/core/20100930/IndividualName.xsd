@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ===========================================================================
+    @File:          Name.xsd
+    @Author:        Medicare Australia, UHI Tower 4
+    @Version:       2010/09/30
+    @CreatedDate:   2010/07/20
+    @Release:       3b
+    @Description:   This xsd contains the individual name datatypes and elements specific to consumer messages
+    ===========================================================================
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:namecore="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+	xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.2.0" 
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.2.0" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  IMPORTS  =======================================
+		</xsd:documentation>
+	</xsd:annotation>    
+    <xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+		schemaLocation="../../../common/20100731/IndividualNameCore.xsd" ></xsd:import>
+	<xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+		schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>    
+	<xsd:element name="name" type="name:NameType"/>
+	<xsd:element name="currentName" type="name:CurrentNameType"/>
+	<xsd:element name="updateName" type="name:NameType"/>
+	<xsd:element name="nameUpdateGroup" type="name:NameUpdateGroupType"/>
+	<xsd:element name="conditionalUse" type="name:ConditionalUseType"/>
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  COMPLEX TYPES =================================
+		</xsd:documentation>
+	</xsd:annotation>    
+	<xsd:complexType name="NameType">
+		<xsd:sequence>
+			<xsd:element ref="namecore:nameTitle" minOccurs="0"/>
+			<xsd:element ref="namecore:familyName"/>
+			<xsd:element ref="namecore:givenName" minOccurs="0" maxOccurs="2"/>
+			<xsd:element ref="namecore:nameSuffix" minOccurs="0"/>
+			<xsd:element ref="namecore:usage"/>
+			<xsd:element ref="ce:preferred" minOccurs="0"/>
+			<xsd:element ref="name:conditionalUse" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrentNameType">
+		<xsd:sequence>
+			<xsd:element ref="namecore:nameTitle" minOccurs="0"/>
+			<xsd:element ref="namecore:familyName"/>
+			<xsd:element ref="namecore:givenName" minOccurs="0" maxOccurs="2"/>
+			<xsd:element ref="namecore:nameSuffix" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NameUpdateGroupType">
+		<xsd:sequence>
+			<xsd:element ref="name:currentName"/>
+			<xsd:element ref="name:updateName"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  SIMPLE TYPES ===================================
+		</xsd:documentation>
+	</xsd:annotation>    
+	<xsd:simpleType name="ConditionalUseType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Unreliable Information</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Name Not To Be Used</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Special Privacy/Security Requirement</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="4">
+				<xsd:annotation>
+					<xsd:documentation>Temporary Name</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:annotation>
+		<xsd:documentation>
+================================================================================
+		</xsd:documentation>
+	</xsd:annotation>    
+</xsd:schema>

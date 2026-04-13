@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerNotifyReplicaIHIInterface-3.2.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/09/30 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/06/09
+@Release:       3b
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.2.0"
+    xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+    xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+    xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+    xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/NotifyReplicaIHI/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyReplicaIHI/3.2.0"
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyReplicaIHI/3.2.0"
+    name="ConsumerNotifyReplicaIHI">
+    
+    <wsdl:types>
+        <xsd:schema 
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyReplicaIHI/3.2.0"
+            elementFormDefault="qualified">
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.2.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100930/ConsumerCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/NotifyReplicaIHI/3.2.0"
+                schemaLocation="../../../schema/mca/consumer/messages/20100930/NotifyReplicaIHIMessages.xsd"/>
+                <xsd:element name="notifyReplicaIHI">
+                    <xsd:annotation>
+                        <xsd:documentation>Notify Replica IHI Request</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="cce:ihiNumber"/>
+                            <xsd:element ref="cce:comment"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="notifyReplicaIHIResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:notifyReplicaIHIResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="notifyReplicaIHIInMsg">
+        <wsdl:part name="request" element="tns:notifyReplicaIHI"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>
+        
+    </wsdl:message>
+    <wsdl:message name="notifyReplicaIHIOutMsg">
+        <wsdl:part name="response" element="tns:notifyReplicaIHIResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerNotifyReplicaIHIPortType">
+        <wsdl:operation name="notifyReplicaIHI">
+            <wsdl:input 
+                message="tns:notifyReplicaIHIInMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyReplicaIHI/3.2.0/ConsumerNotifyReplicaIHIPortType/notifyReplicaIHIRequest"/>
+            <wsdl:output 
+                message="tns:notifyReplicaIHIOutMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyReplicaIHI/3.2.0/ConsumerNotifyReplicaIHIPortType/notifyReplicaIHIResponse"/>
+            <wsdl:fault 
+                name="standardError" 
+                message="tns:standardErrorMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerNotifyReplicaIHI/3.2.0/ConsumerNotifyReplicaIHIPortType/notifyReplicaIHI/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

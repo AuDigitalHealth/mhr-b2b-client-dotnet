@@ -46,7 +46,7 @@ namespace Nehta.VendorLibrary.PCEHR
         {
             Validation.ValidateArgumentRequired("endpointUri", endpointUri);
 
-            InitialiseClient(endpointUri.ToString(), null, signingCert, tlsCert);
+            InitialiseClient(endpointUri.ToString(), signingCert, tlsCert);
         }
 
         /// <summary>
@@ -60,34 +60,7 @@ namespace Nehta.VendorLibrary.PCEHR
         {
             Validation.ValidateArgumentRequired("endpointUri", endpointUri);
 
-            InitialiseClient(endpointUri.ToString(), null, signingCert, tlsCert, initialisationCallback);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        internal DocumentRepositoryClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert)
-        {
-            Validation.ValidateArgumentRequired("endpointConfigurationName", endpointConfigurationName);
-
-            InitialiseClient(null, endpointConfigurationName, signingCert, tlsCert);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        internal DocumentRepositoryClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
-        {
-            Validation.ValidateArgumentRequired("endpointConfigurationName", endpointConfigurationName);
-
-            InitialiseClient(null, endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
+            InitialiseClient(endpointUri.ToString(), signingCert, tlsCert, initialisationCallback);
         }
 
         /// <summary>
@@ -140,11 +113,10 @@ namespace Nehta.VendorLibrary.PCEHR
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
         /// <param name="initialisationCallback"></param>
-        private void InitialiseClient(string endpointUri, string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
+        private void InitialiseClient(string endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
         {
             // Validation.ValidateArgumentRequired("signingCert", signingCert);
             Validation.ValidateArgumentRequired("tlsCert", tlsCert);
@@ -153,18 +125,10 @@ namespace Nehta.VendorLibrary.PCEHR
 
             DocumentRepository_PortTypeClient client = null;
 
-            if (!string.IsNullOrEmpty(endpointUri))
-            {
-                var address = new EndpointAddress(endpointUri);
+            var address = new EndpointAddress(endpointUri);
+            var mtomBinding = BindingHelper.CreateMtomTlsBinding();
 
-                var mtomBinding = BindingHelper.CreateMtomTlsBinding();
-
-                client = new DocumentRepository_PortTypeClient(mtomBinding, address);
-            }
-            else if (!string.IsNullOrEmpty(endpointConfigurationName))
-            {
-                client = new DocumentRepository_PortTypeClient(endpointConfigurationName);
-            }
+            client = new DocumentRepository_PortTypeClient(mtomBinding, address);
 
             if (client != null)
             {

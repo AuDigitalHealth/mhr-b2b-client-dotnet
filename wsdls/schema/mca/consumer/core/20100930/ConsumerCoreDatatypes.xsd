@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ===========================================================================
+    @File:          ConsumerrCoreDatatypes.xsd 
+    @Author:        Medicare Australia, UHI Tower 4
+    @Version:       2010/09/30
+    @CreatedDate:   2010/06/09
+    @Release:       3b
+    @Description:   This XML Schema contains simple types common to Consumer based web services.
+    ===========================================================================
+-->	
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ccdt="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreDatatypes/3.2.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreDatatypes/3.2.0"	
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  SIMPLE TYPES ===================================
+		</xsd:documentation>
+	</xsd:annotation>    
+	<xsd:simpleType name="IHIRecordStatusType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Provisional">
+				<xsd:annotation>
+					<xsd:documentation>Provisional</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Unverified">
+				<xsd:annotation>
+					<xsd:documentation>Unverified</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Verified">
+				<xsd:annotation>
+					<xsd:documentation>Verified</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="IHIStatusType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Active">
+				<xsd:annotation>
+					<xsd:documentation>Active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Deceased">
+				<xsd:annotation>
+					<xsd:documentation>Deceased</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Expired">
+				<xsd:annotation>
+					<xsd:documentation>Expired</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Resolved">
+				<xsd:annotation>
+					<xsd:documentation>Resolved</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Retired">
+				<xsd:annotation>
+					<xsd:documentation>Retired</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="IHINumberType">
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:minLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MedicareCardNumberType">
+		<xsd:restriction base="xsd:token">
+			<xsd:minLength value="10" />
+			<xsd:maxLength value="10" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MedicareIRNType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1" />
+			<xsd:maxInclusive value="9" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DVAFileNumberType">
+		<xsd:restriction base="xsd:token">
+			<xsd:minLength value="2" />
+			<xsd:maxLength value="9" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="BirthPluralityType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Singleton</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Twins</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Triplets</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="4">
+				<xsd:annotation>
+					<xsd:documentation>Quadruplets</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation>Quintuplets</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="6">
+				<xsd:annotation>
+					<xsd:documentation>Sextuplets</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="8">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="9">
+				<xsd:annotation>
+					<xsd:documentation>Not Stated</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:length value="1"></xsd:length>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="BirthOrderType">
+		<xsd:restriction base="xsd:token">
+			<xsd:length value="1"></xsd:length>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Singleton or first of a multiple birth.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Second of a multiple birth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Third of a multiple birth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="4">
+				<xsd:annotation>
+					<xsd:documentation>Fourth of a multiple birth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation>Fifth of a multiple birth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="6">
+				<xsd:annotation>
+					<xsd:documentation>Sixth of a multiple birth</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="8">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="9">
+				<xsd:annotation>
+					<xsd:documentation>Not Stated</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="SourceOfDeathNotificationType">
+		<xsd:restriction base="xsd:token">
+			<xsd:length value="1"/>
+			<xsd:enumeration value="H">
+				<xsd:annotation>
+					<xsd:documentation>Health Care Provider</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="CommentType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="240" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+================================================================================
+		</xsd:documentation>
+	</xsd:annotation>
+</xsd:schema>

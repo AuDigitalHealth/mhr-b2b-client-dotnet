@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderSearchForProviderIndividualInterface-5.0.0.wsdl
+@Author:        Medicare Australia
+@Version:       5.0.0 - Initial version   		    	
+@CreatedDate:   2013/04/01
+@Release:       5.0.0
+@Description:   TECH.SIS.HI.31
+===========================================================================
+-->
+<wsdl:definitions 
+	name="ProviderSearchForProviderIndividual" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsa="http://www.w3.org/2005/08/addressing"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:psi="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchIndividual/5.0.0"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.0.0"
+	xmlns:ppt="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.0.0"
+	xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+	xmlns:inn="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/5.0.0"
+	xmlns:pad="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/5.0.0"
+	xmlns:ped="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/5.0.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:cac="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderIndividual/5.0.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderIndividual/5.0.0">
+
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderIndividual/5.0.0"
+			elementFormDefault="qualified">
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.0.0"
+			schemaLocation="../../../schema/mca/provider/core/20130401/ProviderCoreElements.xsd" />
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.0.0"
+			schemaLocation="../../../schema/mca/provider/core/20130401/ProviderType.xsd" />
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0"
+			schemaLocation="../../../schema/mca/common/20100731/IndividualNameCore.xsd" />
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/IndividualName/5.0.0"
+			schemaLocation="../../../schema/mca/provider/core/20130401/IndividualName.xsd" />
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/PersonalDetails/5.0.0"
+			schemaLocation="../../../schema/mca/provider/core/20130401/PersonalDetails.xsd" />
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/5.0.0"
+					schemaLocation="../../../schema/mca/provider/core/20130401/Address.xsd" />
+		<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+		<xsd:import
+			namespace="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0"
+			schemaLocation="../../../schema/mca/common/20100731/AddressCore.xsd" />				
+					
+		<xsd:import	namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchIndividual/5.0.0"	
+			schemaLocation="../../../schema/mca/provider/messages/20130401/SearchForProviderIndividualMessages.xsd" />
+			<xsd:element name="searchForProviderIndividual">
+				<xsd:annotation>
+					<xsd:documentation>
+						Search for Provider Individual Request 
+				  </xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="pce:hpiiNumber" minOccurs="0" />
+							<xsd:element ref="ppt:registrationId" minOccurs="0" />
+							<xsd:element ref="cin:familyName" />
+							<xsd:element ref="inn:onlyNameIndicator" minOccurs="0" />
+							<xsd:element ref="cin:givenName" minOccurs="0" maxOccurs="unbounded" />
+							<xsd:element ref="ped:dateOfBirth" minOccurs="0" />
+							<xsd:element ref="cce:sex" minOccurs="0" />
+							<xsd:element ref="cac:state" minOccurs="0" />
+							<xsd:element ref="cac:postcode" minOccurs="0" />						
+							<xsd:element ref="pad:searchAustralianAddress" minOccurs="0" />
+							<xsd:element ref="pad:searchInternationalAddress" minOccurs="0" />
+						</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="searchForProviderIndividualResponse">
+			    <xsd:annotation>
+                    <xsd:documentation>Search for Provider Individual Response</xsd:documentation>
+                </xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="psi:searchForProviderIndividualResult" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="searchForProviderIndividualInMsg">
+		<wsdl:part name="request" element="tns:searchForProviderIndividual" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />
+		<wsdl:part name="hpioHeader" element="cce:hpio" />
+	</wsdl:message>
+	<wsdl:message name="searchForProviderIndividualOutMsg">
+		<wsdl:part name="response"	element="tns:searchForProviderIndividualResponse" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+	</wsdl:message>
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="fault" element="cce:serviceMessages" />
+	</wsdl:message>
+	<wsdl:portType name="ProviderSearchForProviderIndividualPortType">
+		<wsdl:operation name="searchForProviderIndividual">
+			<wsdl:input message="tns:searchForProviderIndividualInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderIndividual/5.0.0/ProviderSearchForProviderIndividualPortType/searchForProviderIndividualRequest" />
+			<wsdl:output message="tns:searchForProviderIndividualOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderIndividual/5.0.0/ProviderSearchForProviderIndividualPortType/searchForProviderIndividualResponse" />
+			<wsdl:fault name="standardError" message="tns:standardErrorMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderIndividual/5.0.0/ProviderSearchForProviderIndividualPortType/searchForProviderIndividual/Fault/standardError" />
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

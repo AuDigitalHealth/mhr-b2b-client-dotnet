@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderBatchAsyncSearchForProviderOrganisationInterface-5.1.0.wsdl
+@Author:        Medicare Australia
+@Version:       5.1.0 - Initial version   		    	
+@CreatedDate:   2013/06/01
+@Release:       5.1.0
+@Description:   TECH.SIS.HI.34
+===========================================================================
+-->
+<wsdl:definitions 
+	name="ProviderBatchSearchForProviderOrganisation" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+	xmlns:pod="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/5.1.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:sso="http://ns.electronichealth.net.au/hi/xsd/providermessages/SubmitSearchProviderOrganisation/5.1.0"
+	xmlns:rso="http://ns.electronichealth.net.au/hi/xsd/providermessages/RetrieveSearchProviderOrganisation/5.1.0" 
+	xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0"
+			elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+				schemaLocation="../../../schema/mca/provider/core/20130601/ProviderCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/5.1.0"
+				schemaLocation="../../../schema/mca/provider/core/20130601/OrganisationDetails.xsd" />
+			<xsd:import 
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SubmitSearchProviderOrganisation/5.1.0" 
+				schemaLocation="../../../schema/mca/provider/messages/20130601/SubmitSearchForProviderOrganisationMessages.xsd"/>
+			<xsd:import 
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/RetrieveSearchProviderOrganisation/5.1.0" 
+				schemaLocation="../../../schema/mca/provider/messages/20130601/RetrieveSearchForProviderOrganisationResultsMessages.xsd"/>
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+				
+				
+			<xsd:element name="submitSearchForProviderOrganisation">
+				<xsd:annotation>
+					<xsd:documentation>
+						Search for Provider Organisation Batch Request element
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="pod:batchSearchForProviderOrganisationCriteria" maxOccurs="50" />
+					</xsd:sequence>
+				</xsd:complexType>		
+			</xsd:element>
+			
+			<xsd:element name="submitSearchForProviderOrganisationResponse">
+				<xsd:annotation>
+					<xsd:documentation>
+						Search for Provider Organisation Batch Response element
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="sso:submitSearchForProviderOrganisationResult" />
+						</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+				
+				
+			<xsd:element name="retrieveSearchForProviderOrganisation">
+				<xsd:annotation>
+					<xsd:documentation>
+						Retrieve Batch Search for Provider Organisation Results Request element
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="pce:batchIdentifier" />
+					</xsd:sequence>
+				</xsd:complexType>		
+			</xsd:element>
+		
+			<xsd:element name="retrieveSearchForProviderOrganisationResponse">
+				<xsd:annotation>
+					<xsd:documentation>
+						Retrieve Batch Search for Provider Organisation Results Response element
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="rso:retrieveSearchForProviderOrganisationResult" />
+						</xsd:sequence>
+					</xsd:complexType>	
+			</xsd:element>				
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="submitSearchForProviderOrganisationInMsg">
+		<wsdl:part name="request" element="tns:submitSearchForProviderOrganisation" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />
+		<wsdl:part name="hpioHeader" element="cce:hpio" />	
+	</wsdl:message>
+	<wsdl:message name="submitSearchForProviderOrganisationOutMsg">
+		<wsdl:part name="response" element="tns:submitSearchForProviderOrganisationResponse"/>
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />		
+	</wsdl:message>
+	<wsdl:message name="retrieveSearchForProviderOrganisationInMsg">
+		<wsdl:part name="request" element="tns:retrieveSearchForProviderOrganisation" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />
+		<wsdl:part name="hpioHeader" element="cce:hpio" />	
+	</wsdl:message>
+	<wsdl:message name="retrieveSearchForProviderOrganisationOutMsg">
+		<wsdl:part name="response" element="tns:retrieveSearchForProviderOrganisationResponse"/>
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />		
+	</wsdl:message>
+
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="fault" element="cce:serviceMessages" />
+	</wsdl:message>
+	<wsdl:portType name="SearchForProviderOrganisationBatchAsyncPortType">
+		<wsdl:operation name="submitSearchForProviderOrganisation">
+			<wsdl:input name="submitSearchForProviderOrganisationRequest" message="tns:submitSearchForProviderOrganisationInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0/SearchForProviderOrganisationBatchAsyncPortType/submitSearchForProviderOrganisationRequest"/>
+			<wsdl:output name="submitSearchForProviderOrganisationResponse" message="tns:submitSearchForProviderOrganisationOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0/SearchForProviderOrganisationBatchAsyncPortType/submitSearchForProviderOrganisationResponse"/>
+		    <wsdl:fault name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0/SearchForProviderOrganisationBatchAsyncPortType/submitSearchForProviderOrganisation/Fault/standardError"/>
+	    </wsdl:operation>
+		<wsdl:operation name="retrieveSearchForProviderOrganisation">
+			<wsdl:input name="retrieveSearchForProviderOrganisationRequest" message="tns:retrieveSearchForProviderOrganisationInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0/SearchForProviderOrganisationBatchAsyncPortType/retrieveSearchForProviderOrganisationRequest"/>
+			<wsdl:output name="retrieveSearchForProviderOrganisationResponse" message="tns:retrieveSearchForProviderOrganisationOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0/SearchForProviderOrganisationBatchAsyncPortType/retrieveSearchForProviderOrganisationResponse"/>
+		    <wsdl:fault name="standardError"
+                message="tns:standardErrorMsg"
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderBatchAsyncSearchForProviderOrganisation/5.1.0/SearchForProviderOrganisationBatchAsyncPortType/retrieveSearchForProviderOrganisation/Fault/standardError"/>
+        </wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

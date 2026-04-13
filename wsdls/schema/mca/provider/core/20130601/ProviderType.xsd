@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+	@File: 			ProviderType.xsd 
+	@Author: 		Department of Human Services 
+	@Version: 		2013/06/01 
+	@CreatedDate: 	2009/04/17 
+	@Release:		CR77 
+	@Description: 	This XML Schema contains elements and data types for Providers. 
+=========================================================================== 
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.0"
+	xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderType/5.1.0"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+	xmlns:spi="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchIndividual/5.0.0"	
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.1">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== IMPORTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.1.0"
+		schemaLocation="../../../../mca/provider/core/20130601/ProviderCoreElements.xsd" />
+	<xsd:import
+		namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchIndividual/5.0.0"
+		schemaLocation="../../../../mca/provider/messages/20130401/SearchForProviderIndividualMessages.xsd" />
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="batchSearchForProviderIndividualCriteria" type="tns:BatchSearchForProviderIndividualCriteriaType" />
+	<xsd:element name="batchSearchForProviderIndividualResult" type="tns:BatchSearchForProviderIndividualResultType" />
+
+	<xsd:annotation>
+		<xsd:documentation>
+			============================== COMPLEX TYPES ==================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:complexType name="BatchSearchForProviderIndividualCriteriaType">
+		<xsd:sequence>
+			<xsd:element ref="pce:requestIdentifier" />
+			<xsd:element ref="spi:searchForProviderIndividual" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="BatchSearchForProviderIndividualResultType">
+		<xsd:sequence>
+			<xsd:element ref="pce:requestIdentifier" />
+			<xsd:element ref="spi:searchForProviderIndividualResult" />
+		</xsd:sequence>
+	</xsd:complexType>		
+
+</xsd:schema>   
+	

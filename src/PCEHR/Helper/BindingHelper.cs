@@ -15,6 +15,7 @@
 using System;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
+
 using System.Security.Cryptography.X509Certificates;
 
 namespace Nehta.VendorLibrary.PCEHR

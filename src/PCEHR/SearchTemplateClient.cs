@@ -50,33 +50,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        public SearchTemplateClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert)
-        {
-            Validation.ValidateArgumentRequired("endpointConfigurationName", endpointConfigurationName);
-
-            InitialiseClient(null, endpointConfigurationName, signingCert, tlsCert);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        public SearchTemplateClient(string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback)
-        {
-            Validation.ValidateArgumentRequired("endpointConfigurationName", endpointConfigurationName);
-
-            InitialiseClient(null, endpointConfigurationName, signingCert, tlsCert, initialisationCallback);
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
@@ -84,7 +57,7 @@ namespace Nehta.VendorLibrary.PCEHR
         {
             Validation.ValidateArgumentRequired("endpointUri", endpointUri);
 
-            InitialiseClient(endpointUri.ToString(), null, signingCert, tlsCert);
+            InitialiseClient(endpointUri.ToString(), signingCert, tlsCert);
         }
 
         /// <summary>
@@ -98,7 +71,7 @@ namespace Nehta.VendorLibrary.PCEHR
         {
             Validation.ValidateArgumentRequired("endpointUri", endpointUri);
 
-            InitialiseClient(endpointUri.ToString(), null, signingCert, tlsCert, initialisationCallback);
+            InitialiseClient(endpointUri.ToString(), signingCert, tlsCert, initialisationCallback);
         }
 
         /// <summary>
@@ -132,11 +105,10 @@ namespace Nehta.VendorLibrary.PCEHR
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
-        /// <param name="endpointConfigurationName">Configuration name.</param>
         /// <param name="signingCert">Header signing certificate.</param>
         /// <param name="tlsCert">TLS client certificate.</param>
         /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        private void InitialiseClient(string endpointUri, string endpointConfigurationName, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
+        private void InitialiseClient(string endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
         {
             Validation.ValidateArgumentRequired("tlsCert", tlsCert);
 
@@ -144,17 +116,10 @@ namespace Nehta.VendorLibrary.PCEHR
 
             SearchTemplatePortTypeClient client = null;
 
-            if (!string.IsNullOrEmpty(endpointUri))
-            {
-                EndpointAddress address = new EndpointAddress(endpointUri);
-                CustomBinding tlsBinding = BindingHelper.CreateTlsBinding();
+            EndpointAddress address = new EndpointAddress(endpointUri);
+            CustomBinding tlsBinding = BindingHelper.CreateTlsBinding();
 
-                client = new SearchTemplatePortTypeClient(tlsBinding, address);
-            }
-            else if (!string.IsNullOrEmpty(endpointConfigurationName))
-            {
-                client = new SearchTemplatePortTypeClient(endpointConfigurationName);
-            }
+            client = new SearchTemplatePortTypeClient(tlsBinding, address);
 
             if (client != null)
             {

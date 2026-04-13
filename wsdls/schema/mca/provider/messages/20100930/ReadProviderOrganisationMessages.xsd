@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+=========================================================================== 
+  @File: ReadProviderOrganisationMessages.xsd 
+  @Author: Medicare Australia 
+  @Version: 2010/07/31 
+  @CreatedDate: 2009/04/17 
+  @Release: 3B 
+  @Description: This XML Schema contains message elements for Read Provider 
+  Organisation web service. 
+=========================================================================== 
+-->
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ReadOrganisation/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providermessages/ReadOrganisation/3.2.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+    xmlns:pon="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationName/3.2.0"
+    xmlns:pos="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationService/3.2.0"
+    xmlns:pod="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/3.2.0"
+    xmlns:pad="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0"
+    xmlns:pec="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/3.2.0"
+    xmlns:pct="http://ns.electronichealth.net.au/hi/xsd/providercore/Certificate/3.2.0"
+    xmlns:pep="http://ns.electronichealth.net.au/hi/xsd/providercore/EndPoint/3.2.0"
+    xmlns:pds="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+    xmlns:plt="http://ns.electronichealth.net.au/hi/xsd/providercore/LinkedType/3.2.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.1">
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationName/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/OrganisationName.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationService/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/OrganisationService.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/OrganisationDetails/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/OrganisationDetails.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Address/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/Address.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ElectronicCommunication/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ElectronicCommunication.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/EndPoint/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/Endpoint.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderDirectoryService.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/LinkedType/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/LinkedType.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+        schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+    <xsd:element
+        name="hpioNumber"
+        type="pce:HpioNumberType" />
+    <xsd:element
+        name="linkSearchType"
+        type="pce:LinkSearchType" />
+    <xsd:element
+        name="readProviderOrganisation">
+        <xsd:annotation>
+            <xsd:documentation> Read Provider Organisation Request element</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:hpioNumber" />
+                <xsd:element
+                    ref="tns:linkSearchType"
+                    minOccurs="0" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element
+        name="readProviderOrganisationResult">
+        <xsd:annotation>
+            <xsd:documentation> Read Provider Organisation Response element</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    name="hpioNumber"
+                    type="pce:HpioNumberType" />
+                <xsd:element
+                    name="status"
+                    type="pce:StatusType" />
+                <xsd:element
+                    ref="pod:organisationDetails" />
+                <xsd:element
+                    ref="pon:organisationNameRecord"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="pos:organisationServiceRecord"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="pad:addressRecord"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="pec:electronicCommunicationRecord"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="pep:endpointLocatorServiceRecord"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    name="linkedIndividuals"
+                    type="plt:LinkedIndividualType"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    name="linkedOrganisations"
+                    type="plt:LinkedOrganisationType"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    name="directoryServiceEntries"
+                    type="pds:ProviderDirectoryOrganisationEntryRecord"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="cce:serviceMessages"
+                    minOccurs="0" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

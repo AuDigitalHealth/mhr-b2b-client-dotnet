@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerUpdateIHIInterface-3.0.2.wsdl
+@Author:        Medicare Australia
+@Version:       3.0.2 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+@CreatedDate:   2010/08/12
+@Release:       3.0.2
+@Description:   
+===========================================================================
+-->
+<wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+    xmlns:name="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0" 
+    xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+    xmlns:ec="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0"
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/UpdateIHI/3.0" 
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/3.0.2" 	
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/3.0.2"
+    name="ConsumerUpdateIHI" >
+    <wsdl:types>
+        <xsd:schema 
+            targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/3.0.2" 
+            elementFormDefault="qualified">
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+                schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ConsumerCoreElements/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/ConsumerCoreElements.xsd"/>
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Name/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/IndividualName.xsd"/>
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+                schemaLocation="../../../schema/mca/consumer/core/20100731/Address.xsd"/>
+            <xsd:import 
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/ElectronicCommunication/3.0" 
+                schemaLocation="../../../schema/mca/consumer/core/20100731/ElectronicCommunication.xsd"/>				
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/UpdateIHI/3.0"
+                schemaLocation="../../../schema/mca/consumer/messages/20100731/UpdateIHIMessages.xsd"/>
+            <xsd:element name="updateIHI">
+                <xsd:annotation>
+                    <xsd:documentation>Update IHI Request</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cce:ihiNumber"/>
+                        <xsd:element ref="ce:dateOfBirth" minOccurs="0" />
+                        <xsd:element ref="ce:dateOfBirthAccuracyIndicator" minOccurs="0" />
+                        <xsd:element ref="ce:sex"/>
+                        <xsd:element ref="cce:birthPlurality" minOccurs="0" />
+                        <xsd:element ref="cce:birthOrder" minOccurs="0" />
+                        <xsd:element ref="ce:dateOfDeath" minOccurs="0" />
+                        <xsd:element ref="ce:dateOfDeathAccuracyIndicator" minOccurs="0" />
+                        <xsd:element ref="cce:sourceOfDeathNotification" minOccurs="0" />
+                        <xsd:element ref="ec:electronicCommunication" minOccurs="0" maxOccurs="unbounded"/>
+                        <xsd:element ref="name:name" minOccurs="0" maxOccurs="unbounded"/>
+                        <xsd:element ref="address:address" minOccurs="0" maxOccurs="2"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="updateIHIResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:updateIHIResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="updateIHIInMsg">
+        <wsdl:part name="request" element="tns:updateIHI"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>	
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>       
+        	
+    </wsdl:message>
+    <wsdl:message name="updateIHIOutMsg">
+        <wsdl:part name="response" element="tns:updateIHIResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>		
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerUpdateIHIPortType">
+        <wsdl:operation name="updateIHI">
+            <wsdl:input 
+                message="tns:updateIHIInMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/3.0.2/ConsumerUpdateIHIPortType/updateIHIRequest"/>
+            <wsdl:output 
+                message="tns:updateIHIOutMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/3.0.2/ConsumerUpdateIHIPortType/updateIHIResponse"/>
+            <wsdl:fault 
+                name="standardError" 
+                message="tns:standardErrorMsg" 
+                wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerUpdateIHI/3.0.2/ConsumerUpdateIHIPortType/updateIHI/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ProviderSearchForProviderOrganisationInterface-5.0.0.wsdl
+@Author:        Medicare Australia
+@Version:       5.0.0 - Initial version   		    	
+@CreatedDate:   2013/04/01
+@Release:       5.0.0
+@Description:   TECH.SIS.HI.32
+===========================================================================
+-->
+<wsdl:definitions 
+	name="ProviderSearchForProviderOrganisation" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsa="http://www.w3.org/2005/08/addressing"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.0.0"
+	xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:pso="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchOrganisation/5.0.0" 
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderOrganisation/5.0.0"
+	targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderOrganisation/5.0.0">
+
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderOrganisation/5.0.0"
+			elementFormDefault="qualified">
+			<xsd:import	namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+				schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd" />
+			<xsd:import
+				namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderCoreElements/5.0.0"
+				schemaLocation="../../../schema/mca/provider/core/20130401/ProviderCoreElements.xsd" />				
+            <xsd:import
+                namespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/SearchOrganisation/5.0.0"
+                schemaLocation="../../../schema/mca/provider/messages/20130401/SearchForProviderOrganisationMessages.xsd"/>
+        	<xsd:element name="searchForProviderOrganisation">
+                <xsd:annotation>
+                    <xsd:documentation>Search HI Provider Directory For Organisation Request</xsd:documentation>
+                </xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="pce:hpioNumber" />
+					</xsd:sequence>
+				</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="searchForProviderOrganisationResponse">
+                <xsd:annotation>
+                    <xsd:documentation>Search HI Provider Directory For Organisation Response</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="pso:searchForProviderOrganisationResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="searchForProviderOrganisationInMsg">
+		<wsdl:part name="request" element="tns:searchForProviderOrganisation" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="timestampHeader" element="cce:timestamp" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+		<wsdl:part name="userHeader" element="cce:user" />		
+		<wsdl:part name="hpioHeader" element="cce:hpio" />
+	</wsdl:message>
+	<wsdl:message name="searchForProviderOrganisationOutMsg">
+		<wsdl:part name="response"	element="tns:searchForProviderOrganisationResponse" />
+		<wsdl:part name="productHeader" element="cce:product" />
+		<wsdl:part name="signatureHeader" element="cce:signature" />
+	</wsdl:message>
+	<wsdl:message name="standardErrorMsg">
+		<wsdl:part name="fault" element="cce:serviceMessages" />
+	</wsdl:message>
+	<wsdl:portType
+		name="ProviderSearchForProviderOrganisationPortType">
+		<wsdl:operation name="searchForProviderOrganisation">
+			<wsdl:input message="tns:searchForProviderOrganisationInMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderOrganisation/5.0.0/ProviderSearchForProviderOrganisationPortType/searchForProviderOrganisationRequest" />
+			<wsdl:output message="tns:searchForProviderOrganisationOutMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderOrganisation/5.0.0/ProviderSearchForProviderOrganisationPortType/searchForProviderOrganisationResponse" />
+			<wsdl:fault name="standardError" message="tns:standardErrorMsg"
+				wsam:Action="http://ns.electronichealth.net.au/hi/svc/ProviderSearchForProviderOrganisation/5.0.0/ProviderSearchForProviderOrganisationPortType/searchForProviderOrganisation/Fault/standardError" />
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>
+

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================== 
+@File: ManageProviderDirectoryEntryMessages.xsd 
+@Author: Medicare Australia 
+@Version: 2010/07/31 
+@CreatedDate: 2009/12/01 
+@Release: 3B 
+@Description: This XML Schema contains message elements for Delete PDS Entry web service. 
+===========================================================================
+-->
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageProviderDirectoryEntry/3.2.0"
+    xmlns:tns="http://ns.electronichealth.net.au/hi/xsd/providermessages/ManageProviderDirectoryEntry/3.2.0"
+    xmlns:pce="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+    xmlns:pds="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+    xmlns:cce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.1">
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/Elements/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderCoreElements.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+        schemaLocation="../../../../mca/common/20100731/CommonCoreElements.xsd" />
+    <xsd:import
+        namespace="http://ns.electronichealth.net.au/hi/xsd/providercore/ProviderdirectoryService/3.2.0"
+        schemaLocation="../../../../mca/provider/core/20100930/ProviderDirectoryService.xsd" />
+    <xsd:element
+        name="qualifiedIdentifier"
+        type="pce:QualifiedIdentifierType" />
+    <xsd:element
+        name="organisationEntry"
+        type="pds:ProviderDirectoryOrganisationEntryRecord" />
+    <xsd:element
+        name="individualEntry"
+        type="pds:ProviderDirectoryIndividualEntryRecord" />
+    <xsd:element
+        name="organisationDeleteEntry"
+        type="pce:ExternalIdentifierType" />
+    <xsd:element
+        name="individualDeleteEntry"
+        type="pce:ExternalIdentifierType" />
+    <xsd:element
+        name="manageProviderDirectoryEntry">
+        <xsd:annotation>
+            <xsd:documentation> Manage PDS Entry Request element
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:qualifiedIdentifier" />
+                <xsd:element
+                    ref="tns:organisationEntry"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="tns:individualEntry"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="tns:organisationDeleteEntry"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="tns:individualDeleteEntry"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element
+        name="manageProviderDirectoryEntryResult">
+        <xsd:annotation>
+            <xsd:documentation> Manage PDS Entry Response element
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    name="individualEntryResponses"
+                    type="pce:DetailsResponseType"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    name="organisationEntryResponses"
+                    type="pce:DetailsResponseType"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    name="deleteIndividualEntryResponses"
+                    type="pce:DetailsResponseType"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    name="deleteOrganisationEntryResponses"
+                    type="pce:DetailsResponseType"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xsd:element
+                    ref="cce:serviceMessages"
+                    minOccurs="0" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:annotation>
+        <xsd:documentation>
+            ================================================================================
+        </xsd:documentation>
+    </xsd:annotation>
+</xsd:schema>

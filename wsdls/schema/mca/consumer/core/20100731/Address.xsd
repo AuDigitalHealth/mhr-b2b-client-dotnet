@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ===========================================================================
+    @File:          Address.xsd
+    @Author:        Medicare Australia, UHI Tower 4
+    @Version:       2010/07/31
+    @CreatedDate:   2009/08/05
+    @UpdatedDate:	2014/05/03 - Add Australian unstructured address complex type with
+    							 addressLineOne and addressLineTwo simple type
+    @Release:       May 2014 Release
+    @Description:   This xsd contains the consumer specific address datatypes and elements
+    ===========================================================================
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+	xmlns:addcore="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0" 
+	xmlns:address="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0" 
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/consumercore/Address/3.0"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  IMPORTS  =======================================
+		</xsd:documentation>
+	</xsd:annotation>    
+    <xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/AddressCore/3.0"    
+		schemaLocation="../../../common/20100731/AddressCore.xsd"></xsd:import>
+	<xsd:import 
+		namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0"
+		schemaLocation="../../../common/20100731/CommonCoreElements.xsd"></xsd:import>
+	<xsd:annotation>
+		<xsd:documentation>
+============================= ELEMENTS ====================================
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="suburb" type="address:SuburbType"/>
+	<xsd:element name="internationalAddressLine" type="address:InternationalAddressLineType"/>
+	<xsd:element name="address" type="address:AddressType"/>
+	<xsd:element name="australianStreetAddress" type="address:AustralianStreetAddressType"/>
+	<xsd:element name="australianPostalAddress" type="address:AustralianPostalAddressType"/>
+	<xsd:element name="internationalAddress" type="address:InternationalAddressType"/>
+	<xsd:element name="australianUnstructuredStreetAddress" type="address:AustralianUnstructuredStreetAddressType"/>
+	<xsd:element name="addressLineOne" type="address:AddressLineOneType"/>
+	<xsd:element name="addressLineTwo" type="address:AddressLineTwoType"/>
+	<xsd:annotation>
+		<xsd:documentation>
+============================= COMPLEX TYPES ====================================
+	</xsd:documentation>
+	</xsd:annotation>
+	<xsd:complexType name="AddressType">
+		<xsd:sequence>
+			<xsd:element ref="address:australianStreetAddress" minOccurs="0"/>
+			<xsd:element ref="address:australianPostalAddress" minOccurs="0"/>
+			<xsd:element ref="address:internationalAddress" minOccurs="0"/>
+			<xsd:element ref="address:australianUnstructuredStreetAddress" minOccurs="0"/>
+			<xsd:element ref="addcore:purpose"/>
+			<xsd:element ref="ce:preferred"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InternationalAddressType">
+		<xsd:sequence>
+			<xsd:element ref="addcore:internationalStateProvince"/>
+			<xsd:element ref="addcore:country"/>
+			<xsd:element ref="addcore:internationalPostcode"/>
+			<xsd:element ref="address:internationalAddressLine"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AustralianPostalAddressType">
+		<xsd:sequence>
+			<xsd:element ref="addcore:state"/>
+			<xsd:element ref="addcore:postcode"/>
+			<xsd:element ref="address:suburb"/>
+			<xsd:element ref="addcore:postalDeliveryGroup"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AustralianStreetAddressType">
+		<xsd:sequence>
+			<xsd:element ref="addcore:state"/>
+			<xsd:element ref="addcore:postcode"/>
+			<xsd:element ref="address:suburb"/>
+			<xsd:element ref="addcore:addressSiteName" minOccurs="0"/>
+			<xsd:element ref="addcore:unitGroup" minOccurs="0"/>
+			<xsd:element ref="addcore:levelGroup" minOccurs="0"/>
+			<xsd:element ref="addcore:lotNumber" minOccurs="0"/>
+			<xsd:element ref="addcore:streetNumber" minOccurs="0"/>
+			<xsd:element ref="addcore:streetName"/>
+			<xsd:element ref="addcore:streetType" minOccurs="0"/>
+			<xsd:element ref="addcore:streetSuffix" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AustralianUnstructuredStreetAddressType">
+		<xsd:sequence>
+			<xsd:element ref="address:addressLineOne" />
+			<xsd:element ref="address:addressLineTwo" minOccurs="0"/>
+			<xsd:element ref="address:suburb"/>
+			<xsd:element ref="addcore:state"/>
+			<xsd:element ref="addcore:postcode"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:annotation>
+		<xsd:documentation>
+============================= SIMPLE TYPES ====================================
+	</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="SuburbType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="InternationalAddressLineType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="80"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+    <xsd:simpleType name="AddressLineOneType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+	<xsd:simpleType name="AddressLineTwoType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+	<xsd:annotation>
+		<xsd:documentation>
+================================================================================
+		</xsd:documentation>
+	</xsd:annotation>
+</xsd:schema>

@@ -1,50 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Nehta.VendorLibrary.MHR</RootNamespace>
-    <AssemblyName>Nehta.VendorLibrary.MHR</AssemblyName>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <EnableNETAnalyzers>false</EnableNETAnalyzers>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <AnalysisLevel>latest</AnalysisLevel>
-  </PropertyGroup>
-  <!-- Package and assembly information -->
-  <PropertyGroup>
-    <Version>1.6.0.0</Version>
-    <Description>A library for communicating with the MyHealthRecord</Description>
-    <Company>Australian Digital Health Agency</Company>
-    <Authors>$(Company)</Authors>
-    <Copyright>Copyright ©2024</Copyright>
-    <PackageReleaseNotes>Added netstandard2.0 compatible version of library</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/AuDigitalHealth/mhr-b2b-client-dotnet</PackageProjectUrl>
-    <PackageTags>ADHA Digital Health Nehta</PackageTags>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-  </PropertyGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel">
-      <HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.ServiceModel.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Nehta.VendorLibrary.Common" Version="4.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <InternalsVisibleTo Include="Nehta.VendorLibrary.PCEHR.Test" />
-  </ItemGroup>  
-  <PropertyGroup />
-  <ItemGroup>
-    <Content Include="..\..\LICENSE.txt" Link="Properties\LICENSE.txt" PackagePath="LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-	  <Reference Include="System.IO.Compression" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net472;net10.0</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<RootNamespace>Nehta.VendorLibrary.MHR</RootNamespace>
+		<AssemblyName>Nehta.VendorLibrary.MHR</AssemblyName>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
+	<!-- Package and assembly information -->
+	<PropertyGroup>
+		<Version>2.0.0.0</Version>
+		<Description>A library for communicating with the MyHealthRecord</Description>
+		<Company>Australian Digital Health Agency</Company>
+		<Authors>$(Company)</Authors>
+		<Copyright>Copyright ©2026</Copyright>
+		<PackageReleaseNotes>Added net10, netstandard2.0 compatible version of library</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/AuDigitalHealth/mhr-b2b-client-dotnet</PackageProjectUrl>
+		<PackageTags>ADHA Digital Health Nehta</PackageTags>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	</PropertyGroup>
+	<!-- Net 10 warnings to ignore -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<NoWarn>CA1305, CA1307, CA1062, CA1848, CA2000, CA1834, CA0168, CA1863, CA1510, CS8981, CS1591</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Nehta.VendorLibrary.Common" Version="5.0.0" />
+		<PackageReference Include="System.Formats.Asn1" Version="10.0.5" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.5" />		
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<Reference Include="System.IO.Compression" />
+	</ItemGroup>	
+	<ItemGroup>
+		<InternalsVisibleTo Include="Nehta.VendorLibrary.PCEHR.Core.Test" />
+	</ItemGroup>
+	<PropertyGroup />
+	<ItemGroup>
+		<Content Include="..\..\LICENSE.txt" Link="Properties\LICENSE.txt" PackagePath="LICENSE.txt" />
+	</ItemGroup>
 </Project>

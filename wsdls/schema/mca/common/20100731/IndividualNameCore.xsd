@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   ===========================================================================
+    @File:          IndividualNameCore.xsd
+    @Author:        Medicare Australia
+    @Version:       2010/07/31
+    @CreatedDate:   2009/12/10
+    @Release:       3
+    @Description:   This XML Schema contains elements and data types for Individual Names.
+    				Scope is Health Identifiers project.  
+    ===========================================================================
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+	xmlns:cin="http://ns.electronichealth.net.au/hi/xsd/common/IndividualNameCore/3.0" 
+	xmlns:cdt="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreDatatypes/3.0" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  IMPORTS  =======================================
+		</xsd:documentation>
+	</xsd:annotation>    
+	
+	<xsd:import 
+        namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreDatatypes/3.0" 
+        schemaLocation="CommonCoreDatatypes.xsd"/>	
+
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  ELEMENTS =======================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+    <xsd:element name="nameTitle" type="cdt:NameTitleType"/>
+	<xsd:element name="familyName" type="cdt:FamilyNameType"/>
+    <xsd:element name="givenName" type="cdt:GivenNameType"/>
+	<xsd:element name="nameSuffix" type="cdt:NameSuffixType"/>
+	<xsd:element name="usage" type="cdt:IndividualNameUsageType"/>
+
+	<xsd:annotation>
+		<xsd:documentation>
+==============================  COMPLEX TYPES ==================================
+		</xsd:documentation>
+	</xsd:annotation>
+
+</xsd:schema>

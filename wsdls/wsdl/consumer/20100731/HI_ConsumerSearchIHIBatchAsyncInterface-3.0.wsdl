@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+===========================================================================
+@File:          HI_ConsumerSearchIHIBatchAsyncInterface-3.0.wsdl
+@Author:        Medicare Australia
+@Version:       2010/07/31 - Initial version
+   		    	2011/06/25 - added backward compatible optional element "hpio" 
+	    	 	for Contracted Service Provider usage.  
+	    	 	2012/07/26 - added backward compatible optional element "hpio" 
+	    	 	to read operations for Contracted Service Provider usage.
+@CreatedDate:   2010/04/23
+@Release:       3
+@Description:   
+===========================================================================
+-->
+ <wsdl:definitions 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:ce="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" 
+    xmlns:cwm="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0" 
+    xmlns:tns="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0" 
+    targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0"
+    name="ConsumerSearchIHIBatchAsync">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0" elementFormDefault="qualified">
+            <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/common/CommonCoreElements/3.0" schemaLocation="../../../schema/mca/common/20100731/CommonCoreElements.xsd"/>
+            <xsd:import namespace="http://ns.electronichealth.net.au/hi/xsd/consumermessages/SearchIHIBatch/3.0" schemaLocation="../../../schema/mca/consumer/messages/20100731/SearchIHIBatchMessages.xsd"/>
+            <xsd:element name="submitSearchIHIBatch">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="searchIHIBatchRequest" type="cwm:SearchIHIRequestType" minOccurs="1" maxOccurs="2000"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="submitSearchIHIBatchResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ce:serviceMessages" minOccurs="1" maxOccurs="1"/>
+                        <xsd:element ref="cwm:batchIdentifier" minOccurs="0" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="retrieveSearchIHIBatch">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="retrieveSearchIHIBatchResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="searchIHIBatchResult" type="cwm:SearchIHIResultType" minOccurs="1" maxOccurs="2000"/>
+                        <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getSearchIHIBatchStatus">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getSearchIHIBatchStatusResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="getSearchIHIBatchStatusResult" type="cwm:SearchIHIBatchStatusType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteSearchIHIBatch">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="cwm:batchIdentifier" minOccurs="1" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteSearchIHIBatchResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="deleteSearchIHIBatchResult" type="cwm:SearchIHIBatchStatusType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="submitSearchIHIBatchInMsg">
+        <wsdl:part name="request" element="tns:submitSearchIHIBatch"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added June 2011 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>  
+    </wsdl:message>
+    <wsdl:message name="submitSearchIHIBatchOutMsg">
+        <wsdl:part name="response" element="tns:submitSearchIHIBatchResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveSearchIHIBatchInMsg">
+        <wsdl:part name="request" element="tns:retrieveSearchIHIBatch"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added SEP 2012 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>        
+    </wsdl:message>
+    <wsdl:message name="retrieveSearchIHIBatchOutMsg">
+        <wsdl:part name="response" element="tns:retrieveSearchIHIBatchResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="getSearchIHIBatchStatusInMsg">
+        <wsdl:part name="request" element="tns:getSearchIHIBatchStatus"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added SEP 2012 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>                
+    </wsdl:message>
+    <wsdl:message name="getSearchIHIBatchStatusOutMsg">
+        <wsdl:part name="response" element="tns:getSearchIHIBatchStatusResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="deleteSearchIHIBatchInMsg">
+        <wsdl:part name="request" element="tns:deleteSearchIHIBatch"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="timestampHeader" element="ce:timestamp"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+        <wsdl:part name="userHeader" element="ce:user"/>
+        <!--	hpio: Backward compatible change, added SEP 2012 release for CSPs. -->	
+		<wsdl:part name="hpioHeader" element="ce:hpio"/>        
+    </wsdl:message>
+    <wsdl:message name="deleteSearchIHIBatchOutMsg">
+        <wsdl:part name="response" element="tns:deleteSearchIHIBatchResponse"/>
+        <wsdl:part name="productHeader" element="ce:product"/>
+        <wsdl:part name="signatureHeader" element="ce:signature"/>
+    </wsdl:message>
+    <wsdl:message name="standardErrorMsg">
+        <wsdl:part name="fault" element="ce:serviceMessages"/>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerSearchIHIBatchAsyncPortType">
+        <wsdl:operation name="submitSearchIHIBatch">
+            <wsdl:input message="tns:submitSearchIHIBatchInMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/submitSearchIHIBatchRequest"/>
+            <wsdl:output message="tns:submitSearchIHIBatchOutMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/submitSearchIHIBatchResponse"/>
+            <wsdl:fault name="standardError" message="tns:standardErrorMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/submitSearchIHIBatch/Fault/standardError"/>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveSearchIHIBatch">
+            <wsdl:input message="tns:retrieveSearchIHIBatchInMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/retrieveSearchIHIBatchRequest"/>
+            <wsdl:output message="tns:retrieveSearchIHIBatchOutMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/retrieveSearchIHIBatchResponse"/>
+            <wsdl:fault name="standardError" message="tns:standardErrorMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPort/retrieveSearchIHIBatch/Fault/standardError"/>
+        </wsdl:operation>
+        <wsdl:operation name="getSearchIHIBatchStatus">
+            <wsdl:input message="tns:getSearchIHIBatchStatusInMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/getSearchIHIBatchStatusRequest"/>
+            <wsdl:output message="tns:getSearchIHIBatchStatusOutMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/getSearchIHIBatchStatusResponse"/>
+            <wsdl:fault name="standardError" message="tns:standardErrorMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/getSearchIHIBatchStatus/Fault/standardError"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteSearchIHIBatch">
+            <wsdl:input message="tns:deleteSearchIHIBatchInMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/deleteSearchIHIBatchRequest"/>
+            <wsdl:output message="tns:deleteSearchIHIBatchOutMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/deleteSearchIHIBatchResponse"/>
+            <wsdl:fault name="standardError" message="tns:standardErrorMsg" wsam:Action="http://ns.electronichealth.net.au/hi/svc/ConsumerSearchIHIBatchAsync/3.0/ConsumerSearchIHIBatchAsyncPortType/deleteSearchIHIBatch/Fault/standardError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
