@@ -18,6 +18,7 @@ using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.DocumentRepository;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -72,6 +73,14 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Close the client.
+        /// </summary>
+        internal async Task CloseAsync()
+        {
+            await repositoryClient.CloseAsync();
+        }
+
+        /// <summary>
         /// Retrieve a document.
         /// </summary>
         /// <param name="header">PCEHR header.</param>
@@ -87,6 +96,20 @@ namespace Nehta.VendorLibrary.PCEHR
             var signatureContainer = new signatureContainerType();
 
             var result = repositoryClient.DocumentRepository_RetrieveDocumentSet(timestamp, ref signatureContainer, header, requests);
+
+            return result;
+        }
+
+        internal async Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(PCEHRHeader header, RetrieveDocumentSetRequestTypeDocumentRequest[] requests)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            var result = await repositoryClient.DocumentRepository_RetrieveDocumentSetAsync(timestamp, signatureContainer, header, requests);
 
             return result;
         }
@@ -107,6 +130,24 @@ namespace Nehta.VendorLibrary.PCEHR
             var signatureContainer = new signatureContainerType();
 
             return repositoryClient.DocumentRepository_ProvideAndRegisterDocumentSetb(timestamp, ref signatureContainer, header, request);
+        }
+
+        /// <summary>
+        /// Upload a document.
+        /// </summary>
+        /// <param name="header">PCEHR header.</param>
+        /// <param name="request">Request.</param>
+        /// <returns>Response.</returns>
+        internal async Task<DocumentRepository_ProvideAndRegisterDocumentSetbResponse> UploadDocumentAsync(PCEHRHeader header, ProvideAndRegisterDocumentSetRequestType request)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await repositoryClient.DocumentRepository_ProvideAndRegisterDocumentSetbAsync(timestamp, signatureContainer, header, request);
         }
 
         /// <summary>

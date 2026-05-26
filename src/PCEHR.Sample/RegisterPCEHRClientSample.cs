@@ -22,6 +22,7 @@ using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.RegisterPCEHR;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace PCEHR.Sample
 {
@@ -135,6 +136,116 @@ namespace PCEHR.Sample
             {
                 // Invoke the service
                 registerPCEHRResponse response = registerClient.RegisterPCEHR(header, request);
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Create the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/registerPCEHR"
+            // production endpoint is "https://services.ehealth.gov.au/registerPCEHR"
+            RegisterPCEHRClient registerClient = new RegisterPCEHRClient(
+                new Uri("https://RegisterPCEHREndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            // Create a request
+            registerPCEHR request = new registerPCEHR();
+
+            // Set required assertion values
+            request.assertions = new registerPCEHRAssertions()
+            {
+                acceptedTermsAndConditions = true,
+                documentConsent = new registerPCEHRAssertionsDocument[]
+                {
+                    new registerPCEHRAssertionsDocument()
+                    {
+                        // status is either ConsentGiven or ConsentNotGiven
+                        status = registerPCEHRAssertionsDocumentStatus.ConsentGiven,
+                        // Types of document include:
+                        // ACIR (Australian Childhood Immunisation Register)
+                        // AODR (Australian Organ Donor Register)
+                        // MBS (Medicare Benefits Report)
+                        // PBS (Pharmaceutical Benefits Report)
+                        // PBSPastAssimilation, - last 2 years worth
+                        // MBSPastAssimilation, - last 2 years worth 
+                        type = registerPCEHRAssertionsDocumentType.AODR
+                    },
+                    // For multiple document types  
+                    new registerPCEHRAssertionsDocument()
+                    {
+                        status = registerPCEHRAssertionsDocumentStatus.ConsentNotGiven,
+                        type = registerPCEHRAssertionsDocumentType.ACIR
+                    }
+                },
+                identity = new registerPCEHRAssertionsIdentity()
+                {
+                    evidenceOfIdentity = new registerPCEHRAssertionsIdentityEvidenceOfIdentity()
+                    {
+                        // type can be one of IdentityVerificationMethod1 to IdentityVerificationMethod10
+                        // the details of each method can be found in Part A of the My Health Record Identification Framework (link below)
+                        // https://myhealthrecord.gov.au/internet/mhr/publishing.nsf/Content/healthcare-providers/$file/My-Health-Record-Assisted-Registration-Identification-Framework.pdf
+                        type = registerPCEHRAssertionsIdentityEvidenceOfIdentityType.IdentityVerificationMethod5
+                    },
+                    // indigenousStatus can be one of: Item1, Item2, Item3, Item4 or Item9 the meaning of each of these
+                    // items can be found in the Value domain attributes section of http://meteor.aihw.gov.au/content/index.phtml/itemId/291036
+                    indigenousStatus = registerPCEHRAssertionsIdentityIndigenousStatus.Item3,
+                    // the consent form can be downloaded from:
+                    // https://myhealthrecord.gov.au/internet/mhr/publishing.nsf/Content/healthcare-providers/$file/My-Health-Record-Assisted-Registration-Form.pdf for adult
+                    // https://myhealthrecord.gov.au/internet/mhr/publishing.nsf/Content/healthcare-providers/$file/My-Health-Record-Assisted-Registration-Form-Child.pdf for child
+                    signedConsentForm = File.ReadAllBytes("signedConsentForm.pdf")
+                },
+                ivcCorrespondence = new registerPCEHRAssertionsIvcCorrespondence()
+                {
+                    channel = registerPCEHRAssertionsIvcCorrespondenceChannel.email,
+                    contactDetails = new contactDetailsType()
+                    {
+                        emailAddress = "patient@emails.com",
+                        mobilePhoneNumber = "patient phone number"
+                    }
+                },
+                representativeDeclaration = false,
+                representativeDeclarationSpecified = true
+            };
+
+            // Populate a new individual
+            request.individual = new registerPCEHRIndividual()
+            {
+                demographics = new registerPCEHRIndividualDemographics()
+                {
+                    name = new nameTypeSupp()
+                    {
+                        givenName = new string[] { "First Name" },
+                        familyName = "Family Name",
+                    },
+                    sex = sex.M,
+                    dateOfBirth = DateTime.Parse("1 Jan 1978")
+                }
+            };
+
+            try
+            {
+                // Invoke the service
+                registerPCEHRResponse1 response = await registerClient.RegisterPCEHRAsync(header, request);
             }
             catch (FaultException e)
             {

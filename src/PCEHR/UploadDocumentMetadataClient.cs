@@ -22,6 +22,7 @@ using Nehta.VendorLibrary.Common;
 using System.Xml;
 using System.Security.Cryptography;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -78,6 +79,17 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Upload metadata for a document.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="submitObjectsRequest">Metadata.</param>
+        /// <returns>Response.</returns>
+        public async Task<DocumentRegistry_RegisterDocumentSetbResponse> UploadDocumentMetadataAsync(CommonPcehrHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest)
+        {
+            return await documentRegistryClient.UploadDocumentMetadataAsync(pcehrHeader.GetHeader<PCEHRHeader>(), submitObjectsRequest);
+        }
+
+        /// <summary>
         /// Helper method to generate the request object when registering a replacement document on the PCEHR.
         /// </summary>
         /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
@@ -120,6 +132,48 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Helper method to generate the request object when registering a replacement document on the PCEHR.
+        /// </summary>
+        /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
+        /// <param name="uniqueRepositoryId">Repository ID.</param>
+        /// <param name="formatCode">Format code.</param>
+        /// <param name="formatCodeName">Format code display name.</param>
+        /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
+        /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="uuidOfDocumentToReplace">UUID of document to replace.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
+        /// <returns>The populated request object.</returns>
+        public async Task<SubmitObjectsRequest> CreateRequestForReplacementAsync(
+            byte[] cdaPackageContent,
+            string uniqueRepositoryId,
+            string formatCode,
+            string formatCodeName,
+            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
+            PracticeSettingTypes practiceSetting,
+            string uuidOfDocumentToReplace,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "")
+        {
+            Validation.ValidateArgumentRequired("uuidOfDocumentToReplace", uuidOfDocumentToReplace);
+
+            return await CreateRequestAsync(
+               cdaPackageContent,
+               uniqueRepositoryId,
+               formatCode,
+               formatCodeName,
+               healthcareFacilityTypeCode,
+               practiceSetting,
+               uuidOfDocumentToReplace,
+               documentSubTypeCode,
+               documentSubTypeCodeSystem,
+               documentSubTypeName
+            );
+        }
+
+        /// <summary>
         /// Helper method to generate the request object when registering a new document on the PCEHR.
         /// </summary>
         /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
@@ -155,6 +209,44 @@ namespace Nehta.VendorLibrary.PCEHR
                 documentSubTypeCodeSystem,
                 documentSubTypeName
                 );
+        }
+
+        /// <summary>
+        /// Helper method to generate the request object when registering a new document on the PCEHR.
+        /// </summary>
+        /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
+        /// <param name="uniqueRepositoryId">Repository ID.</param>
+        /// <param name="formatCode">Format code.</param>
+        /// <param name="formatCodeName">Format code display name.</param>
+        /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
+        /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
+        /// <returns>The populated request object.</returns>
+        public async Task<SubmitObjectsRequest> CreateRequestForNewDocumentAsync(
+            byte[] cdaPackageContent,
+            string uniqueRepositoryId,
+            string formatCode,
+            string formatCodeName,
+            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
+            PracticeSettingTypes practiceSetting,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "")
+        {
+            return await CreateRequestAsync(
+                cdaPackageContent,
+                uniqueRepositoryId,
+                formatCode,
+                formatCodeName,
+                healthcareFacilityTypeCode,
+                practiceSetting,
+                null,
+                documentSubTypeCode,
+                documentSubTypeCodeSystem,
+                documentSubTypeName
+            );
         }
 
         /// <summary>
@@ -215,6 +307,65 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Helper method to generate the request object.
+        /// </summary>
+        /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
+        /// /// <param name="uniqueRepositoryId">Repository ID.</param>
+        /// <param name="formatCode">Format code.</param>
+        /// <param name="formatCodeName">Format code name.</param>
+        /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
+        /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="uuidOfDocumentToReplace">UUID of document to replace. NULL for new documents.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
+        /// /// <returns>The populated request object.</returns>
+        internal async Task<SubmitObjectsRequest> CreateRequestAsync(
+            byte[] cdaPackageContent,
+            string uniqueRepositoryId,
+            string formatCode,
+            string formatCodeName,
+            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
+            PracticeSettingTypes practiceSetting,
+            string uuidOfDocumentToReplace,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "")
+        {
+            Validation.ValidateArgumentRequired("cdaPackageContent", cdaPackageContent);
+            Validation.ValidateArgumentRequired("uniqueRepositoryId", uniqueRepositoryId);
+            Validation.ValidateArgumentRequired("formatCode", formatCodeName);
+            Validation.ValidateArgumentRequired("formatCodeName", formatCodeName);
+
+            var cdaFile = await GetCdaDocumentAsync(cdaPackageContent);
+            var cdaDoc = new XmlDocument();
+            cdaDoc.Load(new MemoryStream(cdaFile));
+
+            var sha1Hash = await CalculateSHA1Async(cdaPackageContent);
+
+            var metadata = new XdsMetadata(
+                cdaDoc,
+                uniqueRepositoryId,
+                formatCode,
+                formatCodeName,
+                healthcareFacilityTypeCode,
+                practiceSetting,
+                cdaPackageContent.Length,
+                sha1Hash,
+                true,
+                uuidOfDocumentToReplace,
+                documentSubTypeCode,
+                documentSubTypeCodeSystem,
+                documentSubTypeName
+                );
+
+            var sor = metadata.CreateSubmitObjectsRequest();
+            var serializedSor = sor.SerializeToXml();
+
+            return serializedSor.Deserialize<SubmitObjectsRequest>();
+        }
+
+        /// <summary>
         /// Obtain all the zip file entries and their content.
         /// </summary>
         /// <param name="zipFile">The zip file.</param>
@@ -250,6 +401,41 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Obtain all the zip file entries and their content.
+        /// </summary>
+        /// <param name="zipFile">The zip file.</param>
+        /// <returns>Zip file entries and their content.</returns>
+        internal static async Task<byte[]> GetCdaDocumentAsync(byte[] fileContent)
+        {
+            var inputStream = new MemoryStream(fileContent);
+
+            if (fileContent.Length > 0)
+            {
+                // Iterate through all entries and find cda_root
+                using (ZipArchive zipArchive = new ZipArchive(inputStream, ZipArchiveMode.Read))
+                {
+                    foreach (var entry in zipArchive.Entries)
+                    {
+                        // Ony process files.
+                        if (entry.Length > 0)
+                        {
+                            string filename = entry.FullName;
+
+                            if (Regex.IsMatch(filename, @"[/\\]?[^/\\]+[/\\][^/\\]+[/\\]CDA_ROOT.XML", RegexOptions.IgnoreCase))
+                            {
+                                var output = new MemoryStream();
+                                await entry.Open().CopyToAsync(output);
+                                return output.ToArray();
+                            }
+                        }
+                    }
+                }
+            }
+
+            throw new ApplicationException("Failed to extract CDA_ROOT.XML from zip file.");
+        }
+
+        /// <summary>
         /// Generates a hash value for a byte array using SHA1.
         /// </summary>
         /// <param name="content">The byte array to generate the hash from.</param>
@@ -263,11 +449,32 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Generates a hash value for a byte array using SHA1.
+        /// </summary>
+        /// <param name="content">The byte array to generate the hash from.</param>
+        /// <returns>Generated hash value.</returns>
+        internal static async Task<string> CalculateSHA1Async(byte[] content)
+        {
+            var cryptoTransformSHA1 = new SHA1CryptoServiceProvider();
+            byte[] bytes = await Task.Run(() => cryptoTransformSHA1.ComputeHash(content));
+            string hash = BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            return (hash);
+        }
+
+        /// <summary>
         /// Close the client.
         /// </summary>
         public void Close()
         {
             documentRegistryClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client asynchronously.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await documentRegistryClient.CloseAsync();
         }
     }
 }

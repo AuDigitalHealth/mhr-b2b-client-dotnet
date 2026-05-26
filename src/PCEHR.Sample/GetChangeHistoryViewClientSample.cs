@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.GetChangeHistoryView;
@@ -64,6 +65,46 @@ namespace PCEHR.Sample
                 var changeHistoryView = changeHistoryViewClient.GetChangeHistoryView(
                     header, new getChangeHistoryView() { documentID = "document unique id" }
                     );
+
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Instantiate the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getChangeHistoryView"
+            // production endpoint is "https://services.ehealth.gov.au/getChangeHistoryView"
+            GetChangeHistoryViewClient changeHistoryViewClient = new GetChangeHistoryViewClient(new Uri("https://GetChangeHistoryViewEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                // Invoke the service
+                // if you run GetDocumentList first, you will get a list of document ids in the response
+                // the "value" attribute in the <ns3:ExternalIdentifier> element provides the unique document id
+                var changeHistoryView = await changeHistoryViewClient.GetChangeHistoryViewAsync(
+                    header, new getChangeHistoryView() { documentID = "document unique id" }
+                );
 
             }
             catch (FaultException e)

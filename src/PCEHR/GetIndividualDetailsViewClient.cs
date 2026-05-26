@@ -19,6 +19,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.Description;
 using Nehta.VendorLibrary.PCEHR.GetIndividualDetailsView;
 using Nehta.VendorLibrary.Common;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -90,6 +91,18 @@ namespace Nehta.VendorLibrary.PCEHR
             return getIndividualDetailsViewClient.getIndividualDetailsView(timestamp, ref signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
         }
 
+        public async Task<getIndividualDetailsViewResponse1> GetIndividualDetailsViewAsync(CommonPcehrHeader pcehrHeader, object request)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await getIndividualDetailsViewClient.getIndividualDetailsViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+        }
+
         /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
@@ -131,6 +144,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             getIndividualDetailsViewClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await getIndividualDetailsViewClient.CloseAsync();
         }
     }
 }

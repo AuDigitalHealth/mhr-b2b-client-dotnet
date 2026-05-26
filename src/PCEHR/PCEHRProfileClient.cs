@@ -19,6 +19,7 @@ using Nehta.VendorLibrary.PCEHR.PCEHRProfile;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -72,6 +73,11 @@ namespace Nehta.VendorLibrary.PCEHR
             pcehrProfileClient.Close();
         }
 
+        internal async Task CloseAsync()
+        {
+            await pcehrProfileClient.CloseAsync();
+        }
+
         /// <summary>
         /// Check if PCEHR exists for an individual.
         /// </summary>
@@ -89,12 +95,29 @@ namespace Nehta.VendorLibrary.PCEHR
             return pcehrProfileClient.doesPCEHRExist(timestamp, ref signatureContainer, pcehrHeader, "");
         }
 
-        /// <summary>
-        /// Gain access to an individual's PCEHR.
-        /// </summary>
-        /// <param name="pcehrHeader">PCEHR header.</param>
-        /// <returns>Query response.</returns>
-        internal responseStatusType GainPCEHRAccess(PCEHRHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord, out gainPCEHRAccessResponseIndividual individual)
+		/// <summary>
+		/// Check if PCEHR exists for an individual.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <returns>Query response.</returns>
+		internal async Task<doesPCEHRExistResponse1> DoesPCEHRExistAsync(PCEHRHeader pcehrHeader)
+		{
+			var timestamp = new timestampType()
+			{
+				created = DateTime.Now
+			};
+
+			var signatureContainer = new signatureContainerType();
+
+			return await pcehrProfileClient.doesPCEHRExistAsync(timestamp, signatureContainer, pcehrHeader, "");
+		}
+
+		/// <summary>
+		/// Gain access to an individual's PCEHR.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <returns>Query response.</returns>
+		internal responseStatusType GainPCEHRAccess(PCEHRHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord, out gainPCEHRAccessResponseIndividual individual)
         {
             var timestamp = new timestampType()
             {
@@ -106,14 +129,39 @@ namespace Nehta.VendorLibrary.PCEHR
             return pcehrProfileClient.gainPCEHRAccess(timestamp, ref signatureContainer, pcehrHeader, accessPcehrRecord, out individual);
         }
 
-        /// <summary>
-        /// Initialises the client endpoint.
-        /// </summary>
-        /// <param name="endpointUri">Service endpoint.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        private void InitialiseClient(string endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
+		/// <summary>
+		/// Gain access to an individual's PCEHR.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <returns>Query response.</returns>
+		internal async Task<gainPCEHRAccessResponse> GainPCEHRAccessAsync(PCEHRHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord)
+		{
+			var timestamp = new timestampType()
+			{
+				created = DateTime.Now
+			};
+
+			var signatureContainer = new signatureContainerType();
+
+            gainPCEHRAccessRequest request = new gainPCEHRAccessRequest
+            {
+                PCEHRHeader = pcehrHeader,
+                PCEHRRecord = accessPcehrRecord,
+                signature = signatureContainer,
+                timestamp = timestamp
+            };
+
+			return await pcehrProfileClient.gainPCEHRAccessAsync(request);
+		}
+
+		/// <summary>
+		/// Initialises the client endpoint.
+		/// </summary>
+		/// <param name="endpointUri">Service endpoint.</param>
+		/// <param name="signingCert">Header signing certificate.</param>
+		/// <param name="tlsCert">TLS client certificate.</param>
+		/// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+		private void InitialiseClient(string endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
         {
             Validation.ValidateArgumentRequired("tlsCert", tlsCert);
 

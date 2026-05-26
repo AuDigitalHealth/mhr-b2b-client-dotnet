@@ -16,6 +16,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.GetView;
 using PCEHRHeader = Nehta.VendorLibrary.PCEHR.GetView.PCEHRHeader;
@@ -92,6 +93,23 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Gets a PCEHR view.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <returns>Response.</returns>
+        public async Task<getViewResponse1> GetViewAsync(CommonPcehrHeader pcehrHeader, getView request)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await getViewClient.getViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+        }
+
+        /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
@@ -132,6 +150,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             getViewClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await getViewClient.CloseAsync();
         }
     }
 }

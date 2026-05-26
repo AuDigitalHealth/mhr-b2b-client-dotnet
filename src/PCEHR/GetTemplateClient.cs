@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.GetTemplate;
 
@@ -94,6 +95,27 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Gets a template.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="request">Template parameters.</param>
+        /// <returns>Response.</returns>
+        public async Task<getTemplateResponse1> GetTemplateAsync(CommonPcehrHeader pcehrHeader, getTemplate request)
+        {
+            // PCEHRHeaderValidator.Validate(pcehrHeader);
+            Validation.ValidateArgumentRequired("request", request);
+
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await templateClient.getTemplateAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+        }
+
+        /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
@@ -134,6 +156,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             templateClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await templateClient.CloseAsync();
         }
     }
 }

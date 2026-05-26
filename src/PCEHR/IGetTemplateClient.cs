@@ -1,5 +1,6 @@
 ﻿using Nehta.VendorLibrary.MHR;
 using Nehta.VendorLibrary.PCEHR.GetTemplate;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -12,5 +13,13 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="request">Template parameters.</param>
         /// <returns>Response.</returns>
         getTemplateResponse GetTemplate(CommonPcehrHeader pcehrHeader, getTemplate request);
+
+        /// <summary>
+        /// Gets a template.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="request">Template parameters.</param>
+        /// <returns>Response.</returns>
+        Task<getTemplateResponse1> GetTemplateAsync(CommonPcehrHeader pcehrHeader, getTemplate request);
     }
 }

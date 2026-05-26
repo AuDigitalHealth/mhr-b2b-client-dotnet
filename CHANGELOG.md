@@ -1,5 +1,8 @@
 ### Change Log/Revision History
 
+2.0.1
+------------------
+- Added support for async calls
 
 2.0.0
 ------------------

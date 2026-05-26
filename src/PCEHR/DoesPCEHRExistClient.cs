@@ -15,6 +15,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.PCEHR.PCEHRProfile;
 
 namespace Nehta.VendorLibrary.PCEHR
@@ -72,12 +73,33 @@ namespace Nehta.VendorLibrary.PCEHR
             return profileClient.DoesPCEHRExist(pcehrHeader.GetHeader<PCEHRHeader>());
         }
 
-        /// <summary>
-        /// Close the client.
-        /// </summary>
-        public void Close()
+		/// <summary>
+		/// Checks if a PCEHR exists for an individual. The IHI of the individual is specified wihin the PCEHR header.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <returns>Response indicating the existence of a PCEHR.</returns>
+		public async Task<doesPCEHRExistResponse1> DoesPCEHRExistAsync(CommonPcehrHeader pcehrHeader)
+		{
+			// PCEHRHeaderValidator.Validate(pcehrHeader);
+
+			return await profileClient.DoesPCEHRExistAsync(pcehrHeader.GetHeader<PCEHRHeader>());
+		}
+
+
+		/// <summary>
+		/// Close the client.
+		/// </summary>
+		public void Close()
         {
             profileClient.Close();
         }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await profileClient.CloseAsync();
+        }    
     }
 }

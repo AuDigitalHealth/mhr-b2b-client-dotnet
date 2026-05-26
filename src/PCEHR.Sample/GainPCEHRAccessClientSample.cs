@@ -20,6 +20,7 @@ using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.PCEHRProfile;
 using System.Net;
 using System.Net.Security;
+using System.Threading.Tasks;
 
 namespace PCEHR.Sample
 {
@@ -83,7 +84,58 @@ namespace PCEHR.Sample
             }            
         }
 
-        private bool ValidateServiceCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+		public async Task SampleAsync()
+		{
+			// Obtain the certificate for use with TLS and signing
+			X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+				"Serial Number",
+				X509FindType.FindBySerialNumber,
+				StoreName.My,
+				StoreLocation.CurrentUser,
+				true
+				);
+
+			// Create PCEHR header
+			CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+			// Override this value to the current patient's IHI.
+			header.IhiNumber = "IHI";
+
+			// Instantiate the client
+			// SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/gainPCEHRAccess"
+			// production endpoint is "https://services.ehealth.gov.au/gainPCEHRAccess"
+			GainPCEHRAccessClient gainPcehrAccessClient = new GainPCEHRAccessClient(new Uri("https://GainPCEHRAccessEndpoint"), cert, cert);
+
+			// Add server certificate validation callback
+			ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+			// Create the access request
+			gainPCEHRAccessPCEHRRecord accessRequest = new gainPCEHRAccessPCEHRRecord();
+			// if gaining access without a code, authorisationDetails is not required
+			// if gaining access with a code, include authorisationDetails, accessCode and accessType
+			// if gaining emergency access, include authorisationDetails and set accessType to “EmergencyAccess”
+			// Only include the below to pass an access code or gain emergency access
+			accessRequest.authorisationDetails = new gainPCEHRAccessPCEHRRecordAuthorisationDetails();
+			accessRequest.authorisationDetails.accessCode = "patient access code";
+			accessRequest.authorisationDetails.accessType = gainPCEHRAccessPCEHRRecordAuthorisationDetailsAccessType.AccessCode;
+
+			gainPCEHRAccessResponseIndividual individual = new gainPCEHRAccessResponseIndividual();
+
+			try
+			{
+				// Invoke the service
+				gainPCEHRAccessResponse responseStatus = await gainPcehrAccessClient.GainPCEHRAccessAsync(header, accessRequest);
+
+				// Get the soap request and response
+				string soapRequest = gainPcehrAccessClient.SoapMessages.SoapRequest;
+				string soapResponse = gainPcehrAccessClient.SoapMessages.SoapResponse;
+			}
+			catch (FaultException fex)
+			{
+				// Handle any errors
+			}
+		}
+
+		private bool ValidateServiceCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             // Checks can be done here to validate the service certificate.
             // If the service certificate contains any problems or is invalid, return false. Otherwise, return true.

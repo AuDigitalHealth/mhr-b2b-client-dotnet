@@ -12,11 +12,12 @@
  * under the License.
  */
 
+using Nehta.VendorLibrary.Common;
+using Nehta.VendorLibrary.PCEHR.DocumentRepository;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.Description;
-using Nehta.VendorLibrary.Common;
-using Nehta.VendorLibrary.PCEHR.DocumentRepository;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -76,11 +77,33 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Retrieve a document. 
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="requests">Request.</param>
+        /// <returns>Response.</returns>
+        public async Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(CommonPcehrHeader pcehrHeader, RetrieveDocumentSetRequestTypeDocumentRequest[] requests)
+        {
+            // PCEHRHeaderValidator.Validate(pcehrHeader);
+            Validation.ValidateArgumentRequired("requests", requests);
+
+            return await client.GetDocumentAsync(pcehrHeader.GetHeader<PCEHRHeader>(), requests);
+        }
+
+        /// <summary>
         /// Close the client.
         /// </summary>
         public void Close()
         {
             client.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await client.CloseAsync();
         }
     }
 }

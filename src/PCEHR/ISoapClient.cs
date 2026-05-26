@@ -1,4 +1,5 @@
 ﻿using Nehta.VendorLibrary.PCEHR;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.MHR
 {
@@ -10,5 +11,10 @@ namespace Nehta.VendorLibrary.MHR
         /// Close the client.
         /// </summary>
         void Close();
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        Task CloseAsync();
     }
 }

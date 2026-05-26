@@ -12,15 +12,15 @@
  * under the License.
  */
 
+using Nehta.VendorLibrary.Common;
+using Nehta.VendorLibrary.PCEHR;
+using Nehta.VendorLibrary.PCEHR.GetRepresentativeList;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using Nehta.VendorLibrary.Common;
-using Nehta.VendorLibrary.PCEHR;
-using Nehta.VendorLibrary.PCEHR.GetRepresentativeList;
+using System.Threading.Tasks;
 
 namespace PCEHR.Sample
 {
@@ -68,6 +68,48 @@ namespace PCEHR.Sample
             {
                 // Invoke the service
                 getRepresentativeListResponse response = getRepresentativeClient.GetRepresentativeList(header);
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // NASH certificate should be used here, NOT the HI certificate
+            // the NASH certificate can be found in the NASH PKI Test Kit
+            // certificate needs to be installed in the right place
+            // the "Issue To" field of a NASH certificate looks like general(or something different)."HPI-O".electronichealth.net.au
+            // "Serial Number" can be found in the details once the certificate is installed. e.g. in Windows, certificates can be found in Certs.msc
+
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Create the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getRepresentativeList"
+            // production endpoint is "https://services.ehealth.gov.au/getRepresentativeList"
+            GetRepresentativeListClient getRepresentativeClient = new GetRepresentativeListClient(
+                new Uri("https://GetRepresentativeListEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                // Invoke the service
+                getRepresentativeListResponse1 response = await getRepresentativeClient.GetRepresentativeListAsync(header);
             }
             catch (FaultException e)
             {

@@ -15,6 +15,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.DocumentRegistry;
 
@@ -76,6 +77,20 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Gets a list of documents based on the query criteria.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="adhocQueryRequest">Query request.</param>
+        /// <returns>Query response.</returns>
+        public async Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, AdhocQueryRequest adhocQueryRequest)
+        {
+            // PCEHRHeaderValidator.Validate(pcehrHeader);
+            Validation.ValidateArgumentRequired("adhocQueryRequest", adhocQueryRequest);
+
+            return await documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryRequest);
+        }
+
+        /// <summary>
         /// Gets a list of documents based on the query criteria. The IHI of the individual is specified within the PCEHR header.
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
@@ -90,6 +105,23 @@ namespace Nehta.VendorLibrary.PCEHR
 
             return documentRegistryClient.GetDocumentList(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
         }
+
+        /// <summary>
+        /// Gets a list of documents based on the query criteria. The IHI of the individual is specified within the PCEHR header.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="documentStatus">Status of the documents.</param>
+        /// <returns>Query response.</returns>
+        public Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, DocumentStatus documentStatus)
+        {
+            // PCEHRHeaderValidator.Validate(pcehrHeader);
+            Validation.ValidateArgumentRequired("ihiNumber", pcehrHeader.IhiNumber);
+
+            AdhocQueryBuilder adhocQueryBuilder = new AdhocQueryBuilder(pcehrHeader.IhiNumber, new[] { documentStatus });
+
+            return documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
+        }
+
 
         /// <summary>
         /// Gets a list of documents based on the query criteria. The IHI of the individual is specified within the PCEHR header. The
@@ -107,11 +139,35 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Gets a list of documents based on the query criteria. The IHI of the individual is specified within the PCEHR header. The
+        /// document status is set to 'Approved'.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <returns>Query request</returns>
+        public Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader)
+        {
+            // PCEHRHeaderValidator.Validate(pcehrHeader);
+
+            AdhocQueryBuilder adhocQueryBuilder = new AdhocQueryBuilder(pcehrHeader.IhiNumber, new[] { DocumentStatus.Approved });
+
+            return documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
+        }
+
+        /// <summary>
         /// Close the client.
         /// </summary>
         public void Close()
         {
             documentRegistryClient.Close();
+        }
+
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await documentRegistryClient.CloseAsync();
         }
     }
 }

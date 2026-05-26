@@ -15,6 +15,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.Helper;
 using Nehta.VendorLibrary.PCEHR.PCEHRProfile;
@@ -78,12 +79,35 @@ namespace Nehta.VendorLibrary.PCEHR
             return profileClient.GainPCEHRAccess(pcehrHeader.GetHeader<PCEHRHeader>(), accessPcehrRecord, out individual);
         }
 
-        /// <summary>
-        /// Close the client.
-        /// </summary>
-        public void Close()
+		/// <summary>
+		/// Requests access to an individuals PCEHR. The IHI is specified within the PCEHR header.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <param name="accessPcehrRecord">Access record.</param>
+		/// <param name="individual">Matching individual.</param>
+		/// <returns>Response.</returns>
+		public async Task<gainPCEHRAccessResponse> GainPCEHRAccessAsync(CommonPcehrHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord)
+		{
+			// PCEHRHeaderValidator.Validate(pcehrHeader);
+			Validation.ValidateArgumentRequired("accessPcehrRecord", accessPcehrRecord);
+
+			return await profileClient.GainPCEHRAccessAsync(pcehrHeader.GetHeader<PCEHRHeader>(), accessPcehrRecord);
+		}
+
+		/// <summary>
+		/// Close the client.
+		/// </summary>
+		public void Close()
         {
             profileClient.Close();
+        }
+
+        /// <summary>
+		/// Close the client.
+		/// </summary>
+        public async Task CloseAsync()
+        {
+            await profileClient.CloseAsync();
         }
     }
 }

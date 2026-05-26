@@ -22,6 +22,7 @@ using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using System.IO;
 using Nehta.VendorLibrary.PCEHR.GetIndividualDetailsView;
+using System.Threading.Tasks;
 
 namespace PCEHR.Sample
 {
@@ -70,6 +71,50 @@ namespace PCEHR.Sample
             {
                 // Invoke the service
                 getIndividualDetailsViewResponse response = getIndividualDetailsClient.GetIndividualDetailsView(header, request);
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // NASH certificate should be used here, NOT the HI certificate
+            // the NASH certificate can be found in the NASH PKI Test Kit
+            // certificate needs to be installed in the right place
+            // the "Issue To" field of a NASH certificate looks like general(or something different)."HPI-O".electronichealth.net.au
+            // "Serial Number" can be found in the details once the certificate is installed. e.g. in Windows, certificates can be found in Certs.msc
+
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Create the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getRepresentativeList"
+            // production endpoint is "https://services.ehealth.gov.au/getRepresentativeList"
+            GetIndividualDetailsViewClient getIndividualDetailsClient = new GetIndividualDetailsViewClient(
+                new Uri("https://GetIndividualDetailsViewClientEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            object request = (string)"";
+
+            try
+            {
+                // Invoke the service
+                getIndividualDetailsViewResponse1 response = await getIndividualDetailsClient.GetIndividualDetailsViewAsync(header, request);
             }
             catch (FaultException e)
             {

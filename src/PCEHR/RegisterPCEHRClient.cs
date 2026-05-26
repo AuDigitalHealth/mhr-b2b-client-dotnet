@@ -18,6 +18,7 @@ using Nehta.VendorLibrary.PCEHR.RegisterPCEHR;
 using Nehta.VendorLibrary.Common;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -87,6 +88,24 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Register a person for PCEHR.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="request">The request object.</param>
+        /// <returns>Response.</returns>
+        public async Task<registerPCEHRResponse1> RegisterPCEHRAsync(CommonPcehrHeader pcehrHeader, registerPCEHR request)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await registerPcehrClient.registerPCEHRAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+        }
+
+        /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
@@ -127,6 +146,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             registerPcehrClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await registerPcehrClient.CloseAsync();
         }
     }
 }

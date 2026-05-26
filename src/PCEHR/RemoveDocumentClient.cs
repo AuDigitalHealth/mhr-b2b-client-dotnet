@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.RemoveDocument;
 
@@ -94,6 +95,26 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Removes a document with the document ID.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="request">Document unique ID and reason for removal.</param>
+        /// <returns>Response.</returns>
+        public async Task<removeDocumentResponse1> RemoveDocumentAsync(CommonPcehrHeader pcehrHeader, removeDocument request)
+        {
+            Validation.ValidateArgumentRequired("request", request);
+
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await removeDocumentClient.removeDocumentAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+        }
+
+        /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
@@ -134,6 +155,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             removeDocumentClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await removeDocumentClient.CloseAsync();
         }
     }
 }

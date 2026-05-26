@@ -1,5 +1,6 @@
 ﻿using Nehta.VendorLibrary.MHR;
 using Nehta.VendorLibrary.PCEHR.DocumentRepository;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -12,6 +13,14 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="request">Document and metadata.</param>
         /// <returns>Response.</returns>
         RegistryResponseType UploadDocument(CommonPcehrHeader pcehrHeader, ProvideAndRegisterDocumentSetRequestType request);
+
+        /// <summary>
+        /// Upload a document to the PCEHR.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="request">Document and metadata.</param>
+        /// <returns>Response.</returns>
+        Task<DocumentRepository_ProvideAndRegisterDocumentSetbResponse> UploadDocumentAsync(CommonPcehrHeader pcehrHeader, ProvideAndRegisterDocumentSetRequestType request);
 
         /// <summary>
         /// Helper method to generate the request object when submitting a replacement document.
@@ -38,6 +47,30 @@ namespace Nehta.VendorLibrary.PCEHR
             string documentSubTypeName = "");
 
         /// <summary>
+        /// Helper method to generate the request object when submitting a replacement document.
+        /// </summary>
+        /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
+        /// <param name="formatCode">Format code.</param>
+        /// <param name="formatCodeName">Format code display name.</param>
+        /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
+        /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="uuidOfDocumentToReplace">UUID of document to replace.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
+        /// <returns>The populated request object.</returns>
+        Task<ProvideAndRegisterDocumentSetRequestType> CreateRequestForReplacementAsync(
+            byte[] cdaPackageContent,
+            string formatCode,
+            string formatCodeName,
+            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
+            PracticeSettingTypes practiceSetting,
+            string uuidOfDocumentToReplace,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "");
+
+        /// <summary>
         /// Helper method to generate the request object when submitting a new document to the PCEHR.
         /// </summary>
         /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
@@ -50,6 +83,28 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
         /// <returns>The populated request object.</returns>
         ProvideAndRegisterDocumentSetRequestType CreateRequestForNewDocument(
+            byte[] cdaPackageContent,
+            string formatCode,
+            string formatCodeName,
+            HealthcareFacilityTypeCodes healthcareFacilityTypeCode,
+            PracticeSettingTypes practiceSetting,
+            string documentSubTypeCode = "",
+            string documentSubTypeCodeSystem = "",
+            string documentSubTypeName = "");
+
+        /// <summary>
+        /// Helper method to generate the request object when submitting a new document to the PCEHR.
+        /// </summary>
+        /// <param name="cdaPackageContent">Byte content of the CDA package.</param>
+        /// <param name="formatCode">Format code.</param>
+        /// <param name="formatCodeName">Format code display name.</param>
+        /// <param name="healthcareFacilityTypeCode">Healthcare facility type code.</param>
+        /// <param name="practiceSetting">Practice setting code.</param>
+        /// <param name="documentSubTypeCode">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeCodeSystem">Optional subtype code for custom subtype docs.</param>
+        /// <param name="documentSubTypeName">Optional subtype code for custom subtype docs.</param>
+        /// <returns>The populated request object.</returns>
+        Task<ProvideAndRegisterDocumentSetRequestType> CreateRequestForNewDocumentAsync(
             byte[] cdaPackageContent,
             string formatCode,
             string formatCodeName,

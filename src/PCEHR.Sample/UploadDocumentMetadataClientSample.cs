@@ -18,6 +18,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.DocumentRegistry;
@@ -94,6 +95,74 @@ namespace PCEHR.Sample
             {
                 // Invoke the service
                 RegistryResponseType registryResponse = uploadDocumentMetadataClient.UploadDocumentMetadata(header, request1);
+
+                // Get the soap request and response
+                string soapRequest = uploadDocumentMetadataClient.SoapMessages.SoapRequest;
+                string soapResponse = uploadDocumentMetadataClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Create the client
+            UploadDocumentMetadataClient uploadDocumentMetadataClient = new UploadDocumentMetadataClient(
+                new Uri("https://UploadDocumentEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            byte[] packageBytes = File.ReadAllBytes("CdaPackage.zip"); // Create a package
+
+            // Create a request from an existing package
+            // Format codes and format code names are not fixed, and it is recommended for them to be configurable.
+            // Example for a Document using Subtypes - these codes will be published on github
+            SubmitObjectsRequest request1 = await uploadDocumentMetadataClient.CreateRequestForNewDocumentAsync(
+                packageBytes,
+                "unique repository ID",
+                "formatCode",
+                "formatCodeName",
+                HealthcareFacilityTypeCodes.GeneralPractice,
+                PracticeSettingTypes.GeneralPracticeMedicalClinicService
+                );
+
+            // Example for a Document using Subtypes - these codes will be published on github
+            // DS, ES and SL will now support document subtypes (XDS Metadata: TypeCode)
+            // These values can be passed in using the last 3 fields and are optional parameters so can be ignored or left blank
+            // By providing these values, they will override the default values
+            SubmitObjectsRequest request2 = await uploadDocumentMetadataClient.CreateRequestForNewDocumentAsync(
+                packageBytes,
+                "unique repository ID",
+                "formatCode",
+                "formatCodeName",
+                HealthcareFacilityTypeCodes.GeneralPractice,
+                PracticeSettingTypes.GeneralPracticeMedicalClinicService,
+                  "59258-4",
+                "LOINC",
+                "Emergency Department Discharge summary"
+                );
+
+            try
+            {
+                // Invoke the service
+                DocumentRegistry_RegisterDocumentSetbResponse registryResponse = await uploadDocumentMetadataClient.UploadDocumentMetadataAsync(header, request1);
 
                 // Get the soap request and response
                 string soapRequest = uploadDocumentMetadataClient.SoapMessages.SoapRequest;

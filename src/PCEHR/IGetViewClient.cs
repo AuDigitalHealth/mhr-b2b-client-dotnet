@@ -1,5 +1,6 @@
 ﻿using Nehta.VendorLibrary.MHR;
 using Nehta.VendorLibrary.PCEHR.GetView;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -11,5 +12,12 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <returns>Response.</returns>
         getViewResponse GetView(CommonPcehrHeader pcehrHeader, getView request);
+
+        /// <summary>
+        /// Gets a PCEHR view.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <returns>Response.</returns>
+        Task<getViewResponse1> GetViewAsync(CommonPcehrHeader pcehrHeader, getView request);
     }
 }

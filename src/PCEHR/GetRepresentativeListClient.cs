@@ -19,6 +19,7 @@ using Nehta.VendorLibrary.PCEHR.GetRepresentativeList;
 using Nehta.VendorLibrary.Common;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 
 namespace Nehta.VendorLibrary.PCEHR
 {
@@ -90,6 +91,23 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Get a representative list.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <returns>Response.</returns>
+        public async Task<getRepresentativeListResponse1> GetRepresentativeListAsync(CommonPcehrHeader pcehrHeader)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await getRepresentativeListClient.getRepresentativeListAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), "");
+        }
+
+        /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
@@ -131,6 +149,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             getRepresentativeListClient.Close();
+        }
+
+        /// <summary>
+        /// Close the client.
+        /// </summary>
+        public async Task CloseAsync()
+        {
+            await getRepresentativeListClient.CloseAsync();
         }
     }
 }

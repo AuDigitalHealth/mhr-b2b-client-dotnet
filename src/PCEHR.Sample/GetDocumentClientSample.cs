@@ -18,6 +18,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.DocumentRepository;
@@ -77,6 +78,54 @@ namespace PCEHR.Sample
                 RetrieveDocumentSetResponseType response = getDocumentClient.GetDocument(header, request.ToArray());
             }
             catch(FaultException e)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header  (See PcehrHeaderHelper.cs)
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Create the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getDocument"
+            // production endpoint is "https://services.ehealth.gov.au/getDocument"
+            GetDocumentClient getDocumentClient = new GetDocumentClient(new Uri("https://GetDocumentEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            // Create a request
+            List<RetrieveDocumentSetRequestTypeDocumentRequest> request =
+                new List<RetrieveDocumentSetRequestTypeDocumentRequest>();
+
+            // Set the details of the document to retrieve
+            request.Add(new RetrieveDocumentSetRequestTypeDocumentRequest()
+            {
+                // This should be the value of the ExternalIdentifier "XDSDocumentEntry.uniqueId" in the GetDocumentList response
+                DocumentUniqueId = "document unique id",
+                // This should be the value of "repositoryUniqueId" in the GetDocumentList response
+                RepositoryUniqueId = "repository unique id"
+            });
+
+            try
+            {
+                // Invoke the service
+                DocumentRepository_RetrieveDocumentSetResponse response = await getDocumentClient.GetDocumentAsync(header, request.ToArray());
+            }
+            catch (FaultException e)
             {
                 // Handle any errors
             }

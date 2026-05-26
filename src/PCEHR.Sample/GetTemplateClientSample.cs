@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.Enums;
@@ -66,6 +67,55 @@ namespace PCEHR.Sample
                 // Invoke the service
                 var responseStatusType = templateClient.GetTemplate(
                     header, 
+                    request);
+
+                // Get the soap request and response
+                string soapRequest = templateClient.SoapMessages.SoapRequest;
+                string soapResponse = templateClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Interface requires this to be blank
+            header.IhiNumber = null;
+
+            // Create the client
+            GetTemplateClient templateClient = new GetTemplateClient(new Uri("https://GetTemplateEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            // Specify the objects that will hold the output
+            getTemplateResponseTemplate responseTemplate;
+            DateTime cacheExpiry = new DateTime();
+
+            try
+            {
+                var request = new getTemplate()
+                {
+                    serviceRequestorOption = ServiceRequestorOption.FullPackage.ToString(),
+                    templateID = "document unique ID"
+                };
+
+                // Invoke the service
+                var responseStatusType = await templateClient.GetTemplateAsync(
+                    header,
                     request);
 
                 // Get the soap request and response

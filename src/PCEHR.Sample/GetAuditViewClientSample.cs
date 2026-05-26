@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.GetAuditView;
@@ -79,7 +80,55 @@ namespace PCEHR.Sample
             }
         }
 
-        private bool ValidateServiceCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+		public async Task SampleAsync()
+		{
+			// Obtain the certificate for use with TLS and signing
+			X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+				"Serial Number",
+				X509FindType.FindBySerialNumber,
+				StoreName.My,
+				StoreLocation.CurrentUser,
+				true
+				);
+
+			// Create PCEHR header
+			CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+			// Override this value to the current patient's IHI.
+			header.IhiNumber = "IHI";
+
+			// Instantiate the client
+			// SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getAuditView"
+			// production endpoint is "https://services.ehealth.gov.au/getAuditView"
+			GetAuditViewClient getAuditViewClient = new GetAuditViewClient(new Uri("https://GetAuditViewEndpoint"), cert, cert);
+
+			// Add server certificate validation callback
+			ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+			try
+			{
+				// Invoke the service
+				getAuditViewResponseEventTrail[] eventTrails;
+
+				// Set up the dates
+				var dates = new getAuditView()
+				{
+					dateFrom = DateTime.Parse("from date/time"),
+					dateTo = DateTime.Parse("to date/time")
+				};
+
+				var responseStatus = await getAuditViewClient.GetAuditViewAsync(header, dates);
+
+				// Get the soap request and response
+				string soapRequest = getAuditViewClient.SoapMessages.SoapRequest;
+				string soapResponse = getAuditViewClient.SoapMessages.SoapResponse;
+			}
+			catch (FaultException fex)
+			{
+				// Handle any errors
+			}
+		}
+
+		private bool ValidateServiceCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             // Checks can be done here to validate the service certificate.
             // If the service certificate contains any problems or is invalid, return false. Otherwise, return true.

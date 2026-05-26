@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.SearchTemplate;
@@ -72,7 +73,51 @@ namespace PCEHR.Sample
                 // Handle any errors
             }
         }
+       
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
 
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Interface requires this to be blank
+            header.IhiNumber = null;
+
+            // Create the client
+            SearchTemplateClient searchTemplateClient = new SearchTemplateClient(new Uri("https://SearchTemplateEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            // Specify the objects that will hold the output
+            searchTemplateResponseTemplate[] responseTemplates;
+
+            try
+            {
+                // Invoke the service
+                searchTemplateResponse1 responseStatus = await searchTemplateClient.SearchTemplateAsync(header,
+                    new searchTemplate()
+                    {
+                        templateID = "template ID",
+                        templateMetadata = null
+                    });
+
+                // Get the soap request and response
+                string soapRequest = searchTemplateClient.SoapMessages.SoapRequest;
+                string soapResponse = searchTemplateClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
         private bool ValidateServiceCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             // Checks can be done here to validate the service certificate.

@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.DocumentRegistry;
 
@@ -73,6 +74,14 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Close the client.
+        /// </summary>
+        internal async Task CloseAsync()
+        {
+            await documentRegistryClient.CloseAsync();
+        }
+
+        /// <summary>
         /// Gets a document list based on a query.
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
@@ -91,6 +100,24 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Gets a document list based on a query.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="queryRequest">Query request.</param>
+        /// <returns>Query response.</returns>
+        internal async Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(PCEHRHeader pcehrHeader, AdhocQueryRequest queryRequest)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await documentRegistryClient.DocumentRegistry_RegistryStoredQueryAsync(timestamp, signatureContainer, pcehrHeader, queryRequest);
+        }
+
+        /// <summary>
         /// Uploads document metadata.
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
@@ -106,6 +133,24 @@ namespace Nehta.VendorLibrary.PCEHR
             var signatureContainer = new signatureContainerType();
 
             return documentRegistryClient.DocumentRegistry_RegisterDocumentSetb(timestamp, ref signatureContainer, pcehrHeader, submitObjectsRequest);
+        }
+
+        /// <summary>
+        /// Uploads document metadata.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="submitObjectsRequest">Metadata.</param>
+        /// <returns>Response.</returns>
+        internal async Task<DocumentRegistry_RegisterDocumentSetbResponse> UploadDocumentMetadataAsync(PCEHRHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest)
+        {
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await documentRegistryClient.DocumentRegistry_RegisterDocumentSetbAsync(timestamp, signatureContainer, pcehrHeader, submitObjectsRequest);
         }
 
         /// <summary>

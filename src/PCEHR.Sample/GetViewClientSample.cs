@@ -12,6 +12,16 @@
  * under the License.
  */
 
+using Nehta.VendorLibrary.Common;
+using Nehta.VendorLibrary.PCEHR;
+using Nehta.VendorLibrary.PCEHR.AdvanceCarePlanningView;
+using Nehta.VendorLibrary.PCEHR.DiagnosticImagingReportView;
+using Nehta.VendorLibrary.PCEHR.DocumentRegistry;
+using Nehta.VendorLibrary.PCEHR.DocumentRepository;
+using Nehta.VendorLibrary.PCEHR.GetView;
+using Nehta.VendorLibrary.PCEHR.HealthRecordOverview;
+using Nehta.VendorLibrary.PCEHR.PathologyReportView;
+using Nehta.VendorLibrary.PCEHR.PrescriptionAndDispenseView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,21 +30,9 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using Nehta.VendorLibrary.Common;
-using Nehta.VendorLibrary.PCEHR;
-using Nehta.VendorLibrary.PCEHR.GetView;
-using Nehta.VendorLibrary.PCEHR.PrescriptionAndDispenseView;
-using Nehta.VendorLibrary.PCEHR.HealthRecordOverview;
-using Nehta.VendorLibrary.PCEHR.PathologyReportView;
-using Nehta.VendorLibrary.PCEHR.AdvanceCarePlanningView;
-using Nehta.VendorLibrary.PCEHR.DiagnosticImagingReportView;
-using Nehta.VendorLibrary.PCEHR.DocumentRegistry;
-using Nehta.VendorLibrary.PCEHR.DocumentRepository;
-using Nehta.VendorLibrary.PCEHR.HealthCheckScheduleView;
-using Nehta.VendorLibrary.PCEHR.MedicareOverview;
-using Nehta.VendorLibrary.PCEHR.ObservationView;
 
 namespace PCEHR.Sample
 {
@@ -159,6 +157,100 @@ namespace PCEHR.Sample
             }
         }
 
+        public async Task SampleForCdaDocumentResponsesAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+
+            // Instantiate the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
+            // production endpoint is "https://services.ehealth.gov.au/getView"
+            GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                getView request = new getView()
+                {
+                    // For PrescriptionAndDispenseView
+                    view = new prescriptionAndDispenseView()
+                    {
+                        fromDate = DateTime.Now.AddDays(-10),
+                        toDate = DateTime.Now,
+                        // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                        // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                        // If the specification doesn't specify the version number then it is 1.0
+                        versionNumber = "Version number here"
+                    }
+
+                    // For MedicareOverview
+                    //view = new medicareOverview()
+                    //{
+                    //    fromDate = DateTime.Now.AddDays(-10),
+                    //    toDate = DateTime.Now,
+                    // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                    // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                    // If the specification doesn't specify the version number then it is 1.0
+                    //    versionNumber = "Version number here"
+                    //}
+
+                    // For HealthCheckScheduleView
+                    //view = new healthCheckScheduleView()
+                    //{
+                    //    jurisdiction = healthCheckScheduleViewJurisdiction.NSW,
+                    // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                    // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                    // If the specification doesn't specify the version number then it is 1.0
+                    //    versionNumber = "Version number here"
+                    //}
+
+                    // For ObservationView
+                    //view = new observationView()
+                    //{
+                    //    fromDate = DateTime.Now.AddDays(-10),
+                    //    toDate = DateTime.Now,
+                    // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                    // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                    // If the specification doesn't specify the version number then it is 1.0
+                    //    versionNumber = "Version number here"
+                    //    documentSource = observationViewDocumentSource.ALL,
+                    //    observationType = observationViewObservationType.WEIGHT,
+                    //    referenceData = observationViewReferenceData.CDC
+                    //}
+
+                };
+
+                var responseStatus = await getViewClient.GetViewAsync(header, request);
+
+                // Treat response like a getDocument - unzip package
+                if (responseStatus.getViewResponse.view != null)
+                {
+                    var zipfile = responseStatus.getViewResponse.view.data;
+                    // and      
+                }
+
+                // Get the soap request and response
+                string soapRequest = getViewClient.SoapMessages.SoapRequest;
+                string soapResponse = getViewClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
+
         // Sample code for these Custom XML response getViews
 
         // Nehta.VendorLibrary.PCEHR.HealthRecordOverview.healthRecordOverview
@@ -211,6 +303,64 @@ namespace PCEHR.Sample
                 XmlDocument xml = new XmlDocument();
                 xml.PreserveWhitespace = true;
                 xml.LoadXml(Encoding.Default.GetString(responseStatus.view.data));
+                pathologyReportViewResponse data = new pathologyReportViewResponse();
+                data = (pathologyReportViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
+
+                // Get the soap request and response
+                string soapRequest = getViewClient.SoapMessages.SoapRequest;
+                string soapResponse = getViewClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleForPathXmlResponsesAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+
+            // Instantiate the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
+            // production endpoint is "https://services.ehealth.gov.au/getView"
+            GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                getView request = new getView()
+                {
+                    // Creates a pathologyReportView
+                    view = new pathologyReportView()
+                    {
+                        fromDate = DateTime.Now.AddDays(-10),
+                        toDate = DateTime.Now,
+                        // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                        // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                        // If the specification doesn't specify the version number then it is 1.0
+                        versionNumber = "Version number here"
+                    }
+
+                };
+
+                var responseStatus = await getViewClient.GetViewAsync(header, request);
+
+                // Convert XML response into Class for pathologyReportView
+                XmlDocument xml = new XmlDocument();
+                xml.PreserveWhitespace = true;
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
                 pathologyReportViewResponse data = new pathologyReportViewResponse();
                 data = (pathologyReportViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
 
@@ -284,6 +434,66 @@ namespace PCEHR.Sample
             }
         }
 
+        public async Task SampleForDIXmlResponsesAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Instantiate the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
+            // production endpoint is "https://services.ehealth.gov.au/getView"
+            GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                getView request = new getView()
+                {
+                    // Creates a diagnosticImagingReportView
+                    view = new diagnosticImagingReportView()
+                    {
+                        fromDate = DateTime.Now.AddDays(-10),
+                        toDate = DateTime.Now,
+                        // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                        // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                        // If the specification doesn't specify the version number then it is 1.0
+                        versionNumber = "Version number here"
+                    }
+
+                };
+
+                var responseStatus = await getViewClient.GetViewAsync(header, request);
+
+                // Convert XML response into Class for diagnosticImagingReportView
+                XmlDocument xml = new XmlDocument();
+                xml.PreserveWhitespace = true;
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
+                diagnosticImagingReportViewResponse data = new diagnosticImagingReportViewResponse();
+                data = (diagnosticImagingReportViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
+
+                // Get the soap request and response
+                string soapRequest = getViewClient.SoapMessages.SoapRequest;
+                string soapResponse = getViewClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
         public void SampleForAcpResponse()
         {
             // Obtain the certificate for use with TLS and signing
@@ -326,6 +536,61 @@ namespace PCEHR.Sample
                 XmlDocument xml = new XmlDocument();
                 xml.PreserveWhitespace = true;
                 xml.LoadXml(Encoding.Default.GetString(responseStatus.view.data));
+                advanceCarePlanningViewResponse data = new advanceCarePlanningViewResponse();
+                data = (advanceCarePlanningViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
+
+                // Get the soap request and response
+                string soapRequest = getViewClient.SoapMessages.SoapRequest;
+                string soapResponse = getViewClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleForAcpResponseAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+
+            // Instantiate the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
+            // production endpoint is "https://services.ehealth.gov.au/getView"
+            GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                getView request = new getView()
+                {
+                    // Creates a advanceCarePlanningView
+                    view = new advanceCarePlanningView()
+                    {
+                        // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                        // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                        // If the specification doesn't specify the version number then it is 1.0
+                        versionNumber = "Version number here"
+                    }
+                };
+
+                var responseStatus = await getViewClient.GetViewAsync(header, request);
+
+                // Convert XML response into Class for advanceCarePlanningView
+                XmlDocument xml = new XmlDocument();
+                xml.PreserveWhitespace = true;
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
                 advanceCarePlanningViewResponse data = new advanceCarePlanningViewResponse();
                 data = (advanceCarePlanningViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
 
@@ -395,6 +660,62 @@ namespace PCEHR.Sample
             }
         }
 
+        public async Task SampleForHroResponseAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+
+            // Instantiate the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/getView"
+            // production endpoint is "https://services.ehealth.gov.au/getView"
+            GetViewClient getViewClient = new GetViewClient(new Uri("https://GetViewEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                getView request = new getView()
+                {
+                    // Creates a healthRecordOverView
+                    view = new healthRecordOverView()
+                    {
+                        clinicalSynopsisLength = 200,
+                        // versionNumber can be found in the "PCEHR View Service - Technical Service Specification" via
+                        // https://digitalhealth.gov.au/implementation-resources/national-infrastructure/EP-2109-2015
+                        // If the specification doesn't specify the version number then it is 1.0
+                        versionNumber = "Version number here"
+                    }
+                };
+
+                var responseStatus = await getViewClient.GetViewAsync(header, request);
+
+                // Convert XML response into Class for healthRecordOverview
+                XmlDocument xml = new XmlDocument();
+                xml.PreserveWhitespace = true;
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
+                healthRecordOverviewResponse data = new healthRecordOverviewResponse();
+                data = (healthRecordOverviewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
+
+                // Get the soap request and response
+                string soapRequest = getViewClient.SoapMessages.SoapRequest;
+                string soapResponse = getViewClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
         // Sample code for getting Medicine View CDA document
         // Until getView returns Medicine View, two calls need to be made,
         // 1) getDocumentList to retrieve the doc id of the Mediciew View CDA document
@@ -416,6 +737,28 @@ namespace PCEHR.Sample
                 {
                     //Zip file
                     byte[] zipFile = response.DocumentResponse[0].Document;
+                    // Proceed to unzip and render using generic style sheet
+
+                }
+            }
+        }
+
+        public async Task SampleForMedicineViewResponseAsync()
+        {
+            var result = await GetDocumentIdAsync("IHI Number");
+
+            string documentId = result.Item2;
+            string repositoryId = result.Item3;
+
+            if (repositoryId != "" && documentId != "")
+            {
+                DocumentRepository_RetrieveDocumentSetResponse response = await GetDocumentAsync(documentId, repositoryId);
+
+                // response
+                if (response.RetrieveDocumentSetResponse.DocumentResponse != null && response.RetrieveDocumentSetResponse.DocumentResponse.Length == 1)
+                {
+                    //Zip file
+                    byte[] zipFile = response.RetrieveDocumentSetResponse.DocumentResponse[0].Document;
                     // Proceed to unzip and render using generic style sheet
 
                 }
@@ -498,6 +841,82 @@ namespace PCEHR.Sample
             }
         }
 
+        private async Task<(bool, string, string)> GetDocumentIdAsync(string IHI)
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+
+            // Instantiate the client
+            GetDocumentListClient documentListClient = new GetDocumentListClient(new Uri("https://GetDocumentListEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            // Create a query 
+            AdhocQueryBuilder adhocQueryBuilder = new AdhocQueryBuilder(IHI, new[] { DocumentStatus.Approved });
+
+            // Reduce documents returned to just SHS from yesterday onwards (Medicines View will always be returned in this query)
+            // as cannot filter on Medicines View as a document
+            adhocQueryBuilder.ClassCode = new List<ClassCodes>();
+            adhocQueryBuilder.ClassCode.Add(ClassCodes.SharedHealthSummary);
+            adhocQueryBuilder.ServiceStopTimeFrom = new ISO8601DateTime(Convert.ToDateTime(DateTime.Now).AddDays(-1));
+
+            // Create the request using the query
+            AdhocQueryRequest queryRequest = adhocQueryBuilder.BuildRequest();
+
+            // Initialise
+            string repositoryId = "";
+            string documentId = "";
+
+            try
+            {
+                // Invoke the service
+                DocumentRegistry_RegistryStoredQueryResponse queryResponse = await documentListClient.GetDocumentListAsync(header, queryRequest);
+
+                if (queryResponse != null &&
+                    queryResponse.AdhocQueryResponse.status == "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" &&
+                    queryResponse.AdhocQueryResponse.RegistryObjectList != null)
+                {
+                    const string XDS_DOCUMENT_ENTRY_CLASS_CODE = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
+                    const string XDS_DOCUMENT_ENTRY_UNIQUE_ID = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
+                    const string NCTIS_CLASS_CODE_MEDS_VIEW = "100.32002";
+
+                    //Loop through responses
+                    foreach (var entry in queryResponse.AdhocQueryResponse.RegistryObjectList.ExtrinsicObject)
+                    {
+                        var classification = entry.Classification.FirstOrDefault(o => o.classificationScheme == XDS_DOCUMENT_ENTRY_CLASS_CODE);
+                        if (classification != null && classification.nodeRepresentation == NCTIS_CLASS_CODE_MEDS_VIEW)
+                        {
+                            // Get Values
+                            var repid = entry.Slot.FirstOrDefault(o => o.name == "repositoryUniqueId");
+                            var docId = entry.ExternalIdentifier.FirstOrDefault(o => o.identificationScheme == XDS_DOCUMENT_ENTRY_UNIQUE_ID);
+
+                            // Set Values
+                            repositoryId = (repid != null ? repid.ValueList.Value[0] : "");
+                            documentId = (docId != null ? docId.value : "");
+                            break;
+                        }
+                    }
+                }
+                return (true, documentId, repositoryId);
+
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+                return (false, null, null);
+            }
+        }
+
         public RetrieveDocumentSetResponseType GetDocument(string documentId, string repositoryId)
         {
             // Obtain the certificate for use with TLS and signing
@@ -532,6 +951,49 @@ namespace PCEHR.Sample
             {
                 // Invoke the service
                 RetrieveDocumentSetResponseType response = getDocumentClient.GetDocument(header, request.ToArray());
+                return response;
+            }
+            catch (FaultException e)
+            {
+                // Handle any errors
+                return null;
+            }
+        }
+
+        public async Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(string documentId, string repositoryId)
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+
+            // Create the client
+            GetDocumentClient getDocumentClient = new GetDocumentClient(new Uri("https://GetDocumentEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            // Create a request
+            List<RetrieveDocumentSetRequestTypeDocumentRequest> request = new List<RetrieveDocumentSetRequestTypeDocumentRequest>();
+
+            // Set the details of the document to retrieve
+            request.Add(new RetrieveDocumentSetRequestTypeDocumentRequest()
+            {
+                DocumentUniqueId = documentId,
+                RepositoryUniqueId = repositoryId
+            });
+
+            try
+            {
+                // Invoke the service
+                DocumentRepository_RetrieveDocumentSetResponse response = await getDocumentClient.GetDocumentAsync(header, request.ToArray());
                 return response;
             }
             catch (FaultException e)

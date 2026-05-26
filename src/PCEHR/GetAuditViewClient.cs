@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.GetAuditView;
 
@@ -72,34 +73,54 @@ namespace Nehta.VendorLibrary.PCEHR
             InitialiseClient(endpointUri.ToString(), signingCert, tlsCert, initialisationCallback);
         }
 
-        /// <summary>
-        /// Gets the audit view for an individual.
-        /// </summary>
-        /// <param name="pcehrHeader">PCEHR header.</param>
-        /// <param name="dates">The start and end dates</param>
-        /// <returns>Response.</returns>
-        public getAuditViewResponse GetAuditView(CommonPcehrHeader pcehrHeader, getAuditView dates)
-        {
-            // PCEHRHeaderValidator.Validate(pcehrHeader);
+		/// <summary>
+		/// Gets the audit view for an individual.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <param name="dates">The start and end dates</param>
+		/// <returns>Response.</returns>
+		public getAuditViewResponse GetAuditView(CommonPcehrHeader pcehrHeader, getAuditView dates)
+		{
+			// PCEHRHeaderValidator.Validate(pcehrHeader);
 
-            var timestamp = new timestampType()
-            {
-                created = DateTime.Now
-            };
+			var timestamp = new timestampType()
+			{
+				created = DateTime.Now
+			};
 
-            var signatureContainer = new signatureContainerType();
+			var signatureContainer = new signatureContainerType();
 
-            return auditViewClient.getAuditView(timestamp, ref signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), dates);
-        }
+			return auditViewClient.getAuditView(timestamp, ref signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), dates);
+		}
 
-        /// <summary>
-        /// Initialises the client endpoint.
-        /// </summary>
-        /// <param name="endpointUri">Service endpoint.</param>
-        /// <param name="signingCert">Header signing certificate.</param>
-        /// <param name="tlsCert">TLS client certificate.</param>
-        /// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
-        private void InitialiseClient(string endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
+		/// <summary>
+		/// Gets the audit view for an individual.
+		/// </summary>
+		/// <param name="pcehrHeader">PCEHR header.</param>
+		/// <param name="dates">The start and end dates</param>
+		/// <returns>Response.</returns>
+		public async Task<getAuditViewResponse1> GetAuditViewAsync(CommonPcehrHeader pcehrHeader, getAuditView dates)
+		{
+			// PCEHRHeaderValidator.Validate(pcehrHeader);
+
+			var timestamp = new timestampType()
+			{
+				created = DateTime.Now
+			};
+
+			var signatureContainer = new signatureContainerType();
+
+			return await auditViewClient.getAuditViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), dates);
+		}
+
+		/// <summary>
+		/// Initialises the client endpoint.
+		/// </summary>
+		/// <param name="endpointUri">Service endpoint.</param>
+		/// <param name="signingCert">Header signing certificate.</param>
+		/// <param name="tlsCert">TLS client certificate.</param>
+		/// <param name="initialisationCallback">Callback for additional configuration after creation.</param>
+		private void InitialiseClient(string endpointUri, X509Certificate2 signingCert, X509Certificate2 tlsCert, Action<ServiceEndpoint> initialisationCallback = null)
         {
             Validation.ValidateArgumentRequired("tlsCert", tlsCert);
 
@@ -133,6 +154,11 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             auditViewClient.Close();
+        }
+
+        public async Task CloseAsync()
+        {
+            await auditViewClient.CloseAsync();
         }
     }
 }

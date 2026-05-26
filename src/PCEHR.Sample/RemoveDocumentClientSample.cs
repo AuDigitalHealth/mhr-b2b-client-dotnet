@@ -17,6 +17,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
 using Nehta.VendorLibrary.PCEHR.RemoveDocument;
@@ -71,6 +72,57 @@ namespace PCEHR.Sample
 
                 // Invoke the service
                 var responseStatus = removeDocumentClient.RemoveDocument(header, request);
+
+                // Get the soap request and response
+                string soapRequest = removeDocumentClient.SoapMessages.SoapRequest;
+                string soapResponse = removeDocumentClient.SoapMessages.SoapResponse;
+            }
+            catch (FaultException fex)
+            {
+                // Handle any errors
+            }
+        }
+
+        public async Task SampleAsync()
+        {
+            // Obtain the certificate for use with TLS and signing
+            X509Certificate2 cert = X509CertificateUtil.GetCertificate(
+                "Serial Number",
+                X509FindType.FindBySerialNumber,
+                StoreName.My,
+                StoreLocation.CurrentUser,
+                true
+                );
+
+            // Create PCEHR header
+            CommonPcehrHeader header = PcehrHeaderHelper.CreateHeader();
+            // Override this value to the current patient's IHI.
+            header.IhiNumber = "IHI";
+
+            // Create the client
+            // SVT endpoint is "https://services.svt.gw.myhealthrecord.gov.au/removeDocument"
+            // production endpoint is "https://services.ehealth.gov.au:443/removeDocument"
+            RemoveDocumentClient removeDocumentClient = new RemoveDocumentClient(
+                new Uri("https://RemoveDocumentEndpoint"), cert, cert);
+
+            // Add server certificate validation callback
+            ServicePointManager.ServerCertificateValidationCallback += ValidateServiceCertificate;
+
+            try
+            {
+                var request = new removeDocument()
+                {
+                    // this should be the value of the ExternalIdentifier "XDSDocumentEntry.uniqueId" in the GetDocumentList response
+                    documentID = "document ID",
+                    // reasonForRemoval should be one of:
+                    // removeDocumentReasonForRemoval.IncorrectIdentity
+                    // removeDocumentReasonForRemoval.ElectToRemove
+                    // removeDocumentReasonForRemoval.Withdrawn
+                    reasonForRemoval = removeDocumentReasonForRemoval.Withdrawn
+                };
+
+                // Invoke the service
+                var responseStatus = await removeDocumentClient.RemoveDocumentAsync(header, request);
 
                 // Get the soap request and response
                 string soapRequest = removeDocumentClient.SoapMessages.SoapRequest;

@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR.GetChangeHistoryView;
 
@@ -94,6 +95,26 @@ namespace Nehta.VendorLibrary.PCEHR
         }
 
         /// <summary>
+        /// Gets the change history view for a document.
+        /// </summary>
+        /// <param name="pcehrHeader">PCEHR header.</param>
+        /// <param name="request">Document unique ID.</param>
+        /// <returns>Change history for the document.</returns>
+        public async Task<getChangeHistoryViewResponse1> GetChangeHistoryViewAsync(CommonPcehrHeader pcehrHeader, getChangeHistoryView request)
+        {
+            Validation.ValidateArgumentRequired("request", request);
+
+            var timestamp = new timestampType()
+            {
+                created = DateTime.Now
+            };
+
+            var signatureContainer = new signatureContainerType();
+
+            return await changeHistoryClient.getChangeHistoryViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+        }
+
+        /// <summary>
         /// Initialises the client endpoint.
         /// </summary>
         /// <param name="endpointUri">Service endpoint.</param>
@@ -134,6 +155,14 @@ namespace Nehta.VendorLibrary.PCEHR
         public void Close()
         {
             changeHistoryClient.Close();
+        }
+
+        /// <summary>
+		/// Close the client.
+		/// </summary>
+        public async Task CloseAsync()
+        {
+            await changeHistoryClient.CloseAsync();
         }
     }
 }
