@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+2.0.3
+------------------
+System.Security.Cryptography.Xml 10.0.5 -> 10.0.8
+
 2.0.2
 ------------------
 - Sync response objects for both Sync and Async
