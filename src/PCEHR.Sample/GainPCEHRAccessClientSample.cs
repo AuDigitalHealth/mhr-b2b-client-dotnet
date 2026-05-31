@@ -71,8 +71,8 @@ namespace PCEHR.Sample
             
             try
             {
-                // Invoke the service
-                responseStatusType responseStatus = gainPcehrAccessClient.GainPCEHRAccess(header, accessRequest, out individual);
+				// Invoke the service
+				var responseStatus = gainPcehrAccessClient.GainPCEHRAccess(header, accessRequest, out individual);
 
                 // Get the soap request and response
                 string soapRequest = gainPcehrAccessClient.SoapMessages.SoapRequest;
@@ -123,7 +123,7 @@ namespace PCEHR.Sample
 			try
 			{
 				// Invoke the service
-				gainPCEHRAccessResponse responseStatus = await gainPcehrAccessClient.GainPCEHRAccessAsync(header, accessRequest);
+				var responseStatus = await gainPcehrAccessClient.GainPCEHRAccessAsync(header, accessRequest);
 
 				// Get the soap request and response
 				string soapRequest = gainPcehrAccessClient.SoapMessages.SoapRequest;

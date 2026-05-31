@@ -100,7 +100,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Template parameters.</param>
         /// <returns>Response.</returns>
-        public async Task<getTemplateResponse1> GetTemplateAsync(CommonPcehrHeader pcehrHeader, getTemplate request)
+        public async Task<getTemplateResponse> GetTemplateAsync(CommonPcehrHeader pcehrHeader, getTemplate request)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
             Validation.ValidateArgumentRequired("request", request);
@@ -112,8 +112,10 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await templateClient.getTemplateAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
-        }
+            var response = await templateClient.getTemplateAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+
+            return response.getTemplateResponse;
+		}
 
         /// <summary>
         /// Initialises the client endpoint.

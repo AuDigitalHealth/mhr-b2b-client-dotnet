@@ -23,7 +23,7 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// <param name="accessPcehrRecord">Access record.</param>
 		/// <param name="individual">Matching individual.</param>
 		/// <returns>Response.</returns>
-		Task<gainPCEHRAccessResponse> GainPCEHRAccessAsync(CommonPcehrHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord);
+		Task<responseStatusType> GainPCEHRAccessAsync(CommonPcehrHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord);
 
 	}
 }

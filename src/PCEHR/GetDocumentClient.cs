@@ -82,12 +82,12 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="requests">Request.</param>
         /// <returns>Response.</returns>
-        public async Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(CommonPcehrHeader pcehrHeader, RetrieveDocumentSetRequestTypeDocumentRequest[] requests)
+        public async Task<RetrieveDocumentSetResponseType> GetDocumentAsync(CommonPcehrHeader pcehrHeader, RetrieveDocumentSetRequestTypeDocumentRequest[] requests)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
             Validation.ValidateArgumentRequired("requests", requests);
 
-            return await client.GetDocumentAsync(pcehrHeader.GetHeader<PCEHRHeader>(), requests);
+			return await client.GetDocumentAsync(pcehrHeader.GetHeader<PCEHRHeader>(), requests);
         }
 
         /// <summary>

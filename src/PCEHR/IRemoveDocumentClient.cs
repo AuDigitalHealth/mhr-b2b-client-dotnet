@@ -20,6 +20,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Document unique ID and reason for removal.</param>
         /// <returns>Response.</returns>
-        Task<removeDocumentResponse1> RemoveDocumentAsync(CommonPcehrHeader pcehrHeader, removeDocument request);
+        Task<removeDocumentResponse> RemoveDocumentAsync(CommonPcehrHeader pcehrHeader, removeDocument request);
     }
 }

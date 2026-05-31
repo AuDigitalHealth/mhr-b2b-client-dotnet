@@ -20,6 +20,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="requests">Request.</param>
         /// <returns>Response.</returns>    
-        Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(CommonPcehrHeader pcehrHeader, RetrieveDocumentSetRequestTypeDocumentRequest[] requests);
+        Task<RetrieveDocumentSetResponseType> GetDocumentAsync(CommonPcehrHeader pcehrHeader, RetrieveDocumentSetRequestTypeDocumentRequest[] requests);
     }
 }

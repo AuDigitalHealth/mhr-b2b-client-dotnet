@@ -20,7 +20,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="dates">The start and end dates</param>
         /// <returns>Response.</returns>
-        Task<getAuditViewResponse1> GetAuditViewAsync(CommonPcehrHeader pcehrHeader, getAuditView dates);
+        Task<getAuditViewResponse> GetAuditViewAsync(CommonPcehrHeader pcehrHeader, getAuditView dates);
 
 	}
 }

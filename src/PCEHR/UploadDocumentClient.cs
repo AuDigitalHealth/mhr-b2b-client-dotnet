@@ -104,7 +104,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Document and metadata.</param>
         /// <returns>Response.</returns>
-        public async Task<DocumentRepository_ProvideAndRegisterDocumentSetbResponse> UploadDocumentAsync(CommonPcehrHeader pcehrHeader, ProvideAndRegisterDocumentSetRequestType request)
+        public async Task<RegistryResponseType> UploadDocumentAsync(CommonPcehrHeader pcehrHeader, ProvideAndRegisterDocumentSetRequestType request)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
             var header = pcehrHeader.GetHeader<PCEHRHeader>();
@@ -112,7 +112,7 @@ namespace Nehta.VendorLibrary.PCEHR
             Validation.ValidateArgumentRequired("request", request);
 
             return await client.UploadDocumentAsync(header, request);
-        }
+		}
 
         /// <summary>
         /// Helper method to generate the request object when submitting a replacement document.

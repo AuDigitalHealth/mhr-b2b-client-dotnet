@@ -100,7 +100,7 @@ namespace Nehta.VendorLibrary.PCEHR
             return result;
         }
 
-        internal async Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(PCEHRHeader header, RetrieveDocumentSetRequestTypeDocumentRequest[] requests)
+        internal async Task<RetrieveDocumentSetResponseType> GetDocumentAsync(PCEHRHeader header, RetrieveDocumentSetRequestTypeDocumentRequest[] requests)
         {
             var timestamp = new timestampType()
             {
@@ -111,7 +111,7 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var result = await repositoryClient.DocumentRepository_RetrieveDocumentSetAsync(timestamp, signatureContainer, header, requests);
 
-            return result;
+            return result.RetrieveDocumentSetResponse;
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="header">PCEHR header.</param>
         /// <param name="request">Request.</param>
         /// <returns>Response.</returns>
-        internal async Task<DocumentRepository_ProvideAndRegisterDocumentSetbResponse> UploadDocumentAsync(PCEHRHeader header, ProvideAndRegisterDocumentSetRequestType request)
+        internal async Task<RegistryResponseType> UploadDocumentAsync(PCEHRHeader header, ProvideAndRegisterDocumentSetRequestType request)
         {
             var timestamp = new timestampType()
             {
@@ -147,7 +147,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await repositoryClient.DocumentRepository_ProvideAndRegisterDocumentSetbAsync(timestamp, signatureContainer, header, request);
+            var response = await repositoryClient.DocumentRepository_ProvideAndRegisterDocumentSetbAsync(timestamp, signatureContainer, header, request);
+
+            return response.RegistryResponse;
         }
 
         /// <summary>

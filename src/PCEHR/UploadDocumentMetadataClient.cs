@@ -84,7 +84,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="submitObjectsRequest">Metadata.</param>
         /// <returns>Response.</returns>
-        public async Task<DocumentRegistry_RegisterDocumentSetbResponse> UploadDocumentMetadataAsync(CommonPcehrHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest)
+        public async Task<RegistryResponseType> UploadDocumentMetadataAsync(CommonPcehrHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest)
         {
             return await documentRegistryClient.UploadDocumentMetadataAsync(pcehrHeader.GetHeader<PCEHRHeader>(), submitObjectsRequest);
         }

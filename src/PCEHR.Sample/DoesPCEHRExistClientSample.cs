@@ -70,8 +70,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                doesPCEHRExistResponse response = doesPcehrExistClient.DoesPCEHRExist(header);
+				// Invoke the service
+				var response = doesPcehrExistClient.DoesPCEHRExist(header);
 
                 // Get the soap request and response
                 string soapRequest = doesPcehrExistClient.SoapMessages.SoapRequest;
@@ -121,7 +121,7 @@ namespace PCEHR.Sample
 			try
 			{
 				// Invoke the service
-				doesPCEHRExistResponse1 response = await doesPcehrExistClient.DoesPCEHRExistAsync(header);
+				var response = await doesPcehrExistClient.DoesPCEHRExistAsync(header);
 
 				// Get the soap request and response
 				string soapRequest = doesPcehrExistClient.SoapMessages.SoapRequest;

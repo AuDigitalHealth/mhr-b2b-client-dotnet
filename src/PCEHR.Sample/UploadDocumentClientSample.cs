@@ -128,8 +128,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                RegistryResponseType registryResponse = uploadDocumentClient.UploadDocument(header, request1);
+				// Invoke the service
+				var registryResponse = uploadDocumentClient.UploadDocument(header, request1);
 
                 // Get the soap request and response
                 string soapRequest = uploadDocumentClient.SoapMessages.SoapRequest;
@@ -232,8 +232,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                DocumentRepository_ProvideAndRegisterDocumentSetbResponse registryResponse = await uploadDocumentClient.UploadDocumentAsync(header, request1);
+				// Invoke the service
+				var registryResponse = await uploadDocumentClient.UploadDocumentAsync(header, request1);
 
                 // Get the soap request and response
                 string soapRequest = uploadDocumentClient.SoapMessages.SoapRequest;

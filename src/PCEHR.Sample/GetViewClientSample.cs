@@ -234,9 +234,9 @@ namespace PCEHR.Sample
                 var responseStatus = await getViewClient.GetViewAsync(header, request);
 
                 // Treat response like a getDocument - unzip package
-                if (responseStatus.getViewResponse.view != null)
+                if (responseStatus.view != null)
                 {
-                    var zipfile = responseStatus.getViewResponse.view.data;
+                    var zipfile = responseStatus.view.data;
                     // and      
                 }
 
@@ -360,7 +360,7 @@ namespace PCEHR.Sample
                 // Convert XML response into Class for pathologyReportView
                 XmlDocument xml = new XmlDocument();
                 xml.PreserveWhitespace = true;
-                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.view.data));
                 pathologyReportViewResponse data = new pathologyReportViewResponse();
                 data = (pathologyReportViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
 
@@ -480,7 +480,7 @@ namespace PCEHR.Sample
                 // Convert XML response into Class for diagnosticImagingReportView
                 XmlDocument xml = new XmlDocument();
                 xml.PreserveWhitespace = true;
-                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.view.data));
                 diagnosticImagingReportViewResponse data = new diagnosticImagingReportViewResponse();
                 data = (diagnosticImagingReportViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
 
@@ -590,7 +590,7 @@ namespace PCEHR.Sample
                 // Convert XML response into Class for advanceCarePlanningView
                 XmlDocument xml = new XmlDocument();
                 xml.PreserveWhitespace = true;
-                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.view.data));
                 advanceCarePlanningViewResponse data = new advanceCarePlanningViewResponse();
                 data = (advanceCarePlanningViewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
 
@@ -702,7 +702,7 @@ namespace PCEHR.Sample
                 // Convert XML response into Class for healthRecordOverview
                 XmlDocument xml = new XmlDocument();
                 xml.PreserveWhitespace = true;
-                xml.LoadXml(Encoding.Default.GetString(responseStatus.getViewResponse.view.data));
+                xml.LoadXml(Encoding.Default.GetString(responseStatus.view.data));
                 healthRecordOverviewResponse data = new healthRecordOverviewResponse();
                 data = (healthRecordOverviewResponse)DeserialiseElementToClass(xml.DocumentElement, data);
 
@@ -752,13 +752,13 @@ namespace PCEHR.Sample
 
             if (repositoryId != "" && documentId != "")
             {
-                DocumentRepository_RetrieveDocumentSetResponse response = await GetDocumentAsync(documentId, repositoryId);
+				RetrieveDocumentSetResponseType response = await GetDocumentAsync(documentId, repositoryId);
 
                 // response
-                if (response.RetrieveDocumentSetResponse.DocumentResponse != null && response.RetrieveDocumentSetResponse.DocumentResponse.Length == 1)
+                if (response.DocumentResponse != null && response.DocumentResponse.Length == 1)
                 {
                     //Zip file
-                    byte[] zipFile = response.RetrieveDocumentSetResponse.DocumentResponse[0].Document;
+                    byte[] zipFile = response.DocumentResponse[0].Document;
                     // Proceed to unzip and render using generic style sheet
 
                 }
@@ -879,19 +879,19 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                DocumentRegistry_RegistryStoredQueryResponse queryResponse = await documentListClient.GetDocumentListAsync(header, queryRequest);
+				// Invoke the service
+				AdhocQueryResponse queryResponse = await documentListClient.GetDocumentListAsync(header, queryRequest);
 
                 if (queryResponse != null &&
-                    queryResponse.AdhocQueryResponse.status == "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" &&
-                    queryResponse.AdhocQueryResponse.RegistryObjectList != null)
+                    queryResponse.status == "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" &&
+                    queryResponse.RegistryObjectList != null)
                 {
                     const string XDS_DOCUMENT_ENTRY_CLASS_CODE = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
                     const string XDS_DOCUMENT_ENTRY_UNIQUE_ID = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
                     const string NCTIS_CLASS_CODE_MEDS_VIEW = "100.32002";
 
                     //Loop through responses
-                    foreach (var entry in queryResponse.AdhocQueryResponse.RegistryObjectList.ExtrinsicObject)
+                    foreach (var entry in queryResponse.RegistryObjectList.ExtrinsicObject)
                     {
                         var classification = entry.Classification.FirstOrDefault(o => o.classificationScheme == XDS_DOCUMENT_ENTRY_CLASS_CODE);
                         if (classification != null && classification.nodeRepresentation == NCTIS_CLASS_CODE_MEDS_VIEW)
@@ -960,7 +960,7 @@ namespace PCEHR.Sample
             }
         }
 
-        public async Task<DocumentRepository_RetrieveDocumentSetResponse> GetDocumentAsync(string documentId, string repositoryId)
+        public async Task<RetrieveDocumentSetResponseType> GetDocumentAsync(string documentId, string repositoryId)
         {
             // Obtain the certificate for use with TLS and signing
             X509Certificate2 cert = X509CertificateUtil.GetCertificate(
@@ -993,7 +993,7 @@ namespace PCEHR.Sample
             try
             {
                 // Invoke the service
-                DocumentRepository_RetrieveDocumentSetResponse response = await getDocumentClient.GetDocumentAsync(header, request.ToArray());
+                RetrieveDocumentSetResponseType response = await getDocumentClient.GetDocumentAsync(header, request.ToArray());
                 return response;
             }
             catch (FaultException e)

@@ -99,7 +99,7 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// <param name="pcehrHeader">PCEHR header.</param>
 		/// <param name="dates">The start and end dates</param>
 		/// <returns>Response.</returns>
-		public async Task<getAuditViewResponse1> GetAuditViewAsync(CommonPcehrHeader pcehrHeader, getAuditView dates)
+		public async Task<getAuditViewResponse> GetAuditViewAsync(CommonPcehrHeader pcehrHeader, getAuditView dates)
 		{
 			// PCEHRHeaderValidator.Validate(pcehrHeader);
 
@@ -110,7 +110,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
 			var signatureContainer = new signatureContainerType();
 
-			return await auditViewClient.getAuditViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), dates);
+			var response = await auditViewClient.getAuditViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), dates);
+
+			return response.getAuditViewResponse;
 		}
 
 		/// <summary>

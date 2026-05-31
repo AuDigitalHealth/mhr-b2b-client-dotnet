@@ -12,7 +12,7 @@
 	</PropertyGroup>
 	<!-- Package and assembly information -->
 	<PropertyGroup>
-		<Version>2.0.1.0</Version>
+		<Version>2.0.2.0</Version>
 		<Description>A library for communicating with the MyHealthRecord</Description>
 		<Company>Australian Digital Health Agency</Company>
 		<Authors>$(Company)</Authors>

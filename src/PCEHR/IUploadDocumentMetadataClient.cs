@@ -20,7 +20,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="submitObjectsRequest">Metadata.</param>
         /// <returns>Response.</returns>
-        Task<DocumentRegistry_RegisterDocumentSetbResponse> UploadDocumentMetadataAsync(CommonPcehrHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest);
+        Task<RegistryResponseType> UploadDocumentMetadataAsync(CommonPcehrHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest);
 
         /// <summary>
         /// Helper method to generate the request object when registering a replacement document on the PCEHR.

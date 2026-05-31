@@ -100,7 +100,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Document unique ID.</param>
         /// <returns>Change history for the document.</returns>
-        public async Task<getChangeHistoryViewResponse1> GetChangeHistoryViewAsync(CommonPcehrHeader pcehrHeader, getChangeHistoryView request)
+        public async Task<getChangeHistoryViewResponse> GetChangeHistoryViewAsync(CommonPcehrHeader pcehrHeader, getChangeHistoryView request)
         {
             Validation.ValidateArgumentRequired("request", request);
 
@@ -111,8 +111,10 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await changeHistoryClient.getChangeHistoryViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
-        }
+            var response = await changeHistoryClient.getChangeHistoryViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+
+			return response.getChangeHistoryViewResponse;
+		}
 
         /// <summary>
         /// Initialises the client endpoint.

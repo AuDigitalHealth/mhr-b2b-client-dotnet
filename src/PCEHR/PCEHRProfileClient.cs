@@ -100,7 +100,7 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// </summary>
 		/// <param name="pcehrHeader">PCEHR header.</param>
 		/// <returns>Query response.</returns>
-		internal async Task<doesPCEHRExistResponse1> DoesPCEHRExistAsync(PCEHRHeader pcehrHeader)
+		internal async Task<doesPCEHRExistResponse> DoesPCEHRExistAsync(PCEHRHeader pcehrHeader)
 		{
 			var timestamp = new timestampType()
 			{
@@ -109,7 +109,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
 			var signatureContainer = new signatureContainerType();
 
-			return await pcehrProfileClient.doesPCEHRExistAsync(timestamp, signatureContainer, pcehrHeader, "");
+            var response = await pcehrProfileClient.doesPCEHRExistAsync(timestamp, signatureContainer, pcehrHeader, "");
+
+            return response.doesPCEHRExistResponse;
 		}
 
 		/// <summary>
@@ -134,7 +136,7 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// </summary>
 		/// <param name="pcehrHeader">PCEHR header.</param>
 		/// <returns>Query response.</returns>
-		internal async Task<gainPCEHRAccessResponse> GainPCEHRAccessAsync(PCEHRHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord)
+		internal async Task<responseStatusType> GainPCEHRAccessAsync(PCEHRHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord)
 		{
 			var timestamp = new timestampType()
 			{
@@ -151,7 +153,9 @@ namespace Nehta.VendorLibrary.PCEHR
                 timestamp = timestamp
             };
 
-			return await pcehrProfileClient.gainPCEHRAccessAsync(request);
+            var response = await pcehrProfileClient.gainPCEHRAccessAsync(request);
+
+            return response.responseStatus;
 		}
 
 		/// <summary>

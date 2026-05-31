@@ -82,7 +82,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="adhocQueryRequest">Query request.</param>
         /// <returns>Query response.</returns>
-        public async Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, AdhocQueryRequest adhocQueryRequest)
+        public async Task<AdhocQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, AdhocQueryRequest adhocQueryRequest)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
             Validation.ValidateArgumentRequired("adhocQueryRequest", adhocQueryRequest);
@@ -112,14 +112,14 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="documentStatus">Status of the documents.</param>
         /// <returns>Query response.</returns>
-        public Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, DocumentStatus documentStatus)
+        public async Task<AdhocQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, DocumentStatus documentStatus)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
             Validation.ValidateArgumentRequired("ihiNumber", pcehrHeader.IhiNumber);
 
             AdhocQueryBuilder adhocQueryBuilder = new AdhocQueryBuilder(pcehrHeader.IhiNumber, new[] { documentStatus });
 
-            return documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
+            return await documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
         }
 
 
@@ -144,13 +144,13 @@ namespace Nehta.VendorLibrary.PCEHR
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <returns>Query request</returns>
-        public Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader)
+        public async Task<AdhocQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
 
             AdhocQueryBuilder adhocQueryBuilder = new AdhocQueryBuilder(pcehrHeader.IhiNumber, new[] { DocumentStatus.Approved });
 
-            return documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
+            return await documentRegistryClient.GetDocumentListAsync(pcehrHeader.GetHeader<PCEHRHeader>(), adhocQueryBuilder.BuildRequest());
         }
 
         /// <summary>

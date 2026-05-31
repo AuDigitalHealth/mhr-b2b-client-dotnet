@@ -74,8 +74,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                RetrieveDocumentSetResponseType response = getDocumentClient.GetDocument(header, request.ToArray());
+				// Invoke the service
+				var response = getDocumentClient.GetDocument(header, request.ToArray());
             }
             catch(FaultException e)
             {
@@ -122,8 +122,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                DocumentRepository_RetrieveDocumentSetResponse response = await getDocumentClient.GetDocumentAsync(header, request.ToArray());
+				// Invoke the service
+				var response = await getDocumentClient.GetDocumentAsync(header, request.ToArray());
             }
             catch (FaultException e)
             {

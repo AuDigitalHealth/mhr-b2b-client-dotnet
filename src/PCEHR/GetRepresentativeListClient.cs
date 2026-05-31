@@ -95,7 +95,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <returns>Response.</returns>
-        public async Task<getRepresentativeListResponse1> GetRepresentativeListAsync(CommonPcehrHeader pcehrHeader)
+        public async Task<getRepresentativeListResponse> GetRepresentativeListAsync(CommonPcehrHeader pcehrHeader)
         {
             var timestamp = new timestampType()
             {
@@ -104,8 +104,10 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await getRepresentativeListClient.getRepresentativeListAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), "");
-        }
+            var response = await getRepresentativeListClient.getRepresentativeListAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), "");
+
+            return response.getRepresentativeListResponse;
+		}
 
         /// <summary>
         /// Initialises the client endpoint.

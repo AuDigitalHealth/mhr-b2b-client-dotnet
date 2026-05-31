@@ -55,9 +55,9 @@ namespace PCEHR.Sample
             searchTemplateResponseTemplate[] responseTemplates;
 
             try
-            {                
-                // Invoke the service
-                searchTemplateResponse responseStatus = searchTemplateClient.SearchTemplate(header,
+            {
+				// Invoke the service
+				var responseStatus = searchTemplateClient.SearchTemplate(header,
                                                                                         new searchTemplate()
                                                                                         {
                                                                                             templateID = "template ID",
@@ -101,8 +101,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                searchTemplateResponse1 responseStatus = await searchTemplateClient.SearchTemplateAsync(header,
+				// Invoke the service
+				var responseStatus = await searchTemplateClient.SearchTemplateAsync(header,
                     new searchTemplate()
                     {
                         templateID = "template ID",

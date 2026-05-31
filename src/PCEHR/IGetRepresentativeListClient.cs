@@ -18,6 +18,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <returns>Response.</returns>
-        Task<getRepresentativeListResponse1> GetRepresentativeListAsync(CommonPcehrHeader pcehrHeader);
+        Task<getRepresentativeListResponse> GetRepresentativeListAsync(CommonPcehrHeader pcehrHeader);
     }
 }

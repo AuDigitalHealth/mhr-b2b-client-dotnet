@@ -100,7 +100,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Document unique ID and reason for removal.</param>
         /// <returns>Response.</returns>
-        public async Task<removeDocumentResponse1> RemoveDocumentAsync(CommonPcehrHeader pcehrHeader, removeDocument request)
+        public async Task<removeDocumentResponse> RemoveDocumentAsync(CommonPcehrHeader pcehrHeader, removeDocument request)
         {
             Validation.ValidateArgumentRequired("request", request);
 
@@ -111,8 +111,10 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await removeDocumentClient.removeDocumentAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
-        }
+            var response = await removeDocumentClient.removeDocumentAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+
+			return response.removeDocumentResponse;
+		}
 
         /// <summary>
         /// Initialises the client endpoint.

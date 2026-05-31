@@ -134,8 +134,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                registerPCEHRResponse response = registerClient.RegisterPCEHR(header, request);
+				// Invoke the service
+				var response = registerClient.RegisterPCEHR(header, request);
             }
             catch (FaultException e)
             {
@@ -244,8 +244,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                registerPCEHRResponse1 response = await registerClient.RegisterPCEHRAsync(header, request);
+				// Invoke the service
+				var response = await registerClient.RegisterPCEHRAsync(header, request);
             }
             catch (FaultException e)
             {

@@ -1,5 +1,9 @@
 ### Change Log/Revision History
 
+2.0.2
+------------------
+- Sync response objects for both Sync and Async
+
 2.0.1
 ------------------
 - Added support for async calls

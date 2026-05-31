@@ -108,7 +108,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Template ID and metadata of the search.</param>
         /// <returns>Response.</returns>
-        public async Task<searchTemplateResponse1> SearchTemplateAsync(CommonPcehrHeader pcehrHeader, searchTemplate request)
+        public async Task<searchTemplateResponse> SearchTemplateAsync(CommonPcehrHeader pcehrHeader, searchTemplate request)
         {
             // PCEHRHeaderValidator.Validate(pcehrHeader);
 
@@ -126,7 +126,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await templateClient.searchTemplateAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+            var response = await templateClient.searchTemplateAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+
+            return response.searchTemplateResponse;
         }
 
         /// <summary>

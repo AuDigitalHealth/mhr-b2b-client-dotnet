@@ -93,7 +93,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">The request object.</param>
         /// <returns>Response.</returns>
-        public async Task<registerPCEHRResponse1> RegisterPCEHRAsync(CommonPcehrHeader pcehrHeader, registerPCEHR request)
+        public async Task<registerPCEHRResponse> RegisterPCEHRAsync(CommonPcehrHeader pcehrHeader, registerPCEHR request)
         {
             var timestamp = new timestampType()
             {
@@ -102,7 +102,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await registerPcehrClient.registerPCEHRAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+            var response = await registerPcehrClient.registerPCEHRAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+
+			return response.registerPCEHRResponse;
         }
 
         /// <summary>

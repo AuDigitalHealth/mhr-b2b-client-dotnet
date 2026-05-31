@@ -105,7 +105,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="queryRequest">Query request.</param>
         /// <returns>Query response.</returns>
-        internal async Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(PCEHRHeader pcehrHeader, AdhocQueryRequest queryRequest)
+        internal async Task<AdhocQueryResponse> GetDocumentListAsync(PCEHRHeader pcehrHeader, AdhocQueryRequest queryRequest)
         {
             var timestamp = new timestampType()
             {
@@ -114,7 +114,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await documentRegistryClient.DocumentRegistry_RegistryStoredQueryAsync(timestamp, signatureContainer, pcehrHeader, queryRequest);
+            var response = await documentRegistryClient.DocumentRegistry_RegistryStoredQueryAsync(timestamp, signatureContainer, pcehrHeader, queryRequest);
+
+			return response.AdhocQueryResponse;
         }
 
         /// <summary>
@@ -141,7 +143,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="submitObjectsRequest">Metadata.</param>
         /// <returns>Response.</returns>
-        internal async Task<DocumentRegistry_RegisterDocumentSetbResponse> UploadDocumentMetadataAsync(PCEHRHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest)
+        internal async Task<RegistryResponseType> UploadDocumentMetadataAsync(PCEHRHeader pcehrHeader, SubmitObjectsRequest submitObjectsRequest)
         {
             var timestamp = new timestampType()
             {
@@ -150,7 +152,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await documentRegistryClient.DocumentRegistry_RegisterDocumentSetbAsync(timestamp, signatureContainer, pcehrHeader, submitObjectsRequest);
+			var response = await documentRegistryClient.DocumentRegistry_RegisterDocumentSetbAsync(timestamp, signatureContainer, pcehrHeader, submitObjectsRequest);
+
+            return response.RegistryResponse;
         }
 
         /// <summary>

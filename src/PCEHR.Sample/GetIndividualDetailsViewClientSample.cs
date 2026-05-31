@@ -13,14 +13,12 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using Nehta.VendorLibrary.Common;
 using Nehta.VendorLibrary.PCEHR;
-using System.IO;
 using Nehta.VendorLibrary.PCEHR.GetIndividualDetailsView;
 using System.Threading.Tasks;
 
@@ -70,7 +68,7 @@ namespace PCEHR.Sample
             try
             {
                 // Invoke the service
-                getIndividualDetailsViewResponse response = getIndividualDetailsClient.GetIndividualDetailsView(header, request);
+                var response = getIndividualDetailsClient.GetIndividualDetailsView(header, request);
             }
             catch (FaultException e)
             {
@@ -113,8 +111,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                getIndividualDetailsViewResponse1 response = await getIndividualDetailsClient.GetIndividualDetailsViewAsync(header, request);
+				// Invoke the service
+				var response = await getIndividualDetailsClient.GetIndividualDetailsViewAsync(header, request);
             }
             catch (FaultException e)
             {

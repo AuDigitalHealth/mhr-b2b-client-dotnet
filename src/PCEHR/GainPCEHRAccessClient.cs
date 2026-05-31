@@ -86,7 +86,7 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// <param name="accessPcehrRecord">Access record.</param>
 		/// <param name="individual">Matching individual.</param>
 		/// <returns>Response.</returns>
-		public async Task<gainPCEHRAccessResponse> GainPCEHRAccessAsync(CommonPcehrHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord)
+		public async Task<responseStatusType> GainPCEHRAccessAsync(CommonPcehrHeader pcehrHeader, gainPCEHRAccessPCEHRRecord accessPcehrRecord)
 		{
 			// PCEHRHeaderValidator.Validate(pcehrHeader);
 			Validation.ValidateArgumentRequired("accessPcehrRecord", accessPcehrRecord);

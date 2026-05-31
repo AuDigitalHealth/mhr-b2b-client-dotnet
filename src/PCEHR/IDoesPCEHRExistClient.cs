@@ -18,6 +18,6 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// </summary>
 		/// <param name="pcehrHeader">PCEHR header.</param>
 		/// <returns>Response indicating the existence of a PCEHR.</returns>
-		Task<doesPCEHRExistResponse1> DoesPCEHRExistAsync(CommonPcehrHeader pcehrHeader);
+		Task<doesPCEHRExistResponse> DoesPCEHRExistAsync(CommonPcehrHeader pcehrHeader);
 	}
 }

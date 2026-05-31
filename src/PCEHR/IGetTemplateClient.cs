@@ -20,6 +20,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Template parameters.</param>
         /// <returns>Response.</returns>
-        Task<getTemplateResponse1> GetTemplateAsync(CommonPcehrHeader pcehrHeader, getTemplate request);
+        Task<getTemplateResponse> GetTemplateAsync(CommonPcehrHeader pcehrHeader, getTemplate request);
     }
 }

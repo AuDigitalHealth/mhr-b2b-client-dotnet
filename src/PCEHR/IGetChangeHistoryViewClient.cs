@@ -20,6 +20,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">Document unique ID.</param>
         /// <returns>Change history for the document.</returns>
-        Task<getChangeHistoryViewResponse1> GetChangeHistoryViewAsync(CommonPcehrHeader pcehrHeader, getChangeHistoryView request);
+        Task<getChangeHistoryViewResponse> GetChangeHistoryViewAsync(CommonPcehrHeader pcehrHeader, getChangeHistoryView request);
     }
 }

@@ -91,7 +91,7 @@ namespace Nehta.VendorLibrary.PCEHR
             return getIndividualDetailsViewClient.getIndividualDetailsView(timestamp, ref signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
         }
 
-        public async Task<getIndividualDetailsViewResponse1> GetIndividualDetailsViewAsync(CommonPcehrHeader pcehrHeader, object request)
+        public async Task<getIndividualDetailsViewResponse> GetIndividualDetailsViewAsync(CommonPcehrHeader pcehrHeader, object request)
         {
             var timestamp = new timestampType()
             {
@@ -100,7 +100,9 @@ namespace Nehta.VendorLibrary.PCEHR
 
             var signatureContainer = new signatureContainerType();
 
-            return await getIndividualDetailsViewClient.getIndividualDetailsViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+            var response = await getIndividualDetailsViewClient.getIndividualDetailsViewAsync(timestamp, signatureContainer, pcehrHeader.GetHeader<PCEHRHeader>(), request);
+
+            return response.getIndividualDetailsViewResponse;
         }
 
         /// <summary>

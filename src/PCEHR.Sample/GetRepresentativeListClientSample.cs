@@ -66,8 +66,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                getRepresentativeListResponse response = getRepresentativeClient.GetRepresentativeList(header);
+				// Invoke the service
+				var response = getRepresentativeClient.GetRepresentativeList(header);
             }
             catch (FaultException e)
             {
@@ -108,8 +108,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                getRepresentativeListResponse1 response = await getRepresentativeClient.GetRepresentativeListAsync(header);
+				// Invoke the service
+				var response = await getRepresentativeClient.GetRepresentativeListAsync(header);
             }
             catch (FaultException e)
             {

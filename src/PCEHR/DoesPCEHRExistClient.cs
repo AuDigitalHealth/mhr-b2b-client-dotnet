@@ -78,7 +78,7 @@ namespace Nehta.VendorLibrary.PCEHR
 		/// </summary>
 		/// <param name="pcehrHeader">PCEHR header.</param>
 		/// <returns>Response indicating the existence of a PCEHR.</returns>
-		public async Task<doesPCEHRExistResponse1> DoesPCEHRExistAsync(CommonPcehrHeader pcehrHeader)
+		public async Task<doesPCEHRExistResponse> DoesPCEHRExistAsync(CommonPcehrHeader pcehrHeader)
 		{
 			// PCEHRHeaderValidator.Validate(pcehrHeader);
 

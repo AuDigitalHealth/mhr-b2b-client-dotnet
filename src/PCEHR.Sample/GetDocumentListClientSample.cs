@@ -13,7 +13,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
@@ -84,7 +83,7 @@ namespace PCEHR.Sample
             try
             {
                 // Invoke the service
-                AdhocQueryResponse queryResponse = documentListClient.GetDocumentList(header, queryRequest);
+                var queryResponse = documentListClient.GetDocumentList(header, queryRequest);
 
                 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -192,8 +191,8 @@ namespace PCEHR.Sample
 
             try
             {
-                // Invoke the service
-                DocumentRegistry_RegistryStoredQueryResponse queryResponse = await documentListClient.GetDocumentListAsync(header, queryRequest);
+				// Invoke the service
+				var queryResponse = await documentListClient.GetDocumentListAsync(header, queryRequest);
 
                 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -204,11 +203,11 @@ namespace PCEHR.Sample
                 var authorClassification = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
 
                 // Documents Only (Filter our Document Views (ie Medicare Overviews, Medicines View, Pathology Overview, Diagnostic Imaging Overview, Immunisation Consolidated View))
-                var listOfDocuments = queryResponse.AdhocQueryResponse.RegistryObjectList.ExtrinsicObject.Where(r => r.Classification.Any(c =>
+                var listOfDocuments = queryResponse.RegistryObjectList.ExtrinsicObject.Where(r => r.Classification.Any(c =>
                         c.classificationScheme == authorClassification && c.Slot.Any(s => s.name == "authorInstitution" && !s.ValueList.Value[0].Equals(authorInstitution)))).ToArray();
 
                 // Document Views only (Filter out documents)
-                var listOfDocumentViews = queryResponse.AdhocQueryResponse.RegistryObjectList.ExtrinsicObject.Where(r => r.Classification.Any(c =>
+                var listOfDocumentViews = queryResponse.RegistryObjectList.ExtrinsicObject.Where(r => r.Classification.Any(c =>
                         c.classificationScheme == authorClassification && c.Slot.Any(s => s.name == "authorInstitution" && s.ValueList.Value[0].Equals(authorInstitution)))).ToArray();
 
                 // For other views, see GetViewClient.cs
@@ -216,7 +215,7 @@ namespace PCEHR.Sample
                 /////////////////////////////////////////////////////////////////////////////////////////
 
                 // Process data into a more simple model - use alternative objects if handling views
-                XdsRecord[] data = XdsMetadataHelper.ProcessXdsMetadata(queryResponse.AdhocQueryResponse.RegistryObjectList.ExtrinsicObject);
+                XdsRecord[] data = XdsMetadataHelper.ProcessXdsMetadata(queryResponse.RegistryObjectList.ExtrinsicObject);
                 //XdsRecord[] dataForDocsOnly = XdsMetadataHelper.ProcessXdsMetadata(listOfDocuments);
                 //XdsRecord[] dataForDocViews = XdsMetadataHelper.ProcessXdsMetadata(listOfDocumentViews);
 

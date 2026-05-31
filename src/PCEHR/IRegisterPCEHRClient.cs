@@ -20,6 +20,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="request">The request object.</param>
         /// <returns>Response.</returns>
-        Task<registerPCEHRResponse1> RegisterPCEHRAsync(CommonPcehrHeader pcehrHeader, registerPCEHR request);
+        Task<registerPCEHRResponse> RegisterPCEHRAsync(CommonPcehrHeader pcehrHeader, registerPCEHR request);
     }
 }

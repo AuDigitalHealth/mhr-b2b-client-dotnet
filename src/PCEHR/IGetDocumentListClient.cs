@@ -20,7 +20,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="adhocQueryRequest">Query request.</param>
         /// <returns>Query response.</returns>
-        Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, AdhocQueryRequest adhocQueryRequest);
+        Task<AdhocQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, AdhocQueryRequest adhocQueryRequest);
 
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Nehta.VendorLibrary.PCEHR
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <param name="documentStatus">Status of the documents.</param>
         /// <returns>Query response.</returns>
-        Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, DocumentStatus documentStatus);
+        Task<AdhocQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader, DocumentStatus documentStatus);
 
         /// <summary>
         /// Gets a list of documents based on the query criteria. The IHI of the individual is specified within the PCEHR header. The
@@ -53,6 +53,6 @@ namespace Nehta.VendorLibrary.PCEHR
         /// </summary>
         /// <param name="pcehrHeader">PCEHR header.</param>
         /// <returns>Query request</returns>
-        Task<DocumentRegistry_RegistryStoredQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader);    
+        Task<AdhocQueryResponse> GetDocumentListAsync(CommonPcehrHeader pcehrHeader);    
     }
 }
