@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--In this sample, the CDA Document author/ uploader to PCEHR System is the Diagnostic Imaging Professional (Radiologist)-->
+
+<!--List of items to be confirmed from final IG & SCS-->
+<!--Examination result name has been revised to Examination Description-->
+<!--Introduced dateAvailableToConsumer (at the report level) to indicate that when the link to the document should be made available to consumer upon rendering-->
+<!--Date and Time format within this view is being dependent on the requesting access channel. If the view is being requested from B2B, the date format will be in UTC; if the view is being requested from Portal, the date format will be in AEST/AEDT-->
+
+<diagnosticImagingReportViewResponse xsi:schemaLocation="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/DiagnosticImagingReportView/1.0 file:///C:/Users/daniel.kesuma/Desktop/PCEHR_Schemas-20140630/PCEHR_Schemas-20140826/schema/External/View/PCEHR_DiagnosticImagingReportView_Response.xsd" xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/DiagnosticImagingReportView/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<viewMetadata>
+		<individualProfile>
+			<ns1:ihiNumber>8003604567901460</ns1:ihiNumber>
+			<individual>
+				<ns1:name>
+					<ns1:nameTitle>MR</ns1:nameTitle>
+					<ns1:familyName>Lee</ns1:familyName>
+					<ns1:givenName>Ricky</ns1:givenName>
+					<ns1:nameSuffix>B.Sc</ns1:nameSuffix>
+					<ns1:usage>M</ns1:usage>
+					<ns1:preferred>true</ns1:preferred>
+					<ns1:conditionalUse>1</ns1:conditionalUse>
+				</ns1:name>
+				<ns1:sex>M</ns1:sex>
+				<ns1:dateOfBirth>1967-08-13</ns1:dateOfBirth>
+			</individual>
+		</individualProfile>
+		<viewParameters>
+			<viewVersionNumber>1.0</viewVersionNumber>
+			<dateFromFilter>2000-08-13</dateFromFilter>
+			<dateToFilter>2002-08-13</dateToFilter>
+		</viewParameters>
+		<informationAvailable>true</informationAvailable>
+	</viewMetadata>
+	<diagnosticImagingReport>
+		<dateAvailableToConsumer>2002-01-11T12:11:00</dateAvailableToConsumer>
+		<reportInformation>
+			<ns2:CDAeffectiveTime>2001-12-17T22:30:47</ns2:CDAeffectiveTime>
+			<ns2:dateTimeReportAuthored>2001-12-17T09:30:47</ns2:dateTimeReportAuthored>
+			<ns2:dateTimeAuthorisation>2001-05-17T09:30:47</ns2:dateTimeAuthorisation>
+			<ns2:reportDescription>Diagnostic Imaging Study</ns2:reportDescription>
+			<ns2:accessionNumber>335848D01</ns2:accessionNumber>	
+			<ns2:reportStatus>
+				<ns2:displayName>Final</ns2:displayName>
+				<ns2:originalText>Final</ns2:originalText>
+				<ns2:code>F</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.12.123</ns2:codeSystem>
+				<ns2:codeSystemName>HL7 result Status</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</ns2:reportStatus>
+			<ns2:documentId>2.25.208589434190153059836415769186800871817</ns2:documentId>
+			<ns2:documentLink>pcehr:1.2.36.1.2001.1007.10.8003640002000050/2.25.208589434190153059836415769186800871817</ns2:documentLink>
+		</reportInformation>
+		<clinicalDocumentAuthor>
+			<ns2:healthcareProviderOrganisationName>Wooloo Radiology Centre</ns2:healthcareProviderOrganisationName>
+			<ns2:healthcareProviderOrganisationIdentifier>8003627896872546</ns2:healthcareProviderOrganisationIdentifier>
+			<ns2:healthcareProviderName>
+				<ns1:nameTitle>Mr</ns1:nameTitle>
+				<ns1:familyName>Andrew</ns1:familyName>
+				<ns1:givenName>Tom</ns1:givenName>
+				<ns1:nameSuffix>B.AppSci (DR)</ns1:nameSuffix>				
+			</ns2:healthcareProviderName>
+			<ns2:healthcareProviderIdentifier>1.2.36.1.2001.1003.0.8003617896872546</ns2:healthcareProviderIdentifier>
+			<ns2:healthcareProviderRole>Diagnostic and Interventional Radiologist</ns2:healthcareProviderRole>
+		</clinicalDocumentAuthor>
+		<reportingRadiologistInformation>
+			<ns2:healthcareProviderOrganisationName>Wooloo Radiology Centre</ns2:healthcareProviderOrganisationName>
+			<ns2:healthcareProviderOrganisationIdentifier>8003627896872546</ns2:healthcareProviderOrganisationIdentifier>
+			<ns2:healthcareProviderName>
+				<ns1:nameTitle>Mr</ns1:nameTitle>
+				<ns1:familyName>Andrew</ns1:familyName>
+				<ns1:givenName>Tom</ns1:givenName>
+				<ns1:nameSuffix>B.AppSci (DR)</ns1:nameSuffix>				
+			</ns2:healthcareProviderName>
+			<ns2:healthcareProviderIdentifier>1.2.36.1.2001.1003.0.8003617896872546</ns2:healthcareProviderIdentifier>
+			<ns2:healthcareProviderRole>Diagnostic and Interventional Radiologist</ns2:healthcareProviderRole>
+		</reportingRadiologistInformation>
+		<imagingRequesterInformation>
+			<ns2:testRequestId>123</ns2:testRequestId>
+			<ns2:dateTimeRequested>2001-05-17T09:30:47</ns2:dateTimeRequested>
+			<ns2:providerOrganisationName>Westmead Hospital</ns2:providerOrganisationName>
+			<ns2:providerOrganisationIdentifier>8003627896873333</ns2:providerOrganisationIdentifier>
+			<ns2:providerName>
+				<ns1:nameTitle>Dr</ns1:nameTitle>
+				<ns1:familyName>Bagshaw</ns1:familyName>
+				<ns1:givenName>Todd</ns1:givenName>
+				<ns1:nameSuffix>MBBS</ns1:nameSuffix>				
+			</ns2:providerName>
+			<ns2:providerIdentifier>1.2.36.1.2001.1003.0.8003617896873333</ns2:providerIdentifier>
+		</imagingRequesterInformation>
+		<imagingExaminationResult>
+			<imagingServiceDate>2001-09-17T09:30:47</imagingServiceDate>
+			<examinationResultName>
+				<ns2:displayName>chest x-ray</ns2:displayName>
+				<ns2:originalText>chest x-ray</ns2:originalText>
+				<ns2:code>399208008</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.6.96</ns2:codeSystem>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+				<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</examinationResultName>
+			<modality>
+				<ns2:displayName>x-ray</ns2:displayName>
+				<ns2:originalText>x-ray</ns2:originalText>
+				<ns2:code>363680008</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.6.96</ns2:codeSystem>		
+				<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</modality>
+			<anatomicalSiteDetails>
+				<anatomicalRegion>
+					<ns2:displayName>chest</ns2:displayName>
+					<ns2:originalText>chest</ns2:originalText>
+					<ns2:code>12345</ns2:code>
+					<ns2:codeSystem>1.2.3.4</ns2:codeSystem>
+					<ns2:codeSystemName>Dummy-Sample</ns2:codeSystemName>
+					<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+				</anatomicalRegion>
+				<anatomicalLocation>
+					<anatomicalLocationName>
+						<ns2:displayName>thorax</ns2:displayName>
+						<ns2:originalText>thorax</ns2:originalText>
+						<ns2:code>51185008</ns2:code>
+						<ns2:codeSystem>2.16.840.1.113883.6.96</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>	
+						<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>			
+					</anatomicalLocationName>
+					<laterality>
+						<ns2:displayName>left</ns2:displayName>
+						<ns2:originalText>left</ns2:originalText>
+						<ns2:code>7771000</ns2:code>
+						<ns2:codeSystem>2.16.840.1.113883.6.96</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>		
+					</laterality>
+				</anatomicalLocation>
+			</anatomicalSiteDetails>
+			<overallTestResultStatus>
+				<ns2:displayName>Final</ns2:displayName>
+				<ns2:originalText>Final</ns2:originalText>
+				<ns2:code>F</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.12.123</ns2:codeSystem>
+				<ns2:codeSystemName>HL7 result Status</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1.0</ns2:codeSystemVersion>
+			</overallTestResultStatus>
+			<imageLocationInformation>Optional image location information detail insert here</imageLocationInformation>
+		</imagingExaminationResult>
+	</diagnosticImagingReport>
+</diagnosticImagingReportViewResponse>

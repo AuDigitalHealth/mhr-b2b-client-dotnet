@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.0 issued 19 November 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetView/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetView/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../Common/PCEHR_CommonTypes.xsd"/>
+	<xs:element name="getView">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="view" type="xs:anyType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getViewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responseStatus" type="ns1:responseStatusType"/>
+				<xs:element name="view" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="templateID" type="xs:string"/>
+							<xs:element name="data" type="xs:base64Binary"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

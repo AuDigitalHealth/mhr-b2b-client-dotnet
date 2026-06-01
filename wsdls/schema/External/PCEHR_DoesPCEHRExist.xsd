@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.1 issued 17 April 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/PCEHRProfile/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/PCEHRProfile/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../Common/PCEHR_CommonTypes.xsd"/>
+	<xs:element name="doesPCEHRExist"/>
+	<xs:element name="doesPCEHRExistResponse">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PCEHRExists" type="xs:boolean"/>
+				<xs:element name="accessCodeRequired" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="WithCode"/>
+							<xs:enumeration value="WithoutCode"/>
+							<xs:enumeration value="AccessGranted"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

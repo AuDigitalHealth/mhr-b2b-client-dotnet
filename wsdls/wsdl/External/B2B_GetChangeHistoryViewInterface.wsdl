@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.1 issued 17 April 2012-->
+<definitions xmlns:pcehr="http://ns.electronichealth.net.au/pcehr/svc/getChangeHistoryView/1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:pcehr_b2b="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns7="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetChangeHistoryView/1.0" xmlns:ns8="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:ns="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" name="getChangeHistoryView" targetNamespace="http://ns.electronichealth.net.au/pcehr/svc/getChangeHistoryView/1.1">
+	<types>
+		<xsd:schema targetNamespace="http://ns.electronichealth.net.au/pcehr/svc/getChangeHistoryView/1.1" elementFormDefault="qualified">
+			<xsd:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../../schema/Common/PCEHR_CommonTypes.xsd"/>
+			<xsd:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetChangeHistoryView/1.0" schemaLocation="../../schema/External/PCEHR_GetChangeHistoryView.xsd"/>
+			<xsd:import namespace="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010" schemaLocation="../../schema/Common/wsp-StandardError-2010.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="getChangeHistoryViewInMsg">
+		<part name="timestampHeader" element="pcehr_b2b:timestamp"/>
+		<part name="signatureHeader" element="pcehr_b2b:signature"/>
+		<part name="PCEHRHeader" element="pcehr_b2b:PCEHRHeader"/>
+		<part name="parameters" element="ns7:getChangeHistoryView"/>
+	</message>
+	<message name="getChangeHistoryViewOutMsg">
+		<part name="signatureHeader" element="pcehr_b2b:signature"/>
+		<part name="parameters" element="ns7:getChangeHistoryViewResponse"/>
+	</message>
+	<message name="standardErrorMsg">
+		<part name="parameters" element="ns8:standardError"/>
+	</message>
+	<portType name="GetChangeHistoryViewPortType">
+		<operation name="getChangeHistoryView" parameterOrder="parameters">
+			<input message="pcehr:getChangeHistoryViewInMsg" wsam:Action="http://ns.electronichealth.net.au/pcehr/svc/GetChangeHistoryView/1.1/GetChangeHistoryViewPortType/getChangeHistoryViewRequest"/>
+			<output message="pcehr:getChangeHistoryViewOutMsg" wsam:Action="http://ns.electronichealth.net.au/pcehr/svc/GetChangeHistoryView/1.1/GetChangeHistoryViewPortType/getChangeHistoryViewResponse"/>
+			<fault name="standardError" message="pcehr:standardErrorMsg" wsam:Action="http://ns.electronichealth.net.au/pcehr/svc/GetChangeHistoryView/1.1/GetChangeHistoryViewPortType/Fault/standardError"/>
+		</operation>
+	</portType>
+</definitions>

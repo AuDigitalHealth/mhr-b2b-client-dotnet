@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 2.0.0 issued 25 September 2014-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/RegisterPCEHR/2.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/RegisterPCEHR/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:element name="registerPCEHR">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="representative" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ns1:ihiNumber" minOccurs="0"/>
+							<xs:element name="demographics" minOccurs="0">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ns1:individualTypeSupp">
+											<xs:sequence>
+												<xs:element ref="ns1:medicareCardNumber" minOccurs="0"/>
+												<xs:element ref="ns1:medicareIRN" minOccurs="0"/>
+												<xs:element ref="ns1:dvaFileNumber" minOccurs="0"/>
+												<xs:element ref="ns1:militaryHealthNumber" minOccurs="0"/>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="individual" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="demographics">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ns1:individualTypeSupp">
+											<xs:sequence>
+												<xs:element ref="ns1:medicareCardNumber" minOccurs="0"/>
+												<xs:element ref="ns1:medicareIRN" minOccurs="0"/>
+												<xs:element ref="ns1:dvaFileNumber" minOccurs="0"/>
+												<xs:element ref="ns1:militaryHealthNumber" minOccurs="0"/>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="assertions">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="identity">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="evidenceOfIdentity">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="type">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="IdentityVerificationMethod1"/>
+																<xs:enumeration value="IdentityVerificationMethod2"/>
+																<xs:enumeration value="IdentityVerificationMethod3"/>
+																<xs:enumeration value="IdentityVerificationMethod4"/>
+																<xs:enumeration value="IdentityVerificationMethod5"/>
+																<xs:enumeration value="IdentityVerificationMethod6"/>
+																<xs:enumeration value="IdentityVerificationMethod7"/>
+																<xs:enumeration value="IdentityVerificationMethod8"/>
+																<xs:enumeration value="IdentityVerificationMethod9"/>
+																<xs:enumeration value="IdentityVerificationMethod10"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="indigenousStatus">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:enumeration value="1"/>
+													<xs:enumeration value="2"/>
+													<xs:enumeration value="3"/>
+													<xs:enumeration value="4"/>
+													<xs:enumeration value="9"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="signedConsentForm" type="xs:base64Binary" minOccurs="0"/>
+										<xs:element name="generalContactNumber" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="50"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="healthcareProviderParentalAssertion" type="xs:boolean" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="documentConsent" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="document" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="type">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="MBS"/>
+																<xs:enumeration value="ACIR"/>
+																<xs:enumeration value="AODR"/>
+																<xs:enumeration value="PBSPastAssimilation"/>
+																<xs:enumeration value="MBSPastAssimilation"/>
+																<xs:enumeration value="PBS"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="status">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="ConsentGiven"/>
+																<xs:enumeration value="ConsentNotGiven"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ivcCorrespondence">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="channel" maxOccurs="1">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="email"/>
+													<xs:enumeration value="sms"/>
+													<xs:enumeration value="response"/>
+													<xs:enumeration value="mail"/>
+													<xs:enumeration value="none"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="contactDetails" type="ns1:contactDetailsType" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="acceptedTermsAndConditions" type="xs:boolean"/>
+							<xs:element name="representativeDeclaration" type="xs:boolean" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="registerPCEHRResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responseStatus" type="ns1:responseStatusType"/>
+				<xs:element name="individual" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ns1:ihiNumber"/>
+							<xs:element name="demographics">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ns1:individualTypeSupp">
+											<xs:sequence>
+												<xs:element ref="ns1:medicareCardNumber" minOccurs="0"/>
+												<xs:element ref="ns1:medicareIRN" minOccurs="0"/>
+												<xs:element ref="ns1:dvaFileNumber" minOccurs="0"/>
+												<xs:element ref="ns1:militaryHealthNumber" minOccurs="0"/>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ivcDetails" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="code">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="expiryDate" type="xs:date"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

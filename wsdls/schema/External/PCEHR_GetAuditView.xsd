@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.1 issued 17 April 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetAuditView/1.1" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/GetAuditView/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../Common/PCEHR_CommonTypes.xsd"/>
+	<xs:element name="getAuditView">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="dateFrom" type="xs:dateTime"/>
+				<xs:element name="dateTo" type="xs:dateTime"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getAuditViewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responseStatus" type="ns1:responseStatusType"/>
+				<xs:element name="auditView" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="eventTrail" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="businessEvent" type="xs:string"/>
+										<xs:element name="eventTimeStamp" type="xs:dateTime"/>
+										<xs:element name="auditEvent" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="auditEventID" type="xs:string" minOccurs="0"/>
+													<xs:element name="participantDetails" type="ns1:participantDetailsType" minOccurs="0"/>
+													<xs:element name="accessedEntity" type="ns1:accessedEntityType" minOccurs="0"/>
+													<xs:element name="participantAction" type="ns1:participantActionType" minOccurs="0"/>
+													<xs:element name="accessConditions" type="ns1:accessConditionsType" minOccurs="0"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="logEvent" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="messageLogLevel">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="WARN"/>
+																<xs:enumeration value="ERROR"/>
+																<xs:enumeration value="DEBUG"/>
+																<xs:enumeration value="AUDIT"/>
+																<xs:enumeration value="FATAL"/>
+																<xs:enumeration value="INFO"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="statusDetails" type="ns1:responseStatusType"/>
+													<xs:element name="errorDetails" type="ns1:responseStatusType" minOccurs="0"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

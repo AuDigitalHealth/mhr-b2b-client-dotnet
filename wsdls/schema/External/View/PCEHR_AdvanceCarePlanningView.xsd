@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version issued 14 September 2015-->
+<xs:schema xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/AdvanceCarePlanningView/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:q3="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/b2b/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/AdvanceCarePlanningView/1.0" elementFormDefault="qualified">
+	<xs:element name="advanceCarePlanningView">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="versionNumber" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

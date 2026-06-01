@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<healthRecordOverviewResponse xsi:schemaLocation="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthRecordOverview/1.0 file:///C:/Users/daniel.kesuma/Desktop/PCEHR_Schemas-20140701_v1.5.1/PCEHR_Schemas-20140701/schema/External/View/PCEHR_HealthRecordOverview_Response.xsd" xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/HealthRecordOverview/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<viewMetadata>
+		<individualProfile>
+			<ns1:ihiNumber>8003604567901466</ns1:ihiNumber>
+			<individual>
+				<ns1:name>
+					<ns1:nameTitle>MR</ns1:nameTitle>
+					<ns1:familyName>DIMITRY</ns1:familyName>
+					<ns1:givenName>PERCY SOLOMON</ns1:givenName>
+					<ns1:nameSuffix>D</ns1:nameSuffix>
+					<ns1:usage>L</ns1:usage>
+					<ns1:preferred>true</ns1:preferred>
+					<ns1:conditionalUse>1</ns1:conditionalUse>
+				</ns1:name>
+				<ns1:sex>M</ns1:sex>
+				<ns1:dateOfBirth>1967-08-13</ns1:dateOfBirth>
+			<indigenousStatus>9</indigenousStatus>
+			<veteranAndADFStatus>9</veteranAndADFStatus>						
+			</individual>
+		</individualProfile>
+		<viewParameters>
+			<clinicalSynopsisLength>0</clinicalSynopsisLength>
+			<viewVersionNumber>1.0</viewVersionNumber>
+		</viewParameters>
+	</viewMetadata>
+	<newDocuments>
+		<informationAvailable>true</informationAvailable>
+		<document>
+			<ns2:effectiveDateTime>2014-07-08T10:00:00Z</ns2:effectiveDateTime>
+			<ns2:documentLink>pcehr:1.2.36.1.2001.1007.10.8003640002000050/1.3.16.1.38818.580851934</ns2:documentLink>
+			<ns2:documentTypeName>Event Summary</ns2:documentTypeName>
+			<ns2:documentTypeCode>
+				<ns2:displayName>Event Summary</ns2:displayName>
+				<ns2:originalText>Event Summary</ns2:originalText>
+				<ns2:code>34133-9</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.6.1</ns2:codeSystem>
+				<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+			</ns2:documentTypeCode>
+			<ns2:documentAuthorPersonName>
+				<ns2:nameTitle>Dr</ns2:nameTitle>
+				<ns2:familyName>Environment</ns2:familyName>
+				<ns2:givenName>Good</ns2:givenName>
+				<ns2:nameSuffix>E</ns2:nameSuffix>
+			</ns2:documentAuthorPersonName>
+			<ns2:documentAuthorPersonIdentifier>1.2.36.1.2001.1003.0.8003618233333615</ns2:documentAuthorPersonIdentifier>
+			<ns2:documentAuthorRole>Intensive Care Specialist</ns2:documentAuthorRole>
+			<ns2:documentAuthorOrganisationName>New Hospital</ns2:documentAuthorOrganisationName>
+			<ns2:documentAuthorOrganisationIdentifier>8003624567901000</ns2:documentAuthorOrganisationIdentifier>
+			<ns2:clinicalSynopsis>This is the complete clinical synopsis.</ns2:clinicalSynopsis>
+		</document>
+	</newDocuments>
+	<sharedHealthSummary>
+		<informationAvailable>true</informationAvailable>
+		<sharedHealthSummaryAtomicData>
+			<documentDate>2012-04-25T00:00:00Z</documentDate>
+			<cdaDocumentTitle>Shared Health Summary</cdaDocumentTitle>
+			<shsAuthorName>
+				<ns2:nameTitle>Dr</ns2:nameTitle>
+				<ns2:familyName>Environment</ns2:familyName>
+				<ns2:givenName>Good</ns2:givenName>
+				<ns2:nameSuffix>E</ns2:nameSuffix>
+			</shsAuthorName>
+			<shsAuthorId>1.2.36.1.2001.1003.0.8003615833339398</shsAuthorId>
+			<shsAuthorDesignation>
+				<ns2:displayName>Intensive Care Specialist</ns2:displayName>
+				<ns2:originalText>Intensive Care Specialist</ns2:originalText>
+				<ns2:code>253317</ns2:code>
+				<ns2:codeSystem>2.16.840.1.113883.13.62</ns2:codeSystem>
+				<ns2:codeSystemName>1220.0 - ANZSCO - Australian and New Zealand Standard Classification of Occupations, First Edition, 2006</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+			</shsAuthorDesignation>
+			<shsAuthorOrgName>New Hospital</shsAuthorOrgName>
+			<shsAuthorOrgId>8003624567901000</shsAuthorOrgId>
+			<shsAuthorAddress>
+				<ns2:streetAddressLine>123 Combe St</ns2:streetAddressLine>
+				<ns2:country>Australia</ns2:country>
+				<ns2:unitType>A</ns2:unitType>
+				<ns2:unitID>0</ns2:unitID>
+				<ns2:additionalLocator>X</ns2:additionalLocator>
+				<ns2:streetName>Combe</ns2:streetName>
+				<ns2:houseNumber>123</ns2:houseNumber>
+				<ns2:usage>N</ns2:usage>
+				<ns2:streeNameType>Street</ns2:streeNameType>
+				<ns2:direction>Street Level</ns2:direction>
+				<ns2:deliveryAddressLine>123 Combe St</ns2:deliveryAddressLine>
+				<ns2:city>MAWSON</ns2:city>
+				<ns2:state>ACT</ns2:state>
+				<ns2:postalCode>2607</ns2:postalCode>
+			</shsAuthorAddress>
+			<shsAuthorContactDetails use="WP" value="tel: 0499999999"/>
+			<medicinesList>
+				<informationAvailable value="true" flavor="other">
+				</informationAvailable>
+				<medicine>
+					<medicineTitle>
+						<ns2:displayName>Amoxicillin</ns2:displayName>
+						<ns2:originalText>Amoxil</ns2:originalText>
+						<ns2:code>24918</ns2:code>
+						<ns2:codeSystem>2.16.840.0.113883.6.11</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</medicineTitle>
+					<medicineDose>150mg</medicineDose>
+					<medicineDesc>
+						<Indication>Strong</Indication>
+						<Comment>Twice daily</Comment>
+					</medicineDesc>
+				</medicine>
+			</medicinesList>
+			<advReactionsList>
+				<informationAvailable value="true" flavor="problem">
+				</informationAvailable>
+				<advReaction>
+					<advReactionCause>
+						<ns2:displayName>Bee Venom</ns2:displayName>
+						<ns2:originalText>Bee Venom</ns2:originalText>
+						<ns2:code>288328004</ns2:code>
+						<ns2:codeSystem>2.16.840.1.113883.6.96</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</advReactionCause>
+					<advReactionManifestation>
+						<ns2:displayName>manifestation</ns2:displayName>
+						<ns2:originalText>manifestation</ns2:originalText>
+						<ns2:code>43219</ns2:code>
+						<ns2:codeSystem>2.16.840.1.113000.1.00</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</advReactionManifestation>
+				</advReaction>
+			</advReactionsList>
+			<immunisationList>
+				<informationAvailable value="true" flavor="procedure">
+				</informationAvailable>
+				<immunisation>
+					<immunisationDate>
+						<ns2:value>2014-07-07T01:25:00</ns2:value>
+						<ns2:low>2014-07-07T01:25:00</ns2:low>
+						<ns2:high>2014-07-07T01:25:00</ns2:high>
+						<ns2:width>10</ns2:width>
+						<ns2:center>2014-07-07T01:25:00</ns2:center>
+					</immunisationDate>
+					<immunisationTitle>
+						<ns2:displayName>Immunisation</ns2:displayName>
+						<ns2:originalText>Immunisation</ns2:originalText>
+						<ns2:code>28444</ns2:code>
+						<ns2:codeSystem>1.24357.34.0.9</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</immunisationTitle>
+					<immunisationSequenceNumber>0</immunisationSequenceNumber>
+				</immunisation>
+			</immunisationList>
+			<medHistoryList>
+				<informationAvailable value="true" flavor="procedure">
+					<ns2:displayName>Medical Procedure</ns2:displayName>
+					<ns2:originalText>Medical Procedure</ns2:originalText>
+					<ns2:code>7923</ns2:code>
+					<ns2:codeSystem>1.236666.36</ns2:codeSystem>
+					<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+					<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+				</informationAvailable>
+				<problemAndDiagnosis>
+					<medTitle>
+						<ns2:displayName>Medication</ns2:displayName>
+						<ns2:originalText>Medication</ns2:originalText>
+						<ns2:code>1211-3</ns2:code>
+						<ns2:codeSystem>35899</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</medTitle>
+					<medDateO>
+						<ns2:value>2014-06-07T01:25:00</ns2:value>
+						<ns2:low>2014-06-07T01:25:00</ns2:low>
+						<ns2:high>2014-06-07T01:25:00</ns2:high>
+						<ns2:width>1</ns2:width>
+						<ns2:center>2014-06-07T01:25:00</ns2:center>
+					</medDateO>
+					<medDateR>
+						<ns2:value>2014-06-07T01:25:00</ns2:value>
+						<ns2:low>2014-06-07T01:25:00</ns2:low>
+						<ns2:high>2014-06-07T01:25:00</ns2:high>
+						<ns2:width>1</ns2:width>
+						<ns2:center>2014-06-07T01:25:00</ns2:center>
+					</medDateR>
+					<medComment>No comments</medComment>
+				</problemAndDiagnosis>
+				<procedure>
+					<medTitle>
+						<ns2:displayName>Procedure</ns2:displayName>
+						<ns2:originalText>Procedure</ns2:originalText>
+						<ns2:code>48732</ns2:code>
+						<ns2:codeSystem>1.56098.23.3</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</medTitle>
+					<medDateO>
+						<ns2:value>2014-06-07T01:25:00</ns2:value>
+						<ns2:low>2014-06-07T01:25:00</ns2:low>
+						<ns2:high>2014-06-07T01:25:00</ns2:high>
+						<ns2:width>1</ns2:width>
+						<ns2:center>2014-06-07T01:25:00</ns2:center>
+					</medDateO>
+					<medDateR>
+						<ns2:value>2014-01-08T01:25:00Z</ns2:value>
+						<ns2:low>2014-01-08T01:25:00Z</ns2:low>
+						<ns2:high>2014-01-08T01:25:00Z</ns2:high>
+						<ns2:width>1</ns2:width>
+						<ns2:center>2014-01-08T01:25:00Z</ns2:center>
+					</medDateR>
+					<medComment>No Comment</medComment>
+				</procedure>
+				<otherMedicalHistory>
+					<medTitle>
+						<ns2:displayName>Other Medical History</ns2:displayName>
+						<ns2:originalText>Other Medical History</ns2:originalText>
+						<ns2:code>3982333</ns2:code>
+						<ns2:codeSystem>1.79999.3434.2</ns2:codeSystem>
+						<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+						<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+					</medTitle>
+					<medDateO>
+						<ns2:value>2014-01-08T01:25:00Z</ns2:value>
+						<ns2:low>2014-01-08T01:25:00Z</ns2:low>
+						<ns2:high>2014-01-08T01:25:00Z</ns2:high>
+						<ns2:width>1</ns2:width>
+						<ns2:center>2014-01-08T01:25:00Z</ns2:center>
+					</medDateO>
+					<medDateR>
+						<ns2:value>2014-01-08T01:25:00Z</ns2:value>
+						<ns2:low>2014-01-08T01:25:00Z</ns2:low>
+						<ns2:high>2014-01-08T01:25:00Z</ns2:high>
+						<ns2:width>1</ns2:width>
+						<ns2:center>2014-01-08T01:25:00Z</ns2:center>
+					</medDateR>
+					<medComment>No Comment</medComment>
+				</otherMedicalHistory>
+			</medHistoryList>
+		</sharedHealthSummaryAtomicData>
+	</sharedHealthSummary>
+	<otherLinks>
+		<link>
+			<linkName>MedicareOverview</linkName>
+			<linkTitle>Medicare Overview</linkTitle>
+			<linkTarget>MedicareOverview</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>DiagnosticImagingView</linkName>
+			<linkTitle>Diagnostic Imaging View</linkTitle>
+			<linkTarget>DiagnosticImagingView</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>PathologyIndexView</linkName>
+			<linkTitle>Pathology Index View</linkTitle>
+			<linkTarget>PathologyIndexView</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>HealthCheckAssessmentView</linkName>
+			<linkTitle>Health Check Assessment View</linkTitle>
+			<linkTarget>HealthCheckAssessmentView</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>PrescriptionAndDispenseView</linkName>
+			<linkTitle>Prescription and Dispense View</linkTitle>
+			<linkTarget>PrescriptionAndDispenseView</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>View</linkType>
+		</link>
+		<link>
+			<linkName>PersonalHealthSummary</linkName>
+			<linkTitle>Personal Health Summary</linkTitle>
+			<linkTarget>pcehr:1.2.36.1.2001.1007.10.8003640002000050/2.25.191613863972239111540576522032172550581</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>Document</linkType>
+		</link>
+		<link>
+			<linkName>AdvanceCareDirective</linkName>
+			<linkTitle>Advance Care Directive</linkTitle>
+			<linkTarget>pcehr:1.2.36.1.2001.1007.10.8003640002000050/2.25.45191372914418815040078016638243145581</linkTarget>
+			<informationAvailable>true</informationAvailable>
+			<linkType>Document</linkType>
+		</link>
+	</otherLinks>
+	<recentDocuments>
+		<informationAvailable>true</informationAvailable>
+		<document>
+			<ns2:effectiveDateTime>2014-01-08T01:25:00Z</ns2:effectiveDateTime>
+			<ns2:documentLink>2.25.45191372914418815040078016638243145581</ns2:documentLink>
+			<ns2:documentTypeName>Pathology Report</ns2:documentTypeName>
+			<ns2:documentTypeCode>
+				<ns2:displayName>Pathology Report</ns2:displayName>
+				<ns2:originalText>Pathology Report</ns2:originalText>
+				<ns2:code>100.32001</ns2:code>
+				<ns2:codeSystem>1.2.36.1.2001.1001.101</ns2:codeSystem>
+				<ns2:codeSystemName>SNOMED-CT</ns2:codeSystemName>
+				<ns2:codeSystemVersion>1</ns2:codeSystemVersion>
+			</ns2:documentTypeCode>
+			<ns2:documentAuthorPersonName>
+				<ns2:nameTitle>Dr</ns2:nameTitle>
+				<ns2:familyName>Bagshaw</ns2:familyName>
+				<ns2:givenName>Todd</ns2:givenName>
+				<ns2:nameSuffix>MBBS</ns2:nameSuffix>
+			</ns2:documentAuthorPersonName>
+			<ns2:documentAuthorPersonIdentifier>1.2.36.1.2001.1003.0.8003617896873333</ns2:documentAuthorPersonIdentifier>
+			<ns2:documentAuthorRole>Pathology Lab Assistant</ns2:documentAuthorRole>
+			<ns2:documentAuthorOrganisationName>Pathology Lab</ns2:documentAuthorOrganisationName>
+			<ns2:documentAuthorOrganisationIdentifier>8003622220000000</ns2:documentAuthorOrganisationIdentifier>
+		</document>
+	</recentDocuments>
+</healthRecordOverviewResponse>

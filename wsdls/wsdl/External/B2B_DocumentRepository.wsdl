@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.1 issued 17 April 2012-->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:pcehr="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" name="DocumentRepository" targetNamespace="urn:ihe:iti:xds-b:2007">
+	<documentation>IHE XDS.b Document Repository</documentation>
+	<types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:ihe:iti:xds-b:2007">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../../schema/External/XDS.b_DocumentRepository.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../../schema/Common/PCEHR_CommonTypes.xsd"/>
+		</xsd:schema>
+		 <xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../../schema/External/rs.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="RetrieveDocumentSet_Message">
+		<documentation>Retrieve Document Set</documentation>
+		<part name="timestampHeader" element="pcehr:timestamp"/>
+		<part name="signatureHeader" element="pcehr:signature"/>
+		<part name="PCEHRHeader" element="pcehr:PCEHRHeader"/>
+		<part name="parameters" element="ihe:RetrieveDocumentSetRequest"/>
+	</message>
+	<message name="RetrieveDocumentSetResponse_Message">
+		<documentation>Retrieve Document Set Response</documentation>
+		<part name="signatureHeader" element="pcehr:signature"/>
+		<part name="parameters" element="ihe:RetrieveDocumentSetResponse"/>
+	</message>
+	<message name="ProvideAndRegisterDocumentSet-b_Message">
+		<documentation>Provide and Register Document Set</documentation>
+		<part name="timestampHeader" element="pcehr:timestamp"/>
+		<part name="signatureHeader" element="pcehr:signature"/>
+		<part name="PCEHRHeader" element="pcehr:PCEHRHeader"/>
+		<part name="parameters" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+	</message>
+	<message name="ProvideAndRegisterDocumentSet-bResponse_Message">
+		<documentation>Provide And Register Document Set Response</documentation>
+		<part name="signatureHeader" element="pcehr:signature"/>
+		<part name="parameters" element="rs:RegistryResponse"/>
+	</message>
+	<portType name="DocumentRepository_PortType">
+		<operation name="DocumentRepository_RetrieveDocumentSet">
+			<input message="ihe:RetrieveDocumentSet_Message" wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSet"/>
+			<output message="ihe:RetrieveDocumentSetResponse_Message" wsaw:Action="urn:ihe:iti:2007:RetrieveDocumentSetResponse"/>
+		</operation>
+		<operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+			<input message="ihe:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/>
+			<output message="ihe:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-bResponse"/>
+		</operation>
+	</portType>
+	<binding name="DocumentRepository_Binding" type="ihe:DocumentRepository_PortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#AddressingPolicy"/>
+		<wsp:PolicyReference URI="#TlsPolicy"/>
+		<operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<input>
+				<soap12:header message="ihe:ProvideAndRegisterDocumentSet-b_Message" part="timestampHeader" use="literal"/>
+				<soap12:header message="ihe:ProvideAndRegisterDocumentSet-b_Message" part="signatureHeader" use="literal"/>
+				<soap12:header message="ihe:ProvideAndRegisterDocumentSet-b_Message" part="PCEHRHeader" use="literal"/>
+				<soap12:body parts="parameters" use="literal"/>
+			</input>
+			<output>
+				<soap12:header message="ihe:ProvideAndRegisterDocumentSet-bResponse_Message" part="signatureHeader" use="literal"/>
+				<soap12:body parts="parameters" use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentRepository_RetrieveDocumentSet">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<input>
+				<soap12:header message="ihe:RetrieveDocumentSet_Message" part="timestampHeader" use="literal"/>
+				<soap12:header message="ihe:RetrieveDocumentSet_Message" part="signatureHeader" use="literal"/>
+				<soap12:header message="ihe:RetrieveDocumentSet_Message" part="PCEHRHeader" use="literal"/>
+				<soap12:body parts="parameters" use="literal"/>
+			</input>
+			<output>
+				<soap12:header message="ihe:RetrieveDocumentSetResponse_Message" part="signatureHeader" use="literal"/>
+				<soap12:body parts="parameters" use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DocumentRepository_Service">
+		<port name="DocumentRepository_Port_Soap12" binding="ihe:DocumentRepository_Binding">
+			<soap12:address location="http://servicelocation/DocumentRepository_Service"/>
+		</port>
+	</service>
+	<wsp:Policy xml:id="AddressingPolicy">
+		<wsam:Addressing/>
+	</wsp:Policy>
+	<wsp:Policy xml:id="TlsPolicy">
+		<sp:TransportBinding>
+			<wsp:Policy>
+				<sp:TransportToken>
+					<wsp:Policy>
+						<sp:HttpsToken>
+							<wsp:Policy>
+								<sp:RequireClientCertificate/>
+							</wsp:Policy>
+						</sp:HttpsToken>
+					</wsp:Policy>
+				</sp:TransportToken>
+			</wsp:Policy>
+		</sp:TransportBinding>
+	</wsp:Policy>
+</definitions>

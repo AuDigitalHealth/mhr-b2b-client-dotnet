@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version issued 13 January 2016-->
+<xs:schema targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/AdvanceCarePlanningView/1.0" elementFormDefault="qualified" xmlns="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/AdvanceCarePlanningView/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:q3="http://ns.electronichealth.net.au/pcehr/xsd/interfaces/b2b/1.0" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ns2="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0">
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" schemaLocation="../../Common/PCEHR_CommonTypes_Supplementary.xsd"/>
+	<xs:import namespace="http://ns.electronichealth.net.au/pcehr/xsd/view/ViewCommonType/1.0" schemaLocation="PCEHR_View_CommonType.xsd"/>
+	<xs:element name="advanceCarePlanningViewResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="viewMetadata">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="individualProfile">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="ns1:ihiNumber"/>
+										<xs:element name="individual" type="ns1:individualTypeSupp"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="viewVersionNumber" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="advanceCarePlanningView">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ACDCInformation">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="informationAvailable" type="xs:boolean"/>
+										<xs:element name="lastUpdatedTime" type="xs:string" minOccurs="0"/>
+										<xs:element name="documentLink" type="xs:anyURI" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="advanceCareInformation">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="informationAvailable" type="xs:boolean"/>
+										<xs:element name="ACIData" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="dateTimePdfAuthored" type="xs:string"/>
+													<xs:element name="dateTimeCdaAuthored" type="xs:string"/>
+													<xs:element name="ACIDocumentAuthor" type="ns2:nameTypeDT"/>
+													<xs:element name="ACIDocumentTypeInformation" type="ns2:CodedType"/>
+													<xs:element name="documentLink" type="xs:anyURI"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

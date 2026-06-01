@@ -1,0 +1,23 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://australia.gov.au/provisioning/data/common/2012/06/16" xmlns:com20111029="http://australia.gov.au/provisioning/data/common/2011/10/29" targetNamespace="http://australia.gov.au/provisioning/data/common/2012/06/16" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- OLD VERSION = com20111029 -->
+	<xsd:import namespace="http://australia.gov.au/provisioning/data/common/2011/10/29" schemaLocation="gse-common-2011-10-29.xsd"/>
+	<xsd:element name="serviceTicket" type="ServiceTicketType"/>
+	<xsd:complexType name="ServiceTicketType">
+		<xsd:sequence>
+			<xsd:element name="ticketId" type="TicketIdType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="ticketType" type="TicketTypeType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="TicketIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="40"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TicketTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="PORO_EHR"/>
+			<xsd:enumeration value="PORO_MC_EHR"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

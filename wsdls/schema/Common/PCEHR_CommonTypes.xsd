@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Version 1.0.2 issued 13 December 2012-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://ns.electronichealth.net.au/pcehr/xsd/common/CommonCoreElements/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+	<xs:element name="timestamp" type="ns1:timestampType"/>
+	<xs:complexType name="timestampType">
+		<xs:sequence>
+			<xs:element name="created" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="expires" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="signature" type="ns1:signatureContainerType"/>
+	<xs:complexType name="signatureContainerType">
+		<xs:sequence>
+			<xs:element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nameType">
+		<xs:sequence>
+			<xs:element name="nameTitle" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="familyName" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="givenName" minOccurs="0" maxOccurs="2">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nameSuffix" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nameAlias" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="addressType">
+		<xs:sequence>
+			<xs:element name="type" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="International"/>
+						<xs:enumeration value="AustralianStreet"/>
+						<xs:enumeration value="AustralianPostal"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="state" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="postCode" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="suburb" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="postalDeliveryGroup" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="postalDeliveryType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="postalDeliveryNumber" minOccurs="0" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="11"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addressSiteName" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unitGroup" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="unitType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="unitNumber" minOccurs="0" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="6"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="levelGroup" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="levelType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="levelNumber" minOccurs="0" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="4"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="lotNumber" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="streetNumber" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="streetName" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="streetType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="streetSuffix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="country" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="internationalAddressLine" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="responseStatusType">
+		<xs:sequence>
+			<xs:element name="code" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="details" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="statusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Deceased"/>
+			<xs:enumeration value="Retired"/>
+			<xs:enumeration value="Resolved"/>
+			<xs:enumeration value="Expired"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="medicareCardNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:minLength value="10"/>
+				<xs:maxLength value="10"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="medicareIRN">
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:minInclusive value="1"/>
+				<xs:maxInclusive value="9"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="dvaFileNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:minLength value="2"/>
+				<xs:maxLength value="9"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="recordStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Verified"/>
+			<xs:enumeration value="Unverified"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="PCEHRHeader">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="User" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="IDType" minOccurs="1" maxOccurs="1">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="HPII"/>
+										<xs:enumeration value="PortalUserIdentifier"/>
+										<xs:enumeration value="LocalSystemIdentifier"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="ID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="role" type="xs:string" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="userName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="useRoleForAudit" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="ns1:ihiNumber" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="productType" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="vendor" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="productName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="productVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="platform" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="clientSystemType" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="CIS"/>
+							<xs:enumeration value="CSP"/>
+							<xs:enumeration value="CRP"/>
+							<xs:enumeration value="HI"/>
+							<xs:enumeration value="Medicare"/>
+							<xs:enumeration value="CPP"/>
+							<xs:enumeration value="CCP"/>
+							<xs:enumeration value="Other"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="accessingOrganisation" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="organisationID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="organisationName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="alternateOrganisationName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PCEHRMobileHeader">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ns1:ihiNumber" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="sex">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="M"/>
+				<xs:enumeration value="F"/>
+				<xs:enumeration value="I"/>
+				<xs:enumeration value="N"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:complexType name="accessConditionsType">
+		<xs:sequence>
+			<xs:element name="accessLevel" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Self"/>
+						<xs:enumeration value="General"/>
+						<xs:enumeration value="Limited"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="accessPermission" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Permit"/>
+						<xs:enumeration value="Deny"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="accessConditions" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="OpenAccess"/>
+						<xs:enumeration value="AccessRevoked"/>
+						<xs:enumeration value="PACAccess"/>
+						<xs:enumeration value="PACXAccess"/>
+						<xs:enumeration value="EmergencyAccess"/>
+						<xs:enumeration value="LocalConsentAccess"/>
+						<xs:enumeration value="AuthorisedRepresentativeAccess"/>
+						<xs:enumeration value="NominatedRepresentativeAccess"/>
+						<xs:enumeration value="IncorrectCode"/>
+						<xs:enumeration value="LocalConsentAccessDenied"/>
+						<xs:enumeration value="AccessRevoked"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="organisationServiceType">
+		<xs:sequence>
+			<xs:element name="organisationType" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="organisationServiceType" minOccurs="1" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="organisationServiceUnit" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceComments" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="250"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="complexDate" minOccurs="1" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="type" minOccurs="1" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="StartDate"/>
+									<xs:enumeration value="EndDate"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="date" type="xs:date" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="accuracyIndicator" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="organisationType">
+		<xs:sequence>
+			<xs:element ref="ns1:ihiNumber" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="organisationService" type="ns1:organisationServiceType" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="participatingOrganisation" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ns1:ihiNumber" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+						<xs:element name="organisationService" type="ns1:organisationServiceType" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="participantDetailsType">
+		<xs:sequence>
+			<xs:element name="providerID" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="providerName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="accessingHPIO" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="accessingHPIOName" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="participatingHPIO" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="participatingHPIOName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="userID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="userName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="displayRole" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="accessedEntityType">
+		<xs:sequence>
+			<xs:element ref="ns1:ihiNumber" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ihiName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="subjectType" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="subject" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="participantActionType">
+		<xs:sequence>
+			<xs:element name="actionType" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Create"/>
+						<xs:enumeration value="Read"/>
+						<xs:enumeration value="Update"/>
+						<xs:enumeration value="Delete"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="operationPerformed" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="reason" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="IncorrectIdentity"/>
+						<xs:enumeration value="MedicalInaccuracy"/>
+						<xs:enumeration value="ElectToRemove"/>
+						<xs:enumeration value="IHIStatusIsDeceased"/>
+						<xs:enumeration value="NoLegallyAppointmentAuthorised"/>
+						<xs:enumeration value="NoOwnershipOfPCEHR"/>
+						<xs:enumeration value="IHINotActive"/>
+						<xs:enumeration value="IHINotVerified"/>
+						<xs:enumeration value="TermsAndConditionsWereNotAccepted"/>
+						<xs:enumeration value="Death"/>
+						<xs:enumeration value="WithdrawalFromParticipation"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="approvalDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="approvalRole" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="approvalName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="statusPriorDeactivation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ihiNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="16"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="militaryHealthNumber" type="xs:string"/>
+	<xs:element name="dateAccuracyIndicatorType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="3"/>
+				<xs:enumeration value="AAA">
+					<xs:annotation>
+						<xs:documentation>Accurate day, accurate month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AAE">
+					<xs:annotation>
+						<xs:documentation>Accurate day, accurate month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AAU">
+					<xs:annotation>
+						<xs:documentation>Accurate day, accurate month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AEA">
+					<xs:annotation>
+						<xs:documentation>Accurate day, estimated month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AEE">
+					<xs:annotation>
+						<xs:documentation>Accurate day, estimated month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AEU">
+					<xs:annotation>
+						<xs:documentation>Accurate day, estimated month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AUA">
+					<xs:annotation>
+						<xs:documentation>Accurate day, unknown month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AUE">
+					<xs:annotation>
+						<xs:documentation>Accurate day, unknown month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="AUU">
+					<xs:annotation>
+						<xs:documentation>Accurate day, unknown month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EAA">
+					<xs:annotation>
+						<xs:documentation>Estimated day, accurate month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EAE">
+					<xs:annotation>
+						<xs:documentation>Estimated day, accurate month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EAU">
+					<xs:annotation>
+						<xs:documentation>Estimated day, accurate month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EEA">
+					<xs:annotation>
+						<xs:documentation>Estimated day, estimated month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EEE">
+					<xs:annotation>
+						<xs:documentation>Estimated day, estimated month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EEU">
+					<xs:annotation>
+						<xs:documentation>Estimated day, estimated month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EUA">
+					<xs:annotation>
+						<xs:documentation>Estimated day, unknown month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EUE">
+					<xs:annotation>
+						<xs:documentation>Estimated day, unknown month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EUU">
+					<xs:annotation>
+						<xs:documentation>Estimated day, unknown month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UAA">
+					<xs:annotation>
+						<xs:documentation>Unknown day, accurate month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UAE">
+					<xs:annotation>
+						<xs:documentation>Unknown day, accurate month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UAU">
+					<xs:annotation>
+						<xs:documentation>Unknown day, accurate month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UEA">
+					<xs:annotation>
+						<xs:documentation>Unknown day, estimated month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UEE">
+					<xs:annotation>
+						<xs:documentation>Unknown day, estimated month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UEU">
+					<xs:annotation>
+						<xs:documentation>Unknown day, estimated month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UUA">
+					<xs:annotation>
+						<xs:documentation>Unknown day, unknown month, accurate year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UUE">
+					<xs:annotation>
+						<xs:documentation>Unknown day, unknown month, estimated year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="UUU">
+					<xs:annotation>
+						<xs:documentation>Unknown day, unknown month, unknown year</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
