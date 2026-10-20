@@ -1,5 +1,10 @@
 ### Change Log/Revision History
 
+2.0.5
+------------------
+System.Security.Cryptography.Xml 10.0.8 -> 10.0.13
+System.Security.Cryptography.Pkcs 10.0.8 -> 10.0.13
+
 2.0.4
 ------------------
 - reverted async response type for GainPCEHRAccess to gainPCEHRAccessResponse 
